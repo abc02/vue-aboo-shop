@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ABOO阿布跑跑-商城</title>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <navigation-bar active-index="3" ></navigation-bar>
+        <el-container class="product-container" direction="vertical" v-if="goodsInfo && priceList && specDatas">
+            <el-row :gutter="20">
+              <el-col :span="12">
+                <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg" class="image"/>
+              </el-col>
+              <el-col :span="12">
+                <el-row>
+                  <el-col :span="24">
+                    <h1>{{goodsInfo.Title}}</h1>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="24">
+                    <p>{{goodsInfo.Intr}}</p>
+                  </el-col>
+                </el-row>
+                <template  v-for="specData in specDatas">
+                  <el-row>
+                    <el-col :span="24">
+                      <h3>{{specData.specName}}</h3>
+                    </el-col>
+                  </el-row>
+                  <el-row>
+                    <el-col :span="24" >
+                        <el-radio-group v-model="selectSpecData[specData.specId]">
+                            <el-radio-button :label="spec.Cid" v-for="(spec, index) in specData.specSub" :key="index">{{spec.Name}}</el-radio-button>
+                        </el-radio-group>
+                    </el-col>
+                  </el-row>
+                </template>
+                <el-row>
+                  <!-- <el-col :span="24">{{price}}</el-col> -->
+                </el-row>
+                <el-row>
+                  <el-col :span="24">
+                      <el-button type="primary" @click="redirectToCart">加入购物车</el-button>
+                  </el-col>
+                </el-row>
+              </el-col>
+            </el-row>
+          </el-container>
+        <foot> </foot>
+    </div>
+</body>
+</html>

@@ -1,0 +1,312 @@
+{
+  "code": "获取成功",
+  "goodsinfo": {
+      "Id": 1,
+      "Sales": 0,
+      "Title": "崂山白花蛇草水",
+      "Intr": "史诗级生化武器，中国神水！",
+      "Detail": "",
+      "CreateTime": 1516377600,
+      "Status": 1,
+      "TempId": 0
+  },
+  "priceList": [
+      {
+          "Id": 1,
+          "GoodsId": 1,
+          "SpecId": "2,8,12",
+          "Price": 5,
+          "Sprice": 5,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 2,
+          "GoodsId": 1,
+          "SpecId": "3,8,12",
+          "Price": 5,
+          "Sprice": 5,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 3,
+          "GoodsId": 1,
+          "SpecId": "4,8,12",
+          "Price": 5,
+          "Sprice": 5,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 4,
+          "GoodsId": 1,
+          "SpecId": "5,8,12",
+          "Price": 5,
+          "Sprice": 5,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 5,
+          "GoodsId": 1,
+          "SpecId": "2,8,13",
+          "Price": 5,
+          "Sprice": 5,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 6,
+          "GoodsId": 1,
+          "SpecId": "3,8,13",
+          "Price": 5,
+          "Sprice": 5,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 7,
+          "GoodsId": 1,
+          "SpecId": "4,8,13",
+          "Price": 5,
+          "Sprice": 5,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 8,
+          "GoodsId": 1,
+          "SpecId": "5,8,13",
+          "Price": 5,
+          "Sprice": 5,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 9,
+          "GoodsId": 1,
+          "SpecId": "2,9,12",
+          "Price": 10,
+          "Sprice": 10,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 10,
+          "GoodsId": 1,
+          "SpecId": "3,9,12",
+          "Price": 10,
+          "Sprice": 10,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 11,
+          "GoodsId": 1,
+          "SpecId": "4,9,12",
+          "Price": 10,
+          "Sprice": 10,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 12,
+          "GoodsId": 1,
+          "SpecId": "5,9,12",
+          "Price": 10,
+          "Sprice": 10,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 13,
+          "GoodsId": 1,
+          "SpecId": "2,9,13",
+          "Price": 10,
+          "Sprice": 10,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 14,
+          "GoodsId": 1,
+          "SpecId": "3,9,13",
+          "Price": 10,
+          "Sprice": 10,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 15,
+          "GoodsId": 1,
+          "SpecId": "4,9,13",
+          "Price": 10,
+          "Sprice": 10,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 16,
+          "GoodsId": 1,
+          "SpecId": "5,9,13",
+          "Price": 10,
+          "Sprice": 10,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 17,
+          "GoodsId": 1,
+          "SpecId": "2,10,12",
+          "Price": 17,
+          "Sprice": 17,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 18,
+          "GoodsId": 1,
+          "SpecId": "3,10,12",
+          "Price": 17,
+          "Sprice": 17,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 19,
+          "GoodsId": 1,
+          "SpecId": "4,10,12",
+          "Price": 17,
+          "Sprice": 17,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 20,
+          "GoodsId": 1,
+          "SpecId": "5,10,12",
+          "Price": 17,
+          "Sprice": 17,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 21,
+          "GoodsId": 1,
+          "SpecId": "2,10,13",
+          "Price": 17,
+          "Sprice": 17,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 22,
+          "GoodsId": 1,
+          "SpecId": "3,10,13",
+          "Price": 17,
+          "Sprice": 17,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 23,
+          "GoodsId": 1,
+          "SpecId": "4,10,13",
+          "Price": 17,
+          "Sprice": 17,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      },
+      {
+          "Id": 24,
+          "GoodsId": 1,
+          "SpecId": "5,10,13",
+          "Price": 17,
+          "Sprice": 17,
+          "Stock": 100,
+          "Sales": 0,
+          "Img": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"
+      }
+  ],
+  "ret": 1001,
+  "specDatas": [
+      {
+          "specId": 1,
+          "specName": "颜色",
+          "specSub": [
+              {
+                  "Cid": 2,
+                  "Name": "红"
+              },
+              {
+                  "Cid": 3,
+                  "Name": "黄"
+              },
+              {
+                  "Cid": 4,
+                  "Name": "蓝"
+              },
+              {
+                  "Cid": 5,
+                  "Name": "绿色"
+              }
+          ]
+      },
+      {
+          "specId": 7,
+          "specName": "净含量",
+          "specSub": [
+              {
+                  "Cid": 8,
+                  "Name": "200ml"
+              },
+              {
+                  "Cid": 9,
+                  "Name": "500ml"
+              },
+              {
+                  "Cid": 10,
+                  "Name": "1000ml"
+              }
+          ]
+      },
+      {
+          "specId": 11,
+          "specName": "口味",
+          "specSub": [
+              {
+                  "Cid": 12,
+                  "Name": "橙子"
+              },
+              {
+                  "Cid": 13,
+                  "Name": "草莓"
+              }
+          ]
+      }
+  ]
+}

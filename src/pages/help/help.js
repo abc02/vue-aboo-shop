@@ -7,30 +7,15 @@ import 'element-ui/lib/theme-chalk/index.css'
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import NavigationBar from 'components/NavigationBar'
-import Swiper from 'components/Swiper'
-import ProductIntroduction from 'components/ProductIntroduction'
+import ProductHelp from 'components/ProductHelp'
 import Foot from 'components/Foot'
 
 Vue.use(ElementUI)
-
 window.vm = new Vue({
   el: '#app',
   components: {
     'navigation-bar': NavigationBar,
-    'swiper': Swiper,
-    'product-introduction': ProductIntroduction,
+    'product-help': ProductHelp,
     'foot': Foot
-  },
-  data: {
-    footStyle: {
-      backgroundColor: '#f6655e',
-      color: '#ffffff'
-    }
-  },
-  created () {
-    let Mobile = /Mobile/i.test(navigator.userAgent)
-    if (Mobile) {
-      location.href = 'moblie.html'
-    }
   }
 })

@@ -33,7 +33,13 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
+      'node_modules': path.join(__dirname, './node_modules'),
       '@': resolve('src'),
+      'assets': '@/assets',
+      'components': '@/components',
+      'mixins': '@/mixins',
+      'styles': '@/styles',
+      'utils': '@/utils'
     }
   },
   module: {
