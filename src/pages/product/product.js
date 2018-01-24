@@ -30,13 +30,28 @@ window.vm = new Vue({
     selectSpecData: {}
   },
   computed: {
-    price: () => {
-      let keys = Object.keys(this.selectSpecData)
-      let arr = []
-      for (let i = 0; i < keys.length; i++) {
-        arr.push(this.selectSpecData[keys[i]])
+    specItem () {
+      // if (this.selectSpecData && this.priceList) {
+      //   let keys = Object.keys(this.selectSpecData)
+      //   let arr = []
+      //   for (let i = 0; i < keys.length; i++) {
+      //     arr.push(this.selectSpecData[keys[i]])
+      //   }
+      //   let SpecId = arr.join(',')
+      //   this.priceList.map(item => {
+      //     if (item.SpecId === SpecId) {
+      //       console.log(item)
+      //       return item
+      //     }
+      //   })
+      // }
+      let item = {
+        GoodsId: 1,
+        Id: 1,
+        Price: 5,
+        SpecId: '2,8,12'
       }
-      return '123'
+      return item
     }
   },
   components: {
@@ -46,7 +61,7 @@ window.vm = new Vue({
   },
   methods: {
     redirectToCart () {
-      location.href = 'cart.html'
+      location.href = `cart.html?goodsid=${this.specItem.GoodsId}`
     }
   },
   async created () {
@@ -57,6 +72,5 @@ window.vm = new Vue({
     this.specDatas.map(specData => {
       this.selectSpecData[specData.specId] = specData.specSub[0].Cid
     })
-    console.log(Object.keys(this.selectSpecData))
   }
 })

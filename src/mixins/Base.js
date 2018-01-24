@@ -7,7 +7,7 @@ export default {
       location.href = 'help.html'
     },
     redirectToProduct (index) {
-      location.href = 'product.html?goodsId=1'
+      location.href = 'product.html?goodsid=1'
     },
     redirectToProfile (index) {
       location.href = 'profile.html'
