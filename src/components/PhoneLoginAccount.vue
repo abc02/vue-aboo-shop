@@ -12,10 +12,10 @@
 <template>
   <el-form :model="formData">
     <el-form-item>
-      <el-input v-model="formData.name" required type="text" placeholder="手机"></el-input>
+      <el-input v-model="formData.phone" required type="text" placeholder="手机"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-input v-model="formData.passwrod" required type="password" placeholder="密码"></el-input>
+      <el-input v-model="formData.password" required type="password" placeholder="密码"></el-input>
       <a class="switch-password-get" href="javascript:void(0);" @click="switchLogIn('3', '找回密码')">忘记密码？</a>
     </el-form-item>
     <el-form-item>
@@ -32,8 +32,8 @@ export default {
   data () {
     return {
       formData: {
-        name: '',
-        passwrod: ''
+        phone: '',
+        password: ''
       }
     }
   },
@@ -41,8 +41,8 @@ export default {
     switchLogIn (index, text) {
       this.$emit('on-switch-log-in', index, text)
     },
-    PhoneLoginAccount (formData) {
-      this.$emit('on-phone-login-account', formData)
+    PhoneLoginAccount () {
+      this.$emit('on-phone-log-in-account', this.formData)
     }
   }
 }

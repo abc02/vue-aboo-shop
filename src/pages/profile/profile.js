@@ -7,6 +7,7 @@ import 'element-ui/lib/theme-chalk/display.css'
 
 import Vue from 'vue'
 import ElementUI from 'element-ui'
+import LogInService from 'modules/service/LogInService'
 import NavigationBar from 'components/NavigationBar'
 import PhoneLoginAccount from 'components/PhoneLoginAccount'
 import PhoneRegisterAccount from 'components/PhoneRegisterAccount'
@@ -30,7 +31,6 @@ window.vm = new Vue({
   },
   methods: {
     switchLogIn (index, text) {
-      console.log(index, text)
       this.logInIndex = index
       this.logInText = text
     },
@@ -38,6 +38,9 @@ window.vm = new Vue({
       console.log(style)
     },
     PhoneLoginAccount (formData) {
+      LogInService.PhoneLoginAccount(formData).then(res => {
+        console.log(res)
+      })
       console.log('PhoneLoginAccount')
     },
     PhoneRegisterAccount (formData) {

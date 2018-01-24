@@ -38,6 +38,7 @@ module.exports = {
       'assets': '@/assets',
       'components': '@/components',
       'mixins': '@/mixins',
+      'modules': '@/modules',
       'styles': '@/styles',
       'utils': '@/utils'
     }

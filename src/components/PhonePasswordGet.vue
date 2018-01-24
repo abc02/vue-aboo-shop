@@ -24,7 +24,7 @@
       <a class="send-sms" href="javascirpt:void(0)" @click.prevent="SendSms('3')">发送验证码</a>
     </el-form-item>
      <el-form-item>
-      <el-input v-model="formData.passwrod" type="password" placeholder="新密码"></el-input>
+      <el-input v-model="formData.password" type="password" placeholder="新密码"></el-input>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="PhoneRegisterAccount">提交</el-button>
@@ -37,9 +37,9 @@ export default {
   data () {
     return {
       formData: {
-        user: '',
+        phone: '',
         code: '',
-        passwrod: ''
+        password: ''
       }
     }
   },
@@ -48,7 +48,7 @@ export default {
       this.$emit('on-send-sms', style)
     },
     PhoneRegisterAccount (formData) {
-      this.$emit('on-phone-register-account', formData)
+      this.$emit('on-phone-register-account', this.formData)
     }
   }
 }

@@ -57,15 +57,15 @@
                                     <phone-login-account 
                                         v-if="logInIndex == 1" 
                                         @on-switch-log-in="switchLogIn"
-                                        @on-phone-login-account="PhoneLoginAccount"> </phone-login-account>
+                                        @on-phone-log-in-account="PhoneLoginAccount"> </phone-login-account>
                                     <Phone-register-account 
                                         v-if="logInIndex == 2"
                                         @on-send-sms="SendSms"
-                                        @on-phone-login-account="PhoneRegisterAccount"> </Phone-register-account>
+                                        @on-phone-log-in-account="PhoneRegisterAccount"> </Phone-register-account>
                                     <phone-password-get 
                                         v-if="logInIndex == 3"
                                         @on-send-sms="SendSms"
-                                        @on-phone-login-account="PhonePasswordGet"> </phone-password-get>
+                                        @on-phone-log-in-account="PhonePasswordGet"> </phone-password-get>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" justify="center" v-if="!(logInIndex == 1)" >
