@@ -20,13 +20,11 @@
 <script>
 import Vue from 'vue'
 import qs from 'qs'
-import Base from 'mixins/Base'
 import VueSessionStorage from 'vue-sessionstorage'
 Vue.use(VueSessionStorage)
 export default {
   name: 'NavigationBar',
   props: ['activeIndex'],
-  mixins: [Base],
   data () {
     return {
       userInfo: null
@@ -36,8 +34,11 @@ export default {
     redirectToIndex (index) {
       location.href = 'index.html'
     },
+    redirectToHelp (index) {
+      location.href = 'help.html'
+    },
     redirectToProduct (index) {
-      location.href = 'product.html?goodsid=1'
+      location.href = 'product.html?goodsId=1'
     },
     redirectToLogIn (index) {
       location.href = 'login.html'

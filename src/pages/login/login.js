@@ -1,31 +1,29 @@
-import 'normalize.css'
-import 'animate.css'
-import 'styles/common.css'
-import '../../../node_modules/fonts.css/fonts.css'
-import 'element-ui/lib/theme-chalk/index.css'
-import 'element-ui/lib/theme-chalk/display.css'
 
 import Vue from 'vue'
-import ElementUI from 'element-ui'
+import Base from 'mixins/Base'
+
 import VueSessionStorage from 'vue-sessionstorage'
 import qs from 'qs'
-import LogInService from 'modules/service/LogInService'
-import NavigationBar from 'components/NavigationBar'
+
+//  登录服务层
+import LogInServices from 'modules/service/LogInServices'
+
+//  登录组件
 import PhoneLoginAccount from 'components/PhoneLoginAccount'
 import PhoneRegisterAccount from 'components/PhoneRegisterAccount'
 import PhonePasswordGet from 'components/PhonePasswordGet'
-import Foot from 'components/Foot'
+
+// 资源
 import LogInImg from 'assets/ab-02.png'
-Vue.use(ElementUI)
+
 Vue.use(VueSessionStorage)
 window.vm = new Vue({
   el: '#app',
+  mixins: [Base],
   components: {
-    'navigation-bar': NavigationBar,
     'phone-login-account': PhoneLoginAccount,
     'phone-register-account': PhoneRegisterAccount,
-    'phone-password-get': PhonePasswordGet,
-    'foot': Foot
+    'phone-password-get': PhonePasswordGet
   },
   data: {
     logInImg: LogInImg,
@@ -38,7 +36,7 @@ window.vm = new Vue({
       this.logInText = text
     },
     SendSms (formData) {
-      LogInService.SendSms(formData).then(res => {
+      LogInServices.SendSms(formData).then(res => {
         if (res.data.ret === 1001) {
           this.$message({message: res.data.code, type: 'success'})
           if (formData.style === 2) return this.$refs.register.onCb(60)
@@ -48,7 +46,7 @@ window.vm = new Vue({
       })
     },
     PhoneLoginAccount (formData) {
-      LogInService.PhoneLoginAccount(formData).then(res => {
+      LogInServices.PhoneLoginAccount(formData).then(res => {
         if (res.data.ret === 1001) {
           let userInfoString = qs.stringify(res.data)
           this.$session.set('userInfo', userInfoString)
@@ -58,18 +56,22 @@ window.vm = new Vue({
       })
     },
     PhoneRegisterAccount (formData) {
-      LogInService.PhoneRegisterAccount(formData).then(res => {
+      LogInServices.PhoneRegisterAccount(formData).then(res => {
         if (res.data.ret === 1001) return this.$message({message: res.data.code, type: 'success'})
         if (res.data.ret === 1002) return this.$message.error(res.data.code)
       })
     },
     PhonePasswordGet (formData) {
-      LogInService.PhonePasswordGet(formData).then(res => {
+      LogInServices.PhonePasswordGet(formData).then(res => {
         if (res.data.ret === 1001) return this.$message({message: res.data.code, type: 'success'})
         if (res.data.ret === 1002) return this.$message.error(res.data.code)
       })
     }
   },
   created () {
+    let isUserInfo = this.$session.exists('userInfo')
+    if (isUserInfo) {
+      location.href = 'profile.html'
+    }
   }
 })

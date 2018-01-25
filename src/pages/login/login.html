@@ -29,6 +29,10 @@
             height: 90px;
             width: 75px;
         }
+
+        .el-button {
+            width: 100%;
+        }
     </style>
 </head>
 
@@ -54,33 +58,25 @@
                             </el-row>
                             <el-row type="flex" justify="center">
                                 <el-col :span="12" class="text-center">
-                                    <phone-login-account 
-                                        v-if="logInIndex == 1" 
-                                        @on-switch-log-in="switchLogIn"
-                                        @on-phone-log-in-account="PhoneLoginAccount"> </phone-login-account>
-                                    <Phone-register-account 
-                                        v-if="logInIndex == 2"
-                                        ref="register"
-                                        @on-send-sms="SendSms"
-                                        @on-phone-log-in-account="PhoneRegisterAccount"> </Phone-register-account>
-                                    <phone-password-get 
-                                        v-if="logInIndex == 3"
-                                        ref="password"
-                                        @on-send-sms="SendSms"
-                                        @on-phone-log-in-account="PhonePasswordGet"> </phone-password-get>
+                                    <phone-login-account v-if="logInIndex == 1" @on-switch-log-in="switchLogIn" @on-phone-log-in-account="PhoneLoginAccount">
+                                    </phone-login-account>
+                                    <Phone-register-account v-if="logInIndex == 2" ref="register" @on-send-sms="SendSms" @on-phone-log-in-account="PhoneRegisterAccount">
+                                    </Phone-register-account>
+                                    <phone-password-get v-if="logInIndex == 3" ref="password" @on-send-sms="SendSms" @on-phone-log-in-account="PhonePasswordGet">
+                                    </phone-password-get>
                                 </el-col>
                             </el-row>
-                            <el-row type="flex" justify="center" v-if="!(logInIndex == 1)" >
-                                    <el-col :span="12" class="text-center">
-                                        <el-button type="primary" plain @click="switchLogIn('1', '登录')">返回登录</el-button>
-                                    </el-col>
-                                </el-row>
-                            <el-row type="flex" justify="center" v-if="logInIndex == 1" >
+                            <el-row type="flex" justify="center" v-if="!(logInIndex == 1)">
+                                <el-col :span="12" class="text-center">
+                                    <el-button type="primary" plain @click="switchLogIn('1', '登录')">返回登录</el-button>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" justify="center" v-if="logInIndex == 1">
                                 <el-col :span="12" class="text-center">
                                     <p>尚未注册帐号？</p>
                                 </el-col>
                             </el-row>
-                            <el-row  type="flex" justify="center" v-if="logInIndex == 1" >
+                            <el-row type="flex" justify="center" v-if="logInIndex == 1">
                                 <el-col :span="12" class="text-center">
                                     <el-button type="primary" plain @click="switchLogIn('2', '注册')">注册</el-button>
                                 </el-col>

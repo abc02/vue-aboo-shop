@@ -70,9 +70,7 @@ img {
 .el-row:last-child {
     margin-bottom: 0;
 }
-.el-button{
-    width: 100%;
-}
+
 .text-center{
     text-align: center;
 }

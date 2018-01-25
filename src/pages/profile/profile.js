@@ -1,25 +1,17 @@
-import 'normalize.css'
-import 'animate.css'
-import 'styles/common.css'
-import '../../../node_modules/fonts.css/fonts.css'
-import 'element-ui/lib/theme-chalk/index.css'
-import 'element-ui/lib/theme-chalk/display.css'
-
 import Vue from 'vue'
-import ElementUI from 'element-ui'
-import NavigationBar from 'components/NavigationBar'
-import Foot from 'components/Foot'
-Vue.use(ElementUI)
+import Base from 'mixins/Base'
+
 window.vm = new Vue({
   el: '#app',
-  components: {
-    'navigation-bar': NavigationBar,
-    'foot': Foot
-  },
+  mixins: [Base],
   data: {
+    profileIndex: '1',
+    profileText: '我的账号'
   },
   methods: {
-  },
-  created () {
+    handleSelect (index, indexPath, e) {
+      this.profileIndex = index
+      this.profileText = e.$el.innerText
+    }
   }
 })

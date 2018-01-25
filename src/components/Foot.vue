@@ -33,10 +33,13 @@
 </template>
 
 <script>
-import Base from 'mixins/Base'
 export default {
   name: 'Foot',
-  mixins: [Base]
+  methods: {
+    redirectToHelp (index) {
+      location.href = 'help.html'
+    }
+  }
 }
 
 </script>
