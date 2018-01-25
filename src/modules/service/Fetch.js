@@ -4,12 +4,11 @@ export default function Fetch (url, data) {
   return new Promise((resolve, reject) => {
     axios.post(url, qs.stringify(data)).then(res => {
       let outerStatus = res.status
-      let innerStatus = res.data.ret
-      if (outerStatus === 200 | innerStatus === 1002) {
+      if (outerStatus === 200) {
         resolve(res)
       }
       if (outerStatus === 300) {
-        location.href = 'profile.html'
+        location.href = 'login.html'
       }
     }).catch(error => {
       reject(error)

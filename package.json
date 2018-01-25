@@ -18,7 +18,8 @@
     "normalize.css": "^7.0.0",
     "qs": "^6.5.1",
     "swiper": "^4.1.0",
-    "vue": "^2.5.2"
+    "vue": "^2.5.2",
+    "vue-sessionstorage": "^1.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -55,6 +56,7 @@
     "https": "^1.0.0",
     "node-notifier": "^5.1.2",
     "node-sass": "^4.7.2",
+    "nodemon": "^1.14.11",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
     "portfinder": "^1.0.13",

@@ -10,25 +10,6 @@
         [v-cloak] {
             display: none;
         }
-
-        .el-main {
-            height: 80%;
-            height: 80vh;
-        }
-
-        .login-container {
-            margin: 0 auto;
-            width: 1200px;
-            height: 100%;
-            box-shadow: 0 0 24px rgba(0, 0, 0, .2);
-        }
-
-        .login-img {
-            margin-top: 120px;
-            display: inline;
-            height: 90px;
-            width: 75px;
-        }
     </style>
 </head>
 
@@ -39,53 +20,7 @@
                 <navigation-bar active-index="4"></navigation-bar>
             </el-header>
             <el-main>
-                <el-container class="login-container">
-                    <el-row>
-                        <el-col :span="12" :offset="12">
-                            <el-row>
-                                <el-col class="text-center">
-                                    <img class="login-img" :src="logInImg" alt="" />
-                                </el-col>
-                            </el-row>
-                            <el-row>
-                                <el-col class="text-center">
-                                    <h1>{{logInText}}</h1>
-                                </el-col>
-                            </el-row>
-                            <el-row type="flex" justify="center">
-                                <el-col :span="12" class="text-center">
-                                    <phone-login-account 
-                                        v-if="logInIndex == 1" 
-                                        @on-switch-log-in="switchLogIn"
-                                        @on-phone-log-in-account="PhoneLoginAccount"> </phone-login-account>
-                                    <Phone-register-account 
-                                        v-if="logInIndex == 2"
-                                        @on-send-sms="SendSms"
-                                        @on-phone-log-in-account="PhoneRegisterAccount"> </Phone-register-account>
-                                    <phone-password-get 
-                                        v-if="logInIndex == 3"
-                                        @on-send-sms="SendSms"
-                                        @on-phone-log-in-account="PhonePasswordGet"> </phone-password-get>
-                                </el-col>
-                            </el-row>
-                            <el-row type="flex" justify="center" v-if="!(logInIndex == 1)" >
-                                    <el-col :span="12" class="text-center">
-                                        <el-button type="primary" plain @click="switchLogIn('1', '登录')">返回登录</el-button>
-                                    </el-col>
-                                </el-row>
-                            <el-row type="flex" justify="center" v-if="logInIndex == 1" >
-                                <el-col :span="12" class="text-center">
-                                    <p>尚未注册帐号？</p>
-                                </el-col>
-                            </el-row>
-                            <el-row  type="flex" justify="center" v-if="logInIndex == 1" >
-                                <el-col :span="12" class="text-center">
-                                    <el-button type="primary" plain @click="switchLogIn('2', '注册')">注册</el-button>
-                                </el-col>
-                            </el-row>
-                        </el-col>
-                    </el-row>
-                </el-container>
+                
             </el-main>
             <el-footer height="20vh">
                 <foot></foot>

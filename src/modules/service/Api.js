@@ -6,7 +6,7 @@ let host
 if (process.env.NODE_ENV === 'production') {
   host = 'https://abuapi.0577xiedu.net/v1'
 } else {
-  host = 'https://abuapi.0577xiedu.net/v1'
+  host = 'http://localhost:3000/v1'
 }
 
 for (let key in swagger.paths) {

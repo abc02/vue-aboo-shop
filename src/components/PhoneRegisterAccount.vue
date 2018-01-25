@@ -1,11 +1,6 @@
-<style lang="scss" scoped>
+<style scoped>
 .el-form-item{
   position: relative;
-  .send-sms {
-    position: absolute;
-    top:0;
-    right:12px;
-  }
 }
 </style>
 <template>
@@ -15,7 +10,7 @@
     </el-form-item>
     <el-form-item>
       <el-input v-model="formData.code" type="text" placeholder="验证码"></el-input>
-      <a class="send-sms" href="javascirpt:void(0)" @click.prevent="SendSms('2')">发送验证码</a>
+      <VCode @on-send-sms="SendSms" :styleCode="2" ref="vcode"/>
     </el-form-item>
      <el-form-item>
       <el-input v-model="formData.password" type="password" placeholder="新密码"></el-input>
@@ -27,8 +22,10 @@
 </template>
 
 <script>
+import LogIn from 'mixins/LogIn'
 export default {
   name: 'PhoneRegisterAccount',
+  mixins: [LogIn],
   data () {
     return {
       formData: {
@@ -39,9 +36,6 @@ export default {
     }
   },
   methods: {
-    SendSms (style) {
-      this.$emit('on-send-sms', style)
-    },
     PhoneRegisterAccount () {
       this.$emit('on-phone-register-account', this.formData)
     }
