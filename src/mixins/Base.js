@@ -16,10 +16,10 @@ export default {
     'foot': Foot
   },
   created () {
-    let isUserInfo = this.$session.exists('userInfo')
-    let isLogIn = (location.pathname.search('login') > -1)
-    if (!isUserInfo && !isLogIn) {
-      location.href = 'login.html'
-    }
+    // let isUserInfo = this.$session.exists('userInfo')
+    // let isLogIn = (location.pathname.search('login') > -1)
+    // if (!isUserInfo && !isLogIn) {
+    //   location.href = 'login.html'
+    // }
   }
 }

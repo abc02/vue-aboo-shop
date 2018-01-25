@@ -1,4 +1,5 @@
 <template>
+<el-container class="wraper">
   <el-row type="flex" align="middle" style="height:100%">
     <el-col :span="12" :offset="3">
       <el-row>
@@ -30,6 +31,7 @@
       </el-row>
     </el-col>
   </el-row>
+</el-container>
 </template>
 
 <script>

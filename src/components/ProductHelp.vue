@@ -75,6 +75,7 @@
 </style>
 
 <template>
+  <el-container class="wraper">
     <el-row class="el-row help-container">
       <div class="prod-package row">
         <h1>包装及内容</h1>
@@ -130,11 +131,12 @@
         </ul>
       </div>
     </el-row>
+  </el-container>
 </template>
 
 <script>
 export default {
-  name: 'XXX'
+  name: 'ProductHelp'
 }
 
 </script>

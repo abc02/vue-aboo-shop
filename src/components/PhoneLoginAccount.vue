@@ -12,10 +12,10 @@
 <template>
   <el-form :model="formData">
     <el-form-item>
-      <el-input v-model="formData.phone" required type="text" placeholder="手机"></el-input>
+      <el-input v-model="formData.phone" autofocus required type="text" placeholder="手机"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-input v-model="formData.password" required type="password" placeholder="密码"></el-input>
+      <el-input v-model="formData.password" @keyup.native.enter="PhoneLoginAccount" required type="password" placeholder="密码"></el-input>
       <a class="switch-password-get" href="javascript:void(0);" @click="switchLogIn('3', '找回密码')">忘记密码？</a>
     </el-form-item>
     <el-form-item>

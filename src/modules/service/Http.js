@@ -2,57 +2,60 @@ import axios from 'axios'
 import qs from 'qs'
 export default class Http {
   static request (method, url, data) {
-    const header = this.createAuthHeader()
+    const headers = this.createAuthHeader()
     const param = {
       url: url,
-      data: data,
+      data: qs.stringify(data),
       method: method,
-      header: header
+      headers: headers
     }
-    // Tips.loading()
-    let res = await Wepy.request(param)
-    if (this.isSuccess(res)) {
-      return res.data
-    } else {
-      console.log('no')
-      throw this.requestException(res)
-    }
+    return new Promise((resolve, reject) => {
+      axios.request(param).then(res => {
+        if (this.isSuccess(res)) {
+          resolve(res.data)
+        } else {
+          throw this.requestException(res)
+        }
+      }).catch(error => {
+        reject(error)
+      })
+    })
   }
 
   /**
    * 判断请求是否成功
    */
-  static isSuccess(res) {
-    const wxCode = res.statusCode
+  static isSuccess (res) {
+    const OUTER_STATUS = res.status
     // 请求错误
-    if (wxCode !== 200) {
+    if (OUTER_STATUS !== 200) {
       return false
     }
-    const wxData = res.data
-    return wxData
+    return true
   }
 
   /**
    * 异常
    */
-  static requestException(res) {
-    const error = {}
-    error.statusCode = res.statusCode
-    const wxData = res.data
-    const serverData = wxData.data
-    console.log(error)
-    if (serverData) {
-      error.serverCode = serverData.code
-      error.message = serverData.message
+  static requestException (res) {
+    const ERROR = {}
+    ERROR.STATUS = res.status
+    const DATA = res.data
+    if (DATA) {
+      ERROR.DATA = DATA
     }
-    return error
+    return ERROR
   }
   /**
    * 构造权限头部
    */
   static createAuthHeader () {
     const header = {}
-    let userInfo = Wepy.$instance.globalData.userInfo
+    let sessionKey = sessionStorage.getItem('sessionKey')
+    let isUserInfo = sessionStorage.getItem(sessionKey)
+    if (!isUserInfo) return
+    let userInfoString = sessionStorage.getItem(sessionKey)
+    let userInfo = qs.parse(userInfoString)
     if (userInfo) {
       header['Authorization'] = userInfo.JwtToken
     }
