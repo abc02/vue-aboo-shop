@@ -60,8 +60,7 @@ img {
 }
 .el-header{
     padding: 0 !important;
-    border-bottom: 1px solid #e6e6e6;
-    z-index: 9;
+    /* border-bottom: 1px solid #e6e6e6; */
 }
 .el-row {
     flex: 1;

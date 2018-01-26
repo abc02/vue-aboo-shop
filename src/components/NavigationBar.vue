@@ -1,7 +1,7 @@
 <style scoped>
 .el-menu--horizontal{
-  border-bottom: inherit;
-  background-color: inherit;
+  /* border-bottom: inherit; */
+  /* background-color: inherit; */
 }
 .userInfo-icon{
   display: inline-block;
@@ -24,9 +24,8 @@
           <template slot="title">
             <img :src="userInfo.Icon" alt="头像" class="userInfo-icon">
           </template>
-          <el-menu-item index="4-1">欢迎,{{userInfo.NickName}}</el-menu-item>
-          <el-menu-item index="4-2">我的账号</el-menu-item>
-          <el-menu-item index="4-3" @click="handleClickSignOut">登出</el-menu-item>
+          <el-menu-item index="4-1" @click="handleClickProfile">我的账号</el-menu-item>
+          <el-menu-item index="4-2" @click="handleClickSignOut">登出</el-menu-item>
         </el-submenu>
       </el-row>
     </el-container>
@@ -59,7 +58,7 @@ export default {
     redirectToLogIn (index) {
       location.href = 'login.html'
     },
-    redirectToProfile (index) {
+    handleClickProfile () {
       location.href = 'profile.html'
     },
     handleClickSignOut () {

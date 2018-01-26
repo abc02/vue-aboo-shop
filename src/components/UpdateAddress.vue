@@ -7,7 +7,7 @@
 <template>
     <el-container>
         <el-header height="40px">
-            添加新地址
+            编辑地址
         </el-header>
         <el-main>
           <el-container>
@@ -28,7 +28,7 @@
                   <el-checkbox v-model="formData.IsDefault">是否设置默认</el-checkbox>
                 </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="handleClickAddAddress">保存</el-button>
+                <el-button type="primary" @click="handleClickUpdateAddress">保存</el-button>
                 <el-button @click="handleClickAddressStatus('1')">取消</el-button>
               </el-form-item>
             </el-form>
@@ -41,8 +41,8 @@ import Vue from 'vue'
 import VueAreaLinkage from 'vue-area-linkage'
 Vue.use(VueAreaLinkage)
 export default {
-  name: 'AddAddress',
-  props: ['loading'],
+  name: 'UpdateAddress',
+  props: ['loading', 'updateAddress'],
   data () {
     return {
       formData: {
@@ -55,12 +55,15 @@ export default {
     }
   },
   methods: {
-    handleClickAddAddress () {
-      this.$emit('on-handle-click-add-address', this.formData)
+    handleClickUpdateAddress () {
+      this.$emit('on-handle-click-update-address', this.formData)
     },
     handleClickAddressStatus (status) {
       this.$emit('on-handle-click-address-status', status)
     }
+  },
+  created () {
+    this.formData = this.updateAddress
   }
 }
 </script>

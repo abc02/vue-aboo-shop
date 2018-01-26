@@ -4,10 +4,10 @@ export default class Http {
   static request (method, url, data) {
     const headers = this.createAuthHeader()
     const param = {
-      url: url,
+      url,
       data: qs.stringify(data),
-      method: method,
-      headers: headers
+      method,
+      headers
     }
     return new Promise((resolve, reject) => {
       axios.request(param).then(res => {
@@ -27,9 +27,17 @@ export default class Http {
    */
   static isSuccess (res) {
     const OUTER_STATUS = res.status
+    const INNER_STATUS = res.data.ret
     // 请求错误
     if (OUTER_STATUS !== 200) {
       return false
+    }
+    // 请求成功 1003 Token 超时
+    if (INNER_STATUS === 1003) {
+      // let sessionKey = sessionStorage.getItem('sessionKey')
+      // sessionStorage.removeItem(sessionKey)
+      // sessionStorage.removeItem('sessionKey')
+      // location.href = 'login.html'
     }
     return true
   }
@@ -51,6 +59,8 @@ export default class Http {
    */
   static createAuthHeader () {
     const header = {}
+    header['accept'] = 'application/json'
+    header['content-type'] = 'application/x-www-form-urlencoded'
     let sessionKey = sessionStorage.getItem('sessionKey')
     let isUserInfo = sessionStorage.getItem(sessionKey)
     if (!isUserInfo) return
