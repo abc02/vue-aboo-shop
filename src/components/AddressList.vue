@@ -43,7 +43,7 @@
                     <el-button
                       size="mini"
                       type="danger"
-                      @click="handleClickDeleteAddress(scope.$index, scope.row)">删除</el-button>
+                      @click="handleClickAddressDelete(scope.$index, scope.row)">删除</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -75,8 +75,8 @@ export default {
     handleClickAddressStatus (status, address) {
       this.$emit('on-handle-click-address-status', status, address)
     },
-    handleClickDeleteAddress (index, address) {
-      this.$emit('on-handle-click-delete-address', address)
+    handleClickAddressDelete (index, address) {
+      this.$emit('on-handle-click-address-delete', address)
     }
   },
   computed: {
@@ -97,7 +97,7 @@ export default {
     }
   },
   created () {
-    this.$emit('on-handle-get-address-list')
+    this.$emit('on-handle-get-address-lists')
   }
 }
 </script>

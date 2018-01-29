@@ -19,32 +19,34 @@
       <el-header>
         <navigation-bar active-index="3"></navigation-bar>
       </el-header>
-      <el-main>
+      <el-main v-loading="loading">
         <el-container class="product-container wraper" v-if="goodsInfo && priceList && specDatas">
-          <el-row :gutter="20">
-            <el-col :span="12">
+          <el-row :gutter="20" type="flex" justify="center" align="middle">
+            <el-col :span="15">
               <img v-if="currentGoods" :src="currentGoods.Img" alt="">
               <img v-else src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg"  />
             </el-col>
-            <el-col :span="12">
+          </el-row>
+          <el-row>
+            <el-col>
               <el-row>
-                <el-col :span="24">
-                  <h1>{{goodsInfo.Title}}</h1>
+                <el-col>
+                  <h1>{{goodsInfo.GoodsName}}</h1>
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="24">
+                <el-col>
                   <p>{{goodsInfo.Intr}}</p>
                 </el-col>
               </el-row>
               <template v-for="specData in specDatas">
                 <el-row>
-                  <el-col :span="24">
+                  <el-col>
                     <h3>{{specData.specName}}</h3>
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="24">
+                  <el-col>
                     <el-radio-group v-model="selectSpecDatas[specData.specId]">
                       <el-radio-button :label="spec.Cid" v-for="(spec, index) in specData.specSub" :key="index">{{spec.Name}}</el-radio-button>
                     </el-radio-group>
@@ -52,17 +54,33 @@
                 </el-row>
               </template>
               <el-row>
-                <el-col :span="24">
-                  <el-button type="primary" @click="redirectToCart">加入购物车</el-button>
+                <el-col>
+                  <h3>数量</h3>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col>
+                  <el-input-number v-model="number"  @change="handleChangeNumber" :min="1" :max="10"></el-input-number>
                 </el-col>
               </el-row>
             </el-col>
           </el-row>
         </el-container>
       </el-main>
-      <el-footer height="20vh">
-        <foot> </foot>
+      <el-footer height="90px" :style="cartButtonFixedStyle">
+        <cart-button-fixed
+          :total="total"
+          :current-goods="currentGoods"
+          @on-handle-click-cart-add="handleClickCartAdd"
+          @on-handle-click-cart-status="handleClickCartStatus">
+        </cart-button-fixed>
       </el-footer>
+      <cart-dialog 
+        :cart-status="cartStatus"
+        @on-handle-click-cart-status="handleClickCartStatus"
+        @on-handle-click-redirect-cart="handleClickRedirectCart"
+        >
+      </cart-dialog>
     </el-container>
   </div>
 </body>

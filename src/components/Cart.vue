@@ -8,33 +8,36 @@
 </style>
 
 <template>
-  <el-row>
-    <el-container direction="vertical">
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="name" label="商品" width="600">
-        </el-table-column>
-        <el-table-column prop="price" label="价格" width="200">
-        </el-table-column>
-        <el-table-column label="数量" width="200">
-          <template slot-scope="scope">
-                <el-input-number v-model="scope.row.number" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
-          </template>
-        </el-table-column>
-        <el-table-column prop="subtotal" label="小计" width="200">
-        </el-table-column>
-        <el-table-column prop="delete" width="80">
-        </el-table-column>
-      </el-table>
-      <el-row :gutter="10" type="flex" align="middle">
-        <el-col :span="3" :offset="18">
-           合计: {{total}}
-        </el-col>
-        <el-col :span="3" >
-           <el-button type="primary" @click="redirectToBuy">去结算</el-button>
-        </el-col>
-      </el-row>
-    </el-container>
-  </el-row>
+  <el-container>
+    <el-row>
+      <el-col>
+        <el-table :data="tableData" style="width: 100%">
+          <el-table-column prop="name" label="商品" width="600">
+          </el-table-column>
+          <el-table-column prop="price" label="价格" width="200">
+          </el-table-column>
+          <el-table-column label="数量" width="200">
+            <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.number" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
+            </template>
+          </el-table-column>
+          <el-table-column prop="subtotal" label="小计" width="200">
+          </el-table-column>
+          <el-table-column prop="delete" width="80">
+          </el-table-column>
+        </el-table>
+      </el-col>
+    </el-row>
+    <el-row :gutter="10" type="flex" align="middle">
+          <el-col :span="3" :offset="18">
+            合计: {{total}}
+          </el-col>
+          <el-col :span="3" >
+            <el-button type="primary" @click="redirectToBuy">去结算</el-button>
+          </el-col>
+        </el-row>
+  </el-container>
+
 </template>
 
 <script>

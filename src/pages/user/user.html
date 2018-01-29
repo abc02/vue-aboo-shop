@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>阿布跑跑-个人中心</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <el-container>
+            <el-header>
+                <navigation-bar active-index="4"></navigation-bar>
+            </el-header>
+            <el-main>
+                <el-container class="wraper">
+                    <el-header height="40px">
+                        <el-breadcrumb>
+                            <el-breadcrumb-item>首页</el-breadcrumb-item>
+                            <el-breadcrumb-item>{{menuText}}</el-breadcrumb-item>
+                        </el-breadcrumb>
+                    </el-header>
+                    <el-container style="border: 1px solid #eee">
+                        <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+                            <el-menu :default-active="menuStatus" @select="handleSelect">
+                                <el-menu-item index="1">我的账号</el-menu-item>
+                                <el-menu-item index="2">我的个人资料</el-menu-item>
+                                <el-menu-item index="3">我的订单</el-menu-item>
+                                <el-menu-item index="4">我的收货地址</el-menu-item>
+                            </el-menu>
+                        </el-aside>
+                        <el-main>
+                            <el-container v-if="menuStatus == 1">
+                                我的账号
+                            </el-container>
+                            <el-container v-if="menuStatus == 2">
+                                隔热资料
+                            </el-container>
+                            <el-container v-if="menuStatus == 3">
+                                <order-list 
+                                    v-if="orderStatus == 1"
+                                    :order-lists="orderLists"
+                                    :loading="loading"
+                                    :total="total"
+                                    :limit="limit"
+                                    @on-handle-click-order-status="handleClickOrderStatus"
+                                    @on-handle-get-order-lists="handleGetOrderLists"
+                                    ></order-list>
+                                <order-detail
+                                    v-if="orderStatus == 2"
+                                    :order-id="orderId"
+                                    :order-a-detail="orderADetail"
+                                    :order-b-list="orderBList"
+                                    :loading="loading"
+                                    @on-handle-click-order-status="handleClickOrderStatus"
+                                    @on-handle-get-order-detail="handleGetOrderDetail"
+                                    ></order-detail>
+                            </el-container>
+                            <el-container v-if="menuStatus == 4" >
+                                <address-list 
+                                    v-if="addressStatus == 1"
+                                    :user-info="userInfo"
+                                    :address-lists="addressLists"
+                                    :loading="loading"
+                                    @on-handle-click-address-status="handleClickAddressStatus"
+                                    @on-handle-click-address-delete="handleClickAddressDelete"
+                                    @on-handle-get-address-lists="handleGetAddressLists"
+                                    ></address-list>
+                                <address-add 
+                                    v-if="addressStatus == 2"
+                                    :user-info="userInfo"
+                                    :loading="loading"
+                                    @on-handle-click-address-status="handleClickAddressStatus"
+                                    @on-handle-click-address-add="handleClickAddressAdd"
+                                    ></address-add>
+                                <address-update 
+                                    v-if="addressStatus == 3"
+                                    :loading="loading"
+                                    :address-update="addressUpdate"
+                                    @on-handle-click-address-status="handleClickAddressStatus"
+                                    @on-handle-click-address-update="handleClickAddressUpdate"
+                                    >
+                                </address-update>
+                            </el-container>
+                        </el-main>
+                    </el-container>
+                </el-container>
+            </el-main>
+            <el-footer height="20vh">
+                <foot></foot>
+            </el-footer>
+        </el-container>
+    </div>
+</body>
+
+</html>

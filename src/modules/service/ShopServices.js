@@ -35,6 +35,30 @@ class Shop {
   static AddOrder (data) {
     return Http.post(url.AddOrder, data)
   }
+  // 获取订单列表
+  static GetOrderList (data) {
+    return Http.post(url.GetOrderList, data)
+  }
+  // 获取订单详情
+  static GetOrderDetail (data) {
+    return Http.post(url.GetOrderDetail, data)
+  }
+  // 确认收货
+  static ConfirmOrder (data) {
+    return Http.post(url.ConfirmOrder, data)
+  }
+  // 添加购物车
+  static AddShopCart (data) {
+    return Http.post(url.AddShopCart, data)
+  }
+  // 获取购物车
+  static GetShopCart (data) {
+    return Http.post(url.GetShopCart, data)
+  }
+  //  删除购物车指定商品
+  static DelShopCart (data) {
+    return Http.post(url.DelShopCart, data)
+  }
 }
 
 export default Shop

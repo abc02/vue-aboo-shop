@@ -4483,6 +4483,222 @@
                 }
             }
         },
+        "/xiedian_shop/GetOrderList": {
+            "post": {
+                "tags": [
+                    "xiedian_shop"
+                ],
+                "description": "将地址设为默认",
+                "operationId": "XiedianShopController.UpdateAddressDefault",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "jwttoken",
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "addressId",
+                        "description": "地址id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "userId",
+                        "description": "用户id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} data"
+                    }
+                }
+            }
+        },
+        "/xiedian_shop/GetOrderDetail": {
+            "post": {
+                "tags": [
+                    "xiedian_shop"
+                ],
+                "description": "将地址设为默认",
+                "operationId": "XiedianShopController.UpdateAddressDefault",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "jwttoken",
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "addressId",
+                        "description": "地址id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "userId",
+                        "description": "用户id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} data"
+                    }
+                }
+            }
+        },
+        "/xiedian_shop/ConfirmOrder": {
+            "post": {
+                "tags": [
+                    "xiedian_shop"
+                ],
+                "description": "将地址设为默认",
+                "operationId": "XiedianShopController.UpdateAddressDefault",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "jwttoken",
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "addressId",
+                        "description": "地址id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "userId",
+                        "description": "用户id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} data"
+                    }
+                }
+            }
+        },
+        "/xiedian_shop/AddShopCart": {
+            "post": {
+                "tags": [
+                    "xiedian_shop"
+                ],
+                "description": "将地址设为默认",
+                "operationId": "XiedianShopController.UpdateAddressDefault",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "jwttoken",
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "addressId",
+                        "description": "地址id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "userId",
+                        "description": "用户id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} data"
+                    }
+                }
+            }
+        },
+        "/xiedian_shop/GetShopCart": {
+            "post": {
+                "tags": [
+                    "xiedian_shop"
+                ],
+                "description": "将地址设为默认",
+                "operationId": "XiedianShopController.UpdateAddressDefault",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "jwttoken",
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "addressId",
+                        "description": "地址id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "userId",
+                        "description": "用户id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} data"
+                    }
+                }
+            }
+        },
+        "/xiedian_shop/DelShopCart": {
+            "post": {
+                "tags": [
+                    "xiedian_shop"
+                ],
+                "description": "将地址设为默认",
+                "operationId": "XiedianShopController.UpdateAddressDefault",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "jwttoken",
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "addressId",
+                        "description": "地址id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "userId",
+                        "description": "用户id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} data"
+                    }
+                }
+            }
+        },
         "/xiedian_user/AddUserFeedbackData": {
             "post": {
                 "tags": [

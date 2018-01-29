@@ -23,11 +23,12 @@
             box-shadow: 0 0 24px rgba(0, 0, 0, .2);
         }
 
-        .login-img {
+        .login-aboo {
             margin-top: 120px;
             display: inline;
             height: 90px;
             width: 75px;
+            margin-left: -20px;
         }
 
         .el-button {
@@ -44,11 +45,16 @@
             </el-header>
             <el-main>
                 <el-container class="login-container">
+                    <el-row type="flex" justify="center" align="middle">
+                        <el-col :span="15">
+                            <img class="login-img" :src="logInBg" alt="" />
+                        </el-col>
+                    </el-row>
                     <el-row>
-                        <el-col :span="12" :offset="12">
+                        <el-col :span="24">
                             <el-row>
                                 <el-col class="text-center">
-                                    <img class="login-img" :src="logInImg" alt="" />
+                                    <img class="login-aboo" :src="logInAboo" alt="" />
                                 </el-col>
                             </el-row>
                             <el-row>

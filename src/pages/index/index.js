@@ -1,25 +1,14 @@
-import 'normalize.css'
-import 'animate.css'
-import 'styles/common.css'
-import '../../../node_modules/fonts.css/fonts.css'
-import 'element-ui/lib/theme-chalk/index.css'
-
 import Vue from 'vue'
-import ElementUI from 'element-ui'
-import NavigationBar from 'components/NavigationBar'
+// 混合 基础 轮播 产品介绍
+import Base from 'mixins/Base'
 import Swiper from 'components/Swiper'
 import ProductIntroduction from 'components/ProductIntroduction'
-import Foot from 'components/Foot'
-
-Vue.use(ElementUI)
-
 window.vm = new Vue({
   el: '#app',
+  mixins: [Base],
   components: {
-    'navigation-bar': NavigationBar,
     'swiper': Swiper,
-    'product-introduction': ProductIntroduction,
-    'foot': Foot
+    'product-introduction': ProductIntroduction
   },
   data: {
     footStyle: {

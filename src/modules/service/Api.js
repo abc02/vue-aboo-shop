@@ -4,7 +4,7 @@ const url = {}
 // 开发环境和生产环境切换
 let host
 if (process.env.NODE_ENV === 'production') {
-  host = 'https://abuapi.0577xiedu.net/v1'
+  host = 'https://datainterface.abpao.com/v1/'
 } else {
   host = 'http://localhost:3000/v1'
 }

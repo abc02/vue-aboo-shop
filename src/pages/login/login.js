@@ -14,7 +14,8 @@ import PhoneRegisterAccount from 'components/PhoneRegisterAccount'
 import PhonePasswordGet from 'components/PhonePasswordGet'
 
 // 资源
-import LogInImg from 'assets/ab-02.png'
+import LogInAboo from 'assets/login-aboo.png'
+import LogInBg from 'assets/login-bg.png'
 
 Vue.use(VueSessionStorage)
 window.vm = new Vue({
@@ -26,7 +27,8 @@ window.vm = new Vue({
     'phone-password-get': PhonePasswordGet
   },
   data: {
-    logInImg: LogInImg,
+    logInAboo: LogInAboo,
+    logInBg: LogInBg,
     logInText: '登录',
     logInIndex: '1' // 1 登录 2 注册 3 找回密码
   },
@@ -50,7 +52,7 @@ window.vm = new Vue({
         if (res.data.ret === 1001) {
           let userInfoString = qs.stringify(res.data)
           this.$session.set('userInfo', userInfoString)
-          location.href = 'profile.html'
+          location.href = 'user.html'
         }
         if (res.data.ret === 1002) return this.$message.error(res.data.code)
       })
@@ -71,7 +73,7 @@ window.vm = new Vue({
   created () {
     let isUserInfo = this.$session.exists('userInfo')
     if (isUserInfo) {
-      location.href = 'profile.html'
+      location.href = 'user.html'
     }
   }
 })

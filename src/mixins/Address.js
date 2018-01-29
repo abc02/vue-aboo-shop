@@ -1,41 +1,23 @@
-import Vue from 'vue'
-import Base from 'mixins/Base'
-import VueSessionStorage from 'vue-sessionstorage'
-import qs from 'qs'
 // 收货地址组件
 import AddressList from 'components/AddressList'
-import AddAddress from 'components/AddAddress'
-import UpdateAddress from 'components/UpdateAddress'
-
-import ShopService from 'modules/service/ShopServices'
-Vue.use(VueSessionStorage)
-window.vm = new Vue({
-  el: '#app',
-  mixins: [Base],
+import AddressAdd from 'components/AddressAdd'
+import AddressUpdate from 'components/AddressUpdate'
+// 服务层组件
+import ShopServices from 'modules/service/ShopServices'
+export default {
   data: {
-    profileIndex: '1',
-    profileText: '我的账号',
-    userInfo: null,
     addressLists: null,
-    updateAddress: null,
-    addressStatus: 1, // 1 地址列表 2 添加表单 // 编辑表单
-    loading: false
+    addressUpdate: null,
+    addressStatus: 1 // 1 地址列表 2 添加表单 // 编辑表单
   },
   components: {
     'address-list': AddressList,
-    'add-address': AddAddress,
-    'update-address': UpdateAddress
+    'address-add': AddressAdd,
+    'address-update': AddressUpdate
   },
   methods: {
-    handleLoading () {
-      this.loading = !this.loading
-    },
-    handleSelect (index, indexPath, e) {
-      this.profileIndex = index
-      this.profileText = e.$el.innerText
-    },
     handleClickAddressStatus (status, address) {
-      if (status === '3') { this.updateAddress = address }
+      if (status === '3') { this.addressUpdate = address }
       this.addressStatus = status
     },
     handleCheckFormData (formData) {
@@ -82,11 +64,11 @@ window.vm = new Vue({
         }
       }
     },
-    handleClickAddAddress (formData) {
+    handleClickAddressAdd (formData) {
       if (!this.handleCheckFormData(formData)) return
       let ModifyFormData = this.handleModifyFormData('add', formData)
       this.handleLoading()
-      ShopService.AddAddress(ModifyFormData).then(res => {
+      ShopServices.AddAddress(ModifyFormData).then(res => {
         this.handleLoading()
         if (res.ret === 1001) {
           this.$message.success(res.code)
@@ -97,11 +79,11 @@ window.vm = new Vue({
         }
       })
     },
-    handleClickUpdateAddress (formData) {
+    handleClickAddressUpdate (formData) {
       if (!this.handleCheckFormData(formData)) return
       let ModifyFormData = this.handleModifyFormData('update', formData)
       this.handleLoading()
-      ShopService.UpdateAddress(ModifyFormData).then(res => {
+      ShopServices.UpdateAddress(ModifyFormData).then(res => {
         this.handleLoading()
         if (res.ret === 1001) {
           this.$message.success(res.code)
@@ -112,7 +94,7 @@ window.vm = new Vue({
         }
       })
     },
-    handleClickDeleteAddress (formData) {
+    handleClickAddressDelete (formData) {
       this.$confirm('此操作将删除该收货地址, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -120,24 +102,23 @@ window.vm = new Vue({
       }).then(() => {
         let ModifyFormData = this.handleModifyFormData('delete', formData)
         this.handleLoading()
-        ShopService.DeleteAddress(ModifyFormData).then(res => {
+        ShopServices.DeleteAddress(ModifyFormData).then(res => {
           this.handleLoading()
           if (res.ret === 1001) {
             this.$message.success(res.code)
             let timer = setTimeout(() => {
-              this.handleGetAddressList()
+              this.handleGetAddressLists()
               clearTimeout(timer)
             }, 800)
           }
         })
       }).catch(d => d)
     },
-    handleGetAddressList () {
+    handleGetAddressLists () {
       let userId = this.userInfo.UserId
       this.handleLoading()
-      ShopService.GetAddressList({userId}).then(res => {
+      ShopServices.GetAddressList({userId}).then(res => {
         this.handleLoading()
-        console.log(res)
         if (res.ret === 1001) {
           this.addressLists = res.data
         }
@@ -146,13 +127,5 @@ window.vm = new Vue({
         }
       })
     }
-  },
-  created () {
-    let isUserInfo = this.$session.exists('userInfo')
-    if (!isUserInfo) {
-      location.href = 'login.html'
-    }
-    let userInfoString = this.$session.get('userInfo')
-    this.userInfo = qs.parse(userInfoString)
   }
-})
+}

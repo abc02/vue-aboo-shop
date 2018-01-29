@@ -73,3 +73,10 @@ img {
 .text-center{
     text-align: center;
 }
+.right-center{
+    text-align: right;
+}
+.order-image{
+    width: 33px;
+    height: 33px;
+  }

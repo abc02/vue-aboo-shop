@@ -3,6 +3,6 @@ var proxy = require('http-proxy-middleware');
 
 var app = express();
 
-app.use('/v1', proxy({target: 'http://abuapi.0577xiedu.net', changeOrigin: true}));
+app.use('/v1', proxy({target: 'http://datainterface.abpao.com', changeOrigin: true}));
 app.listen(3000);
 
