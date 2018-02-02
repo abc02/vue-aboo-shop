@@ -3,6 +3,8 @@ import Vue from 'vue'
 import Base from 'mixins/Base'
 import Good from 'mixins/Good'
 import Cart from 'mixins/Cart'
+import qs from 'qs'
+let { goodsId } = qs.parse(location.search.substr(1))
 
 let cartButtonFixedStyle = {
   position: 'fixed',
@@ -17,5 +19,8 @@ window.vm = new Vue({
   data: {
     cartButtonFixedStyle
   },
-  mixins: [Base, Good, Cart]
+  mixins: [Base, Good, Cart],
+  created () {
+    this.handleGetGoodsSpec({goodsId})
+  }
 })

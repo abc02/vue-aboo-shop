@@ -17,9 +17,9 @@ window.vm = new Vue({
     }
   },
   created () {
-    let Mobile = /Mobile/i.test(navigator.userAgent)
-    if (Mobile) {
-      location.href = 'moblie.html'
-    }
+    // let Mobile = /Mobile/i.test(navigator.userAgent)
+    // if (Mobile) {
+    //   location.href = 'moblie.html'
+    // }
   }
 })

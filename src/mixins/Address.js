@@ -94,6 +94,29 @@ export default {
         }
       })
     },
+    handleClickAddressUpdateDefault (formData) {
+      let userId = this.userInfo.UserId
+      let addressId = formData.Id
+      this.handleLoading()
+      ShopServices.UpdateAddressDefault({userId, addressId}).then(res => {
+        this.handleLoading()
+        if (res.ret === 1001) {
+          this.$message.success(res.code)
+        }
+        if (res.ret === 1002) {
+          this.$message.error(res.code)
+        }
+      })
+    },
+    handleClickAddressSwitchDefault (formData) {
+      this.addressLists.map(address => {
+        if (address.Id === formData.Id) {
+          address.IsDefault = 1
+        } else {
+          address.IsDefault = 0
+        }
+      })
+    },
     handleClickAddressDelete (formData) {
       this.$confirm('此操作将删除该收货地址, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -115,6 +138,7 @@ export default {
       }).catch(d => d)
     },
     handleGetAddressLists () {
+      this.handleCheckUserInfo()
       let userId = this.userInfo.UserId
       this.handleLoading()
       ShopServices.GetAddressList({userId}).then(res => {

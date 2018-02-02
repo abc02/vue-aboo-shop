@@ -10,10 +10,10 @@
         我的订单
       </el-header>
       <el-main v-loading="loading" >
-        <el-row v-if="OrderLists && OrderLists.length">
+        <el-row v-if="orderLists && orderLists.length">
           <el-col>
             <el-table
-              :data="OrderLists"
+              :data="orderLists"
               stripe
               style="width: 100%">
               <el-table-column
@@ -34,7 +34,7 @@
                 label="总计"
                 width="120">
                 <template slot-scope="scope">
-                  {{`￥${scope.row.Price}.00`}}
+                  {{`￥${Number.parseFloat(scope.row.Price).toFixed(2)}`}}
                 </template>
               </el-table-column>
               <el-table-column
@@ -83,18 +83,20 @@ import OrderBase from './OrderBase'
 export default {
   name: 'OrderList',
   extends: OrderBase,
-  props: ['OrderLists', 'loading', 'limit'],
+  props: ['orderLists', 'loading', 'limit'],
   computed: {
     orderStatusText () {
-      if (this.OrderLists && this.OrderLists.length) {
-        return this.handleOrderStatusArrayText(this.OrderLists)
+      if (this.orderLists && this.orderLists.length) {
+        return this.handleOrderStatusArrayText(this.orderLists)
       }
       return []
     }
   },
   methods: {
     handleClickPreviousPage () {
-      this.$emit('on-handle-get-order-lists', Number.parseInt(Number.parseInt((this.limit - 10) / 10) + '0'))
+      let limit = ((this.limit - this.orderLists.length) - 10)
+      if (limit < 0) limit = 0
+      this.$emit('on-handle-get-order-lists', limit)
     },
     handleClickNextPage () {
       this.$emit('on-handle-get-order-lists', this.limit)

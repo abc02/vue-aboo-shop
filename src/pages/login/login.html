@@ -2,100 +2,90 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>阿布跑跑-登录</title>
-    <style>
-        [v-cloak] {
-            display: none;
-        }
-
-        .el-main {
-            height: 80%;
-            height: 80vh;
-        }
-
-        .login-container {
-            margin: 0 auto;
-            width: 1200px;
-            height: 100%;
-            box-shadow: 0 0 24px rgba(0, 0, 0, .2);
-        }
-
-        .login-aboo {
-            margin-top: 120px;
-            display: inline;
-            height: 90px;
-            width: 75px;
-            margin-left: -20px;
-        }
-
-        .el-button {
-            width: 100%;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>阿布跑跑-登录</title>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+    body {
+      background-color: #eee;
+    }
+    .login-border {
+      margin: 0 auto;
+      max-width: 1200px;
+      width: 1200px;
+      background-color: #fff;
+      box-shadow: 0 0 24px rgba(0, 0, 0, .2);
+    }
+    .login-bg {
+      width: 315px;
+      height: 223px;
+    }
+    .login-aboo {
+      display: inline;
+      height: 90px;
+      width: 75px;
+      margin-left: -20px;
+    }
+  </style>
 </head>
 
 <body>
-    <div id="app" v-cloak>
-        <el-container>
-            <el-header>
-                <navigation-bar active-index="4"></navigation-bar>
-            </el-header>
-            <el-main>
-                <el-container class="login-container">
-                    <el-row type="flex" justify="center" align="middle">
-                        <el-col :span="15">
-                            <img class="login-img" :src="logInBg" alt="" />
-                        </el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="24">
-                            <el-row>
-                                <el-col class="text-center">
-                                    <img class="login-aboo" :src="logInAboo" alt="" />
-                                </el-col>
-                            </el-row>
-                            <el-row>
-                                <el-col class="text-center">
-                                    <h1>{{logInText}}</h1>
-                                </el-col>
-                            </el-row>
-                            <el-row type="flex" justify="center">
-                                <el-col :span="12" class="text-center">
-                                    <phone-login-account v-if="logInIndex == 1" @on-switch-log-in="switchLogIn" @on-phone-log-in-account="PhoneLoginAccount">
-                                    </phone-login-account>
-                                    <Phone-register-account v-if="logInIndex == 2" ref="register" @on-send-sms="SendSms" @on-phone-log-in-account="PhoneRegisterAccount">
-                                    </Phone-register-account>
-                                    <phone-password-get v-if="logInIndex == 3" ref="password" @on-send-sms="SendSms" @on-phone-log-in-account="PhonePasswordGet">
-                                    </phone-password-get>
-                                </el-col>
-                            </el-row>
-                            <el-row type="flex" justify="center" v-if="!(logInIndex == 1)">
-                                <el-col :span="12" class="text-center">
-                                    <el-button type="primary" plain @click="switchLogIn('1', '登录')">返回登录</el-button>
-                                </el-col>
-                            </el-row>
-                            <el-row type="flex" justify="center" v-if="logInIndex == 1">
-                                <el-col :span="12" class="text-center">
-                                    <p>尚未注册帐号？</p>
-                                </el-col>
-                            </el-row>
-                            <el-row type="flex" justify="center" v-if="logInIndex == 1">
-                                <el-col :span="12" class="text-center">
-                                    <el-button type="primary" plain @click="switchLogIn('2', '注册')">注册</el-button>
-                                </el-col>
-                            </el-row>
-                        </el-col>
-                    </el-row>
-                </el-container>
-            </el-main>
-            <el-footer height="20vh">
-                <foot></foot>
-            </el-footer>
-        </el-container>
-    </div>
+  <div id="app" v-cloak>
+    <el-container>
+      <el-main class="login-border">
+        <el-row>
+          <el-col :xs="0" :sm="12" :md="12" :lg="12" :xl="12" style="height: 100%">
+            <el-row type="flex" justify="center" align="middle" style="height: 100%">
+              <el-col :span="12">
+                <img class="login-bg" :src="logInBg" alt="bg" />
+              </el-col>
+            </el-row>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+              <el-row type="flex" justify="center" align="middle" >
+                  <el-col :xs="0" :sm="2" :md="2" :lg="2" :xl="2">
+                      <a href="javascirpt:void(0);" @click.prevent="handClickRedirectPage('index')">
+                          <img class="login-aboo" :src="logInAboo" alt="ABOO" />
+                      </a>
+                  </el-col>
+              </el-row>
+              <el-row type="flex" justify="center" align="middle">
+                  <el-col :xs="0" :sm="4" :md="4" :lg="4" :xl="4" class="text-center h1">
+                      {{signText}}
+                  </el-col>
+              </el-row>
+              <el-row type="flex" justify="center">
+                  <el-col :span="12" class="text-center">
+                      <sign-in 
+                        v-if="signStatus == 1"
+                        @on-handle-click-sign-status="handleClickSignStatus"></sign-in>
+                      <sign-up 
+                        v-if="signStatus == 2"
+                        @on-handle-click-sign-status="handleClickSignStatus"></sign-up>
+                      <sign-forgot
+                        v-if="signStatus == 3"
+                        @on-handle-click-sign-status="handleClickSignStatus"></sign-forgot>
+                  </el-col>
+              </el-row>
+              <el-row type="flex" justify="center" v-if="!(signStatus == 1)">
+                  <el-col>
+                      <el-button type="text" size="mini" plain @click="handleClickSignStatus('1', '登录')">立即登录<i class="el-icon-arrow-right"></i></el-button>
+                  </el-col>
+              </el-row>
+              <el-row type="flex" justify="center" v-if="signStatus == 1">
+                  <el-col :span="12" class="text-center">
+                      <el-button type="primary" plain @click="handleClickSignStatus('2', '注册')">注册</el-button>
+                  </el-col>
+              </el-row>
+          </el-col>
+        </el-row>
+      </el-main>
+    </el-container>
+  </div>
 </body>
 
 </html>

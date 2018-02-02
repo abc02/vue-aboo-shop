@@ -1,44 +1,45 @@
 
 import Vue from 'vue'
 import Base from 'mixins/Base'
-
 import VueSessionStorage from 'vue-sessionstorage'
 import qs from 'qs'
 
-//  登录服务层
-import LogInServices from 'modules/service/LogInServices'
+//  服务层
+import SignServices from 'modules/service/SignServices'
 
-//  登录组件
-import PhoneLoginAccount from 'components/PhoneLoginAccount'
-import PhoneRegisterAccount from 'components/PhoneRegisterAccount'
-import PhonePasswordGet from 'components/PhonePasswordGet'
+// 引入组件
+import SignIn from 'components/SignIn'
+import SignUp from 'components/SignUp'
+import SignForgot from 'components/SignForgot'
 
 // 资源
 import LogInAboo from 'assets/login-aboo.png'
 import LogInBg from 'assets/login-bg.png'
-
 Vue.use(VueSessionStorage)
 window.vm = new Vue({
   el: '#app',
   mixins: [Base],
   components: {
-    'phone-login-account': PhoneLoginAccount,
-    'phone-register-account': PhoneRegisterAccount,
-    'phone-password-get': PhonePasswordGet
+    // 'phone-login-account': PhoneLoginAccount,
+    // 'phone-register-account': PhoneRegisterAccount,
+    // 'phone-password-get': PhonePasswordGet,
+    'sign-in': SignIn,
+    'sign-up': SignUp,
+    'sign-forgot': SignForgot
   },
   data: {
     logInAboo: LogInAboo,
     logInBg: LogInBg,
-    logInText: '登录',
-    logInIndex: '1' // 1 登录 2 注册 3 找回密码
+    signText: '登录',
+    signStatus: '1' // 1 登录 2 注册 3 找回密码
   },
   methods: {
-    switchLogIn (index, text) {
-      this.logInIndex = index
-      this.logInText = text
+    handleClickSignStatus (status, text) {
+      this.signStatus = status
+      this.signText = text
     },
     SendSms (formData) {
-      LogInServices.SendSms(formData).then(res => {
+      SignServices.SendSms(formData).then(res => {
         if (res.data.ret === 1001) {
           this.$message({message: res.data.code, type: 'success'})
           if (formData.style === 2) return this.$refs.register.onCb(60)
@@ -48,7 +49,7 @@ window.vm = new Vue({
       })
     },
     PhoneLoginAccount (formData) {
-      LogInServices.PhoneLoginAccount(formData).then(res => {
+      SignServices.PhoneLoginAccount(formData).then(res => {
         if (res.data.ret === 1001) {
           let userInfoString = qs.stringify(res.data)
           this.$session.set('userInfo', userInfoString)
@@ -58,13 +59,13 @@ window.vm = new Vue({
       })
     },
     PhoneRegisterAccount (formData) {
-      LogInServices.PhoneRegisterAccount(formData).then(res => {
+      SignServices.PhoneRegisterAccount(formData).then(res => {
         if (res.data.ret === 1001) return this.$message({message: res.data.code, type: 'success'})
         if (res.data.ret === 1002) return this.$message.error(res.data.code)
       })
     },
     PhonePasswordGet (formData) {
-      LogInServices.PhonePasswordGet(formData).then(res => {
+      SignServices.PhonePasswordGet(formData).then(res => {
         if (res.data.ret === 1001) return this.$message({message: res.data.code, type: 'success'})
         if (res.data.ret === 1002) return this.$message.error(res.data.code)
       })

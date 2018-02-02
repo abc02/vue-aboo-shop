@@ -1,8 +1,7 @@
 // 商品车组件
 // 服务层组件
 import ShopServices from 'modules/service/ShopServices.js'
-import qs from 'qs'
-let { goodsId } = qs.parse(location.search.substr(1))
+
 export default {
   data: {
     goodsInfo: null,
@@ -65,17 +64,20 @@ export default {
     handleChangeNumber (newNunber) {
       if (!this.currentGoods) return this.$message.error('请选择规格')
       this.currentGoods.number = newNunber
-    }
-  },
-  created () {
-    this.handleLoading()
-    ShopServices.GetGoodsSpec({ goodsId }).then(res => {
+    },
+    handleGetGoodsSpec (formData) {
       this.handleLoading()
-      if (res.ret === 1001) {
-        this.goodsInfo = res.goodsinfo
-        this.priceList = res.priceList
-        this.specDatas = res.specDatas
-      }
-    })
+      ShopServices.GetGoodsSpec(formData).then(res => {
+        this.handleLoading()
+        if (res.ret === 1001) {
+          this.goodsInfo = res.goodsinfo
+          this.priceList = res.priceList
+          this.specDatas = res.specDatas
+        }
+        if (res.ret === 1002) {
+          this.$message.info(res.code)
+        }
+      })
+    }
   }
 }

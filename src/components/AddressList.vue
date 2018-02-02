@@ -68,9 +68,11 @@
 </template>
 
 <script>
+import AddressBase from './AddressBase'
 export default {
   name: 'AddressList',
   props: ['userInfo', 'addressLists', 'loading'],
+  extends: AddressBase,
   methods: {
     handleClickAddressStatus (status, address) {
       this.$emit('on-handle-click-address-status', status, address)

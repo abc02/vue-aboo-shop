@@ -1,31 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>阿布跑跑-提交订单</title>
-    <style>
-        [v-cloak] {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <div id="app">
-        <el-container>
-            <el-header>
-                <navigation-bar></navigation-bar>
-            </el-header>
-            <el-main>
 
-            </el-main>
-            <el-footer>
-                <foot></foot>
-            </el-footer>
-        </el-container>
-        
-      
-    </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>阿布跑跑-提交订单</title>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <el-container>
+      <el-header>
+        <navigation-bar></navigation-bar>
+      </el-header>
+      <el-main>
+        <buy-list 
+          :address-lists="addressLists" 
+          :cart-lists="cartLists" :loading="loading" 
+          @on-handle-click-address-update="handleClickAddressUpdate"
+          @on-handle-click-address-delete="handleClickAddressDelete" 
+          @on-handle-click-address-switch-default="handleClickAddressSwitchDefault"
+          @on-handle-click-order-add="handleClickOrderAdd">
+        </buy-list>
+      </el-main>
+      <el-footer height="auto">
+        <foot></foot>
+      </el-footer>
+    </el-container>
+  </div>
+  <script id='spay-script' src='https://jspay.beecloud.cn/1/pay/jsbutton/returnscripts?appId=3f1d3241-fa3b-4bdb-98fc-761334b70932'></script>
 </body>
+
 </html>

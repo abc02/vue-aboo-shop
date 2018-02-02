@@ -1,19 +1,17 @@
-import 'normalize.css'
-import 'animate.css'
-import 'styles/common.css'
-import '../../../node_modules/fonts.css/fonts.css'
-import 'element-ui/lib/theme-chalk/index.css'
-
 import Vue from 'vue'
-import ElementUI from 'element-ui'
-import NavigationBar from 'components/NavigationBar'
-import Foot from 'components/Foot'
+// 混合 基础 收货地址 购物车 订单
+import Base from 'mixins/Base'
+import Cart from 'mixins/Cart'
+import Address from 'mixins/Address'
+import Order from 'mixins/Order'
+import Buy from 'mixins/Buy'
+import Pay from 'mixins/Pay'
 
-Vue.use(ElementUI)
 window.vm = new Vue({
   el: '#app',
-  components: {
-    'navigation-bar': NavigationBar,
-    'foot': Foot
+  mixins: [Base, Cart, Address, Order, Buy, Pay],
+  created () {
+    this.handleGetAddressLists()
+    this.handleGetCartLists()
   }
 })

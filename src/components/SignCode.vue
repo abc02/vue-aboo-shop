@@ -14,7 +14,6 @@
 <script>
 export default {
   name: 'VCode',
-  props: ['styleCode'],
   data () {
     return {
       waitSecond: {},
@@ -31,7 +30,6 @@ export default {
   },
   methods: {
     cb (second) {
-      console.log('调用成功', second)
       if (this.isWaiting) {
         return
       }
@@ -51,7 +49,7 @@ export default {
       if (this.isWaiting) {
         return
       }
-      this.$emit('on-send-sms', this.styleCode)
+      this.$emit('on-handle-click-send-sms')
     }
   }
 }

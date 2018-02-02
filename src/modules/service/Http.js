@@ -59,8 +59,8 @@ export default class Http {
    */
   static createAuthHeader () {
     const header = {}
-    header['accept'] = 'application/json'
-    header['content-type'] = 'application/x-www-form-urlencoded'
+    // header['accept'] = 'application/json'
+    // header['content-type'] = 'application/x-www-form-urlencoded'
     let sessionKey = sessionStorage.getItem('sessionKey')
     let isUserInfo = sessionStorage.getItem(sessionKey)
     if (!isUserInfo) return

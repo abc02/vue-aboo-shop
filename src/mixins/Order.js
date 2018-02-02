@@ -57,6 +57,39 @@ export default {
           this.$message.error(res.code)
         }
       })
+    },
+    handleClickOrderAdd (goods, mailAddress) {
+      let goodsId = []
+      let specId = []
+      let specName = []
+      let number = []
+      let desc = []
+      goods.forEach(good => {
+        goodsId.push(good.goodsId)
+        specId.push(good.specId)
+        specName.push(good.specName)
+        number.push(good.number)
+        desc.push('')
+      })
+      let formData = {
+        userId: mailAddress.UserId,
+        addressId: mailAddress.Id,
+        goodsId: goodsId.join('##'),
+        specId: specId.join('##'),
+        specName: specName.join('##'),
+        number: number.join('##'),
+        desc: desc.join('##')
+      }
+      this.handleLoading()
+      ShopServices.AddOrder(formData).then(res => {
+        this.handleLoading()
+        if (res.ret === 1001) {
+          this.handleAsyncPay.call(null, res)
+        }
+        if (res.ret === 1002) {
+          this.$message(res.code)
+        }
+      })
     }
   }
 }

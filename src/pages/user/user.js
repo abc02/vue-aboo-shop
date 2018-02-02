@@ -3,9 +3,6 @@ import Vue from 'vue'
 import Base from 'mixins/Base'
 import Address from 'mixins/Address'
 import Order from 'mixins/Order'
-import VueSessionStorage from 'vue-sessionstorage'
-
-Vue.use(VueSessionStorage)
 window.vm = new Vue({
   el: '#app',
   mixins: [Base, Order, Address],
@@ -22,6 +19,6 @@ window.vm = new Vue({
     }
   },
   created () {
-    this.handleCkeckUserInfo()
+    this.handleCheckUserInfo()
   }
 })
