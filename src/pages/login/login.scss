@@ -1,0 +1,27 @@
+body {
+  background-color: #eee;
+}
+.login-border {
+  margin: 0 auto;
+  margin-top: 120px;
+  max-width: 1200px;
+  width: 1200px;
+  background-color: #fff;
+  box-shadow: 0 0 24px rgba(0, 0, 0, .2);
+  .login-bg {
+    width: 315px;
+    height: 223px;
+  }
+  .login-aboo {
+    display: inline;
+    height: 90px;
+    width: 75px;
+    margin-left: -20px;
+  }
+}
+
+@media (max-width: 768px){
+  .login-border {
+    margin-top: 0;
+  }
+}

@@ -19,7 +19,7 @@
       <a class="switch-password-get" href="javascript:void(0);" @click.prevent="handleClickSignStatus('3', '找回密码')">忘记密码？</a>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="handleClickPhoneSignIn(formData)">登录</el-button>
+      <el-button  class="width-100" type="primary" @click="handleClickPhoneSignIn(formData)">登录</el-button>
     </el-form-item>
   </el-form>
 </template>

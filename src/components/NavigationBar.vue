@@ -34,8 +34,8 @@
               <img :src="userInfo.Icon" alt="头像" class="user-info-icon">
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click="handClickRedirectPage('user')">我的账号</el-dropdown-item>
-              <el-dropdown-item @click="handleClickRedirectLogOut">登出</el-dropdown-item>
+              <el-dropdown-item @click.native="handClickRedirectPage('user')">我的账号</el-dropdown-item>
+              <el-dropdown-item @click.native="handleClickRedirectLogOut">登出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-col>

@@ -16,7 +16,7 @@
       <el-input v-model="formData.password" @keyup.native.enter="PhoneRegisterAccount" type="password" placeholder="新密码"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="handleClickPhoneSignUp(formData)">注册</el-button>
+      <el-button class="width-100" type="primary" @click="handleClickPhoneSignUp(formData)">注册</el-button>
     </el-form-item>
   </el-form>
 </template>

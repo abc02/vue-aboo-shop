@@ -10,36 +10,16 @@
     [v-cloak] {
       display: none;
     }
-    body {
-      background-color: #eee;
-    }
-    .login-border {
-      margin: 0 auto;
-      max-width: 1200px;
-      width: 1200px;
-      background-color: #fff;
-      box-shadow: 0 0 24px rgba(0, 0, 0, .2);
-    }
-    .login-bg {
-      width: 315px;
-      height: 223px;
-    }
-    .login-aboo {
-      display: inline;
-      height: 90px;
-      width: 75px;
-      margin-left: -20px;
-    }
   </style>
 </head>
 
 <body>
   <div id="app" v-cloak>
-    <el-container>
+    <el-container class="height-100">
       <el-main class="login-border">
-        <el-row>
-          <el-col :xs="0" :sm="12" :md="12" :lg="12" :xl="12" style="height: 100%">
-            <el-row type="flex" justify="center" align="middle" style="height: 100%">
+        <el-row class="height-100" type="flex" align="middle">
+          <el-col :xs="0" :sm="12" :md="12" :lg="12" :xl="12">
+            <el-row type="flex" justify="center" align="middle">
               <el-col :span="12">
                 <img class="login-bg" :src="logInBg" alt="bg" />
               </el-col>
@@ -54,12 +34,12 @@
                   </el-col>
               </el-row>
               <el-row type="flex" justify="center" align="middle">
-                  <el-col :xs="0" :sm="4" :md="4" :lg="4" :xl="4" class="text-center h1">
+                  <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4" class="text-center h1">
                       {{signText}}
                   </el-col>
               </el-row>
-              <el-row type="flex" justify="center">
-                  <el-col :span="12" class="text-center">
+              <el-row type="flex" justify="center" align="middle">
+                  <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
                       <sign-in 
                         v-if="signStatus == 1"
                         @on-handle-click-sign-status="handleClickSignStatus"></sign-in>
@@ -71,14 +51,19 @@
                         @on-handle-click-sign-status="handleClickSignStatus"></sign-forgot>
                   </el-col>
               </el-row>
-              <el-row type="flex" justify="center" v-if="!(signStatus == 1)">
-                  <el-col>
-                      <el-button type="text" size="mini" plain @click="handleClickSignStatus('1', '登录')">立即登录<i class="el-icon-arrow-right"></i></el-button>
+              <el-row type="flex" justify="center" v-if="signStatus === 1">
+                  <el-col :xs="0" :sm="12" :md="12" :lg="12" :xl="12">
+                      <el-button class="width-100" type="primary" plain @click="handleClickSignStatus(2, '注册')">注册</el-button>
                   </el-col>
               </el-row>
-              <el-row type="flex" justify="center" v-if="signStatus == 1">
-                  <el-col :span="12" class="text-center">
-                      <el-button type="primary" plain @click="handleClickSignStatus('2', '注册')">注册</el-button>
+              <el-row type="flex" justify="center" v-if="signStatus === 1">
+                  <el-col :xs="4" :sm="0" :md="0" :lg="0" :xl="0">
+                      <el-button type="text" plain @click="handleClickSignStatus(2, '注册')">注册<i class="el-icon-arrow-right"></i></el-button>
+                  </el-col>
+              </el-row>
+              <el-row type="flex" justify="center" v-if="signStatus !== 1">
+                  <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+                      <el-button type="text" plain @click="handleClickSignStatus(1, '登录')">立即登录<i class="el-icon-arrow-right"></i></el-button>
                   </el-col>
               </el-row>
           </el-col>

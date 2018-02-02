@@ -1,4 +1,4 @@
-
+import './login.scss'
 import Vue from 'vue'
 import Base from 'mixins/Base'
 import VueSessionStorage from 'vue-sessionstorage'
@@ -31,7 +31,7 @@ window.vm = new Vue({
     logInAboo: LogInAboo,
     logInBg: LogInBg,
     signText: '登录',
-    signStatus: '1' // 1 登录 2 注册 3 找回密码
+    signStatus: 1 // 1 登录 2 注册 3 找回密码
   },
   methods: {
     handleClickSignStatus (status, text) {
