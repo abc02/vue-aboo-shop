@@ -1,8 +1,8 @@
 <template>
   <el-container direction="vertical" style="height: 80vh; background-color: #f6655e; color: white;" class="relative">
-    <el-row type="flex" justify="center" align="middle" 
+    <el-row type="flex" justify="center" align="middle"
         class="absolute-middle-center"
-        v-for="(item, index) in list" :key="index" 
+        v-for="(item, index) in list" :key="index"
         :style="activeIndex === index ? 'visibility: visible;' : 'visibility: hidden;'">
       <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
         <img :src="item.image" :alt="item.title" style="width: 336px; height: 665px" />

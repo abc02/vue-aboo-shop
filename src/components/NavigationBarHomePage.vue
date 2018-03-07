@@ -3,15 +3,16 @@
     <el-col :xs="24" :sm="20" :md="20" :lg="20" :xl="20">
       <el-row type="flex" justify="space-between" align="middle">
         <el-col :xs="0" :sm="16" :md="16" :lg="16" :xl="16">
-           <el-menu :default-active="activeIndex" mode="horizontal" background-color="#ffffff" text-color="#000000" active-text-color="#f6655e">
-            <el-menu-item index="1" @click="handleClickRedirectPage('index', { page: '/'})">首页</el-menu-item>
-            <el-menu-item index="2" @click="handleClickRedirectPage('index', { page: 'help'})">帮助</el-menu-item>
+          <el-menu :default-active="activeIndex" mode="horizontal" router
+            active-text-color="#f6655e" >
+            <el-menu-item index="1" :route="{ name: 'index', params: { activeIndex: '1' } }">首页</el-menu-item>
+            <el-menu-item index="2" :route="{ name: 'help' , params: { activeIndex: '2' } }">帮助</el-menu-item>
           </el-menu>
         </el-col>
         <el-col :xs="0" :sm="4" :md="4" :lg="4" :xl="4">
           <el-row type="flex" justify="start" align="middle">
             <el-col :xs="0" :sm="12" :md="12" :lg="12" :xl="12" class="text-center">
-              <el-button type="primary" size="mini" @click="handleClickRedirectPage('product', {goodsId: 7})">商城</el-button>
+              <el-button type="primary" size="mini" @click="handleClickRedirectPage('store')">商城</el-button>
             </el-col>
             <el-col :xs="0" :sm="12" :md="12" :lg="12" :xl="12" class="text-center">
               <el-button v-if="!userInfo" type="text" @click="handleClickRedirectPage('login')">登录</el-button>
@@ -25,17 +26,6 @@
                 </el-dropdown-menu>
               </el-dropdown>
             </el-col>
-          </el-row>
-        </el-col>
-      </el-row>
-      <el-row type="flex" justify="start" align="middle">
-        <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0">
-          <el-row type="flex" justify="start" align="middle">
-            <el-col :xs="4" :sm="0" :md="0" :lg="0" :xl="0" class="text-center">
-              <el-button type="text" size="medium" @click="isChildBar = true" icon="el-icon-menu" class="h1"></el-button>
-            </el-col>
-            <el-col :xs="16" :sm="0" :md="0" :lg="0" :xl="0" class="text-center">ABOO商城</el-col>
-            <el-col :xs="4" :sm="0" :md="0" :lg="0" :xl="0"></el-col>
           </el-row>
         </el-col>
       </el-row>

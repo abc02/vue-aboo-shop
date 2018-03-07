@@ -3,9 +3,9 @@ import Router from 'vue-router'
 import NavigationBarHomePage from 'components/NavigationBarHomePage.vue'
 import FootCommon from 'components/FootCommon.vue'
 import Index from '../components/Index.vue'
+import Help from '../components/Help.vue'
 import Home from '../components/Home.vue'
 import Mobile from '../components/Mobile.vue'
-import Help from '../components/Help.vue'
 import qs from 'qs'
 Vue.use(Router)
 
@@ -27,9 +27,22 @@ const routes = [
           header: NavigationBarHomePage,
           footer: FootCommon
         },
-        props: { footer: { FootStyle: HomeFootStyle } },
+        props: { header: { activeIndex: '1' }, footer: { FootStyle: HomeFootStyle } },
         meta: {
           title: 'ABOO阿布跑跑-孩子去哪儿，轻松知晓'
+        }
+      },
+      {
+        path: '/help',
+        name: 'help',
+        components: {
+          default: Help,
+          header: NavigationBarHomePage,
+          footer: FootCommon
+        },
+        props: { header: { activeIndex: '2' } },
+        meta: {
+          title: '使用帮助'
         }
       },
       {
@@ -38,14 +51,6 @@ const routes = [
         component: Mobile,
         meta: {
           title: 'ABOO阿布跑跑-孩子去哪儿，轻松知晓-H5'
-        }
-      },
-      {
-        path: '/help',
-        name: 'help',
-        component: Help,
-        meta: {
-          title: '使用帮助'
         }
       }
     ]
