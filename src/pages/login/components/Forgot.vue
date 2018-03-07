@@ -19,7 +19,7 @@
               <el-input v-model="formData.password" @keyup.native.enter="handlePhoneForgotAction(formData)" type="password" placeholder="新密码"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button class="width-100" type="primary" @click="handlePhoneForgotAction(formData)">提交</el-button>
+              <el-button class="width-100" type="primary" :loading="isLoading" @click="handlePhoneForgotAction(formData)">提交</el-button>
             </el-form-item>
           </el-form>
       </el-col>
@@ -34,8 +34,9 @@
   </el-container>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, createNamespacedHelpers } from 'vuex'
 import VCodeButton from './VCodeButton.vue'
+const { mapActions } = createNamespacedHelpers('login')
 export default {
   name: 'Forgot',
   components: {
@@ -51,7 +52,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['loading'])
+    ...mapState(['isLoading'])
   },
   methods: {
     ...mapActions(['handlePhoneForgotAction'])

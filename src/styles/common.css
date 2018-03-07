@@ -136,6 +136,44 @@ html,body,#app {
     top:0;
     right:12px;
 }
+.absolute-middle-center{
+    position: absolute !important;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%)
+}
+.absolute-top-right{
+    position: absolute !important;
+    top:0;
+    right:0;
+}
+.absolute-middle-right{
+    position: absolute !important;
+    top:50%;
+    right:0;
+    transform: translateY(-50%);
+}
+.absolute-bottom-right{
+    position: absolute !important;
+    bottom:0;
+    right:0;
+}
+.absolute-top-left{
+    position: absolute !important;
+    top:0;
+    left:0;
+}
+.absolute-middle-left{
+    position: absolute !important;
+    top:50%;
+    left:0;
+    transform: translateY(-50%);
+}
+.absolute-bottom-left{
+    position: absolute !important;
+    bottom:0;
+    left:0;
+}
 /* .el-radio__input{
     display: none !important;
 } */

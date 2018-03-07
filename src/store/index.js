@@ -4,6 +4,7 @@ import state from './state.js'
 import getters from './getters.js'
 import mutations from './mutations.js'
 import actions from './actions.js'
+import login from './modules/login.js'
 import cart from './modules/cart.js'
 import products from './modules/products.js'
 import address from './modules/address.js'
@@ -19,7 +20,8 @@ const store = new Vuex.Store({
     cart,
     products,
     address,
-    orders
+    orders,
+    login
   }
 })
 

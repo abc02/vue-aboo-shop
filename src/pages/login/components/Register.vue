@@ -19,7 +19,7 @@
               <el-input v-model="formData.password" @keyup.native.enter="handlePhoneRegisterAction(formData)" type="password" placeholder="新密码"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button class="width-100" type="primary" :loading="loading" @click="handlePhoneRegisterAction(formData)">注册</el-button>
+              <el-button class="width-100" type="primary" :loading="isLoading" @click="handlePhoneRegisterAction(formData)">注册</el-button>
             </el-form-item>
           </el-form>
       </el-col>
@@ -35,8 +35,9 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, createNamespacedHelpers } from 'vuex'
 import VCodeButton from './VCodeButton.vue'
+const { mapActions } = createNamespacedHelpers('login')
 export default {
   name: 'Register',
   components: {
@@ -52,7 +53,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['loading'])
+    ...mapState(['isLoading'])
   },
   methods: {
     ...mapActions(['handlePhoneRegisterAction'])

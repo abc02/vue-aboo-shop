@@ -1,18 +1,14 @@
 import Vue from 'vue'
-// 引用通用依赖
+// 混合通用依赖
 import Base from 'mixins/Base'
-import router from './router/index.js'
+// 引入全局 store
 import store from 'store/index.js'
-// import store from './store/index.js'
+// 引入局部 router
+import router from './router/index.js'
 window.vm = new Vue({
   el: '#app',
   mixins: [Base],
-  router,
-  store
-  // created () {
-  //   let Mobile = /Mobile/i.test(navigator.userAgent)
-  //   if (Mobile) {
-  //     location.href = 'moblie.html'
-  //   }
-  // }
+  // 注入store router
+  store,
+  router
 })

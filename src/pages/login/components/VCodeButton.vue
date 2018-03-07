@@ -12,7 +12,8 @@
   <el-button type="primary" size="small" @click="handlePhoneSendSmsAction({phone, style: type})" :disabled="isWaiting">{{btnText}}</el-button>
 </template>
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { createNamespacedHelpers } from 'vuex'
+const { mapState, mapMutations, mapActions } = createNamespacedHelpers('login')
 export default {
   name: 'VCode',
   props: ['phone', 'type'],

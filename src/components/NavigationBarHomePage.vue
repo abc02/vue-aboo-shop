@@ -39,40 +39,6 @@
           </el-row>
         </el-col>
       </el-row>
-      <el-dialog
-        title="ABOO商城"
-        center
-        :visible.sync="isChildBar"
-        top="60px"
-        :fullscreen="true">
-        <el-container direction="vertical" class="bg-white pl10 pr10">
-          <el-container direction="vertical">
-            <el-row type="flex" justify="start" align="middle" class="border-bottom pt10 pb10" @click.native="handleClickRedirectPage('user')" v-if="userInfo">
-              <el-col :xs="22" :sm="0" :md="0" :lg="0" :xl="0">我的账号</el-col>
-              <el-col :xs="2" :sm="0" :md="0" :lg="0" :xl="0" class="text-center">
-                <i class="el-icon-arrow-right"></i>
-              </el-col>
-            </el-row>
-            <el-row type="flex" justify="start" align="middle" class="border-bottom pt10 pb10" @click.native="handleClickRedirectPage('login')" v-else>
-              <el-col :xs="22" :sm="0" :md="0" :lg="0" :xl="0">我的账号</el-col>
-              <el-col :xs="2" :sm="0" :md="0" :lg="0" :xl="0" class="text-center">
-                <i class="el-icon-arrow-right"></i>
-              </el-col>
-            </el-row>
-          </el-container>
-          <el-container direction="vertical">
-            <el-row type="flex" justify="start" align="middle" class="border-bottom pt20 pb20">
-              <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" class="p bold">商品分类</el-col>
-            </el-row>
-            <el-row type="flex" justify="start" align="middle" class="pt10 pb10" @click.native="handleClickRedirectPage('product', { goodsId: 7 })">
-              <el-col :xs="22" :sm="0" :md="0" :lg="0" :xl="0">智慧鞋垫</el-col>
-              <el-col :xs="2" :sm="0" :md="0" :lg="0" :xl="0" class="text-center">
-                <i class="el-icon-arrow-right"></i>
-              </el-col>
-            </el-row>
-          </el-container>
-        </el-container>
-      </el-dialog>
     </el-col>
   </el-row>
 </template>
@@ -81,7 +47,7 @@
 import CommonBase from 'mixins/CommonBase'
 import { mapState, mapMutations } from 'vuex'
 export default {
-  name: 'NavigationBar',
+  name: 'NavigationBarHomePage',
   props: ['activeIndex'],
   mixins: [CommonBase],
   data () {

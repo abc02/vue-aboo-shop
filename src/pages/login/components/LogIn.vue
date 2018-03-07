@@ -33,7 +33,7 @@
           </el-row>
         </el-form-item>
         <el-form-item>
-          <el-button  class="width-100" type="primary" :loading="loading" @click="handlePhoneLoginAction(formData)">登录</el-button>
+          <el-button  class="width-100" type="primary" :loading="isLoading" @click="handlePhoneLoginAction(formData)">登录</el-button>
         </el-form-item>
       </el-form>
       </el-col>
@@ -70,9 +70,10 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, createNamespacedHelpers } from 'vuex'
+const { mapActions } = createNamespacedHelpers('login')
 export default {
-  name: 'SignIn',
+  name: 'LogIn',
   data () {
     return {
       formData: {
@@ -82,7 +83,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['loading'])
+    ...mapState(['isLoading'])
   },
   methods: {
     ...mapActions(['handlePhoneLoginAction'])
