@@ -101,8 +101,9 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
 import CommonBase from 'mixins/CommonBase'
+import { createNamespacedHelpers } from 'vuex'
+const { mapState, mapActions } = createNamespacedHelpers('cart')
 export default {
   name: 'List',
   mixins: [CommonBase],

@@ -63,9 +63,10 @@
   </el-container>
 </template>
 <script>
-import List from './List.vue'
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import CommonBase from 'mixins/CommonBase'
+import List from './List.vue'
+import { mapState, createNamespacedHelpers } from 'vuex'
+const { mapGetters, mapMutations, mapActions } = createNamespacedHelpers('cart')
 export default {
   name: 'All',
   mixins: [CommonBase],
@@ -73,7 +74,10 @@ export default {
     List
   },
   computed: {
-    ...mapState(['isLoading', 'editText']),
+    ...mapState({
+      isLoading: 'isLoading',
+      editText: state => state.cart.editText
+    }),
     ...mapGetters(['cartSummary'])
   },
   methods: {
