@@ -7,15 +7,15 @@
       <el-col :xs="12" :sm="0" :md="0" :lg="0" :xl="0">
         <el-button type="text" icon="el-icon-arrow-left" @click="handleClickRedirectPage('product', {goodsId: 7})">继续购物</el-button>
       </el-col>
-      <el-col :xs="12" :sm="0" :md="0" :lg="0" :xl="0" class="text-right p" v-show="cartSummary">
+      <el-col :xs="12" :sm="0" :md="0" :lg="0" :xl="0" class="text-right p" v-show="cartListsTotal">
         <el-button type="text" class="p gray" @click="handleEdit">{{editText}}</el-button>
       </el-col>
     </el-row>
-    <el-container direction="vertical" v-if="cartSummary">
+    <el-container direction="vertical" v-if="cartListsTotal">
       <List />
       <el-row type="flex" justify="start" align="middle">
         <el-col :xs="0" :sm="24" :md="24" :lg="24" :xl="24" class="text-right mb20">
-          <span class="mr20">总计:</span><el-button type="text">{{cartSummary.totalPrice}}</el-button>
+          <span class="mr20">总计:</span><el-button type="text">{{cartListsTotal.totalPrice}}</el-button>
         </el-col>
       </el-row>
       <el-row type="flex" justify="start" align="middle">
@@ -38,14 +38,14 @@
         </el-col>
       </el-row>
     </el-container>
-    <el-row type="flex" justify="start" align="middle" class="bottom-fixed pl10 pr10" v-if="cartSummary">
+    <el-row type="flex" justify="start" align="middle" class="bottom-fixed pl10 pr10" v-if="cartListsTotal">
       <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0">
         <el-row type="flex" justify="start" align="middle" class="mt10 mb10">
           <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="p">
-            {{`${cartSummary.totalNumbar}个商品`}}
+            {{`${cartListsTotal.totalNumbar}个商品`}}
           </el-col>
           <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="text-right">
-            {{cartSummary.totalPrice}}
+            {{cartListsTotal.totalPrice}}
           </el-col>
         </el-row>
         <el-row type="flex" justify="start" align="middle" class="mt10 mb20">
@@ -78,7 +78,7 @@ export default {
       isLoading: 'isLoading',
       editText: state => state.cart.editText
     }),
-    ...mapGetters(['cartSummary'])
+    ...mapGetters(['cartListsTotal'])
   },
   methods: {
     ...mapMutations(['handleEdit']),

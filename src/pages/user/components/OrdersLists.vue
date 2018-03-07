@@ -1,7 +1,7 @@
 <template>
   <el-row flex="flex" justify="start" align="top">
     <el-col :xs="0" :sm="24" :md="24" :lg="24" :xl="24" >
-      <el-table :data="modifyOrderLists" stripe style="width: 100%" v-if="modifyOrderLists && modifyOrderLists.length">
+      <el-table :data="ordersLists" stripe style="width: 100%" v-if="ordersLists && ordersLists.length">
         <el-table-column
           width="70"
           label="订单号">
@@ -34,7 +34,7 @@
       <el-alert title="您的账户暂时没有订单。 " type="info" :closable="false" class="mb20" v-else></el-alert>
     </el-col>
     <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0"  class="bg-gray">
-      <el-container direction="vertical" v-for="(order, index) in modifyOrderLists" :key="index" class="bg-white mb20" v-if="modifyOrderLists && modifyOrderLists.length">
+      <el-container direction="vertical" v-for="(order, index) in ordersLists" :key="index" class="bg-white mb20" v-if="ordersLists && ordersLists.length">
         <el-row type="flex" justify="space-between" align="middle" class="pr10 pl10 pt10 pb10 border-bottom">
           <el-col :xs="6">订单号</el-col>
           <el-col :xs="18" class="text-right">
@@ -84,11 +84,12 @@
   </el-row>
 </template>
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { createNamespacedHelpers } from 'vuex'
+const { mapState, mapActions } = createNamespacedHelpers('orders')
 export default {
   name: 'OrdersLists',
   computed: {
-    ...mapGetters(['modifyOrderLists'])
+    ...mapState(['ordersLists'])
   },
   methods: {
     ...mapActions(['generateOrdersListsAction'])

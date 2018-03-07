@@ -9,7 +9,7 @@ const cart = {
     editText: '编辑'
   },
   getters: {
-    cartSummary: state => {
+    cartListsTotal: state => {
       let { cartLists } = state
       let price = 0
       let number = 0
@@ -35,7 +35,7 @@ const cart = {
         state.editText = '编辑'
       }
     },
-    generateGetCartListsMutations (state, cartLists) {
+    generateCartListsMutations (state, cartLists) {
       state.cartLists = cartLists
     }
   },
@@ -47,10 +47,10 @@ const cart = {
       Cart.GetShopCart({userId}).then(res => {
         commit('handleLoading', null, { root: true })
         if (res.ret === 1001) {
-          commit('generateGetCartListsMutations', res.data)
+          commit('generateCartListsMutations', res.data)
         }
         if (res.ret === 1002) {
-          commit('generateGetCartListsMutations', null)
+          commit('generateCartListsMutations', null)
         }
       })
     },

@@ -1,5 +1,5 @@
 <template>
-  <el-row type="flex" justify="center" align="middle" v-loading="loading">
+  <el-row type="flex" justify="center" align="middle" v-loading="isLoading">
     <el-col :xs="24" :sm="20" :md="20" :lg="20" :xl="20">
       <el-container v-if="isPay" direction="vertical">
         <el-container direction="vertical" class="border-bottom bg-white bg-white pl10 pr10">
@@ -24,12 +24,12 @@
           </el-row>
           <el-row type="flex" justify="start" align="middle" class="pb10">
             <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="p">下单时间</el-col>
-            <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="h3 text-right">{{ModifyOrderADetail.createTime}}</el-col>
+            <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="h3 text-right">{{orderADetail.createTime}}</el-col>
           </el-row>
           <el-row type="flex" justify="start" align="top" >
             <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6" class="p">订单项</el-col>
             <el-col :xs="18" :sm="18" :md="18" :lg="18" :xl="18" class="h3">
-              <el-row type="flex" justify="start" align="middle" class="pb10" v-for="(order, index) in ModifyOrderBList" :key="index">
+              <el-row type="flex" justify="start" align="middle" class="pb10" v-for="(order, index) in orderBList" :key="index">
                 <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="text-right">
                   {{order.goodsName}}{{order.specName}}{{order.number}}
                 </el-col>
@@ -41,29 +41,29 @@
             <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="h3 text-right">
               <el-row type="flex" justify="start" align="middle" class="pb10">
                 <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="text-right">
-                  {{ModifyOrderADetail.address.NickName}}
+                  {{orderADetail.address.NickName}}
                 </el-col>
               </el-row>
               <el-row type="flex" justify="start" align="middle" class="pb10">
                 <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="text-right">
-                  {{ModifyOrderADetail.address.Province}} {{ModifyOrderADetail.address.City}}
+                  {{orderADetail.address.Province}} {{orderADetail.address.City}}
                 </el-col>
               </el-row>
               <el-row type="flex" justify="start" align="middle" class="pb10">
                 <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="text-right">
-                  {{ModifyOrderADetail.address.Area}}
+                  {{orderADetail.address.Area}}
                 </el-col>
               </el-row>
               <el-row type="flex" justify="start" align="middle" class="pb10">
                 <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="text-right">
-                  {{ModifyOrderADetail.address.Detail}}
+                  {{orderADetail.address.Detail}}
                 </el-col>
               </el-row>
             </el-col>
           </el-row>
            <el-row type="flex" justify="start" align="middle" class="pb10">
             <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="p">应付金额</el-col>
-            <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="h3 text-right">{{ModifyOrderADetail.price}}</el-col>
+            <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="h3 text-right">{{orderADetail.price}}</el-col>
           </el-row>
         </el-container>
         <!-- <el-container direction="vertical" class="border-bottom bg-white pl10 pr10 mt20">
@@ -128,7 +128,7 @@
 import alipay from 'assets/alipay.png'
 import wxpay from 'assets/wxpay.png'
 import CommonBase from 'mixins/CommonBase'
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'Pay',
   props: ['instance'],
@@ -141,16 +141,22 @@ export default {
     }
   },
   created () {
-    if (!this.ModifyOrderADetail && this.instance) {
+    if (!this.orderADetail && !this.orderBList && this.instance) {
       this.generateOrderDetailAction(this.instance.orderId)
     }
   },
   methods: {
-    ...mapActions(['generateOrderDetailAction'])
+    ...mapActions({
+      generateOrdersDetailAction: 'orders/generateOrdersDetailAction'
+    })
   },
   computed: {
-    ...mapState(['loading', 'orderBList']),
-    ...mapGetters(['ModifyOrderADetail', 'ModifyOrderBList'])
+    ...mapState({
+      isLoaing: 'isLoading',
+      ordersLists: 'orders/ordersLists',
+      orderADetail: 'orders/orderADetail',
+      orderBList: 'orders/orderBList'
+    })
   },
   watch: {
     ModifyOrderADetail: {

@@ -1,5 +1,5 @@
 <template>
-<el-container direction="vertical" v-loading="isLoading" v-if="filterDefaultAddress">
+  <el-container direction="vertical" v-loading="isLoading" v-if="defaultAddress && cartListsTotal">
     <el-row type="flex" justify="start" align="middle">
       <el-col :xs="0" :sm="24" :md="24" :lg="24" :xl="24" class="h1 mt20">提交订单</el-col>
       <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" class="pt10 pb10 pl10">提交订单</el-col>
@@ -16,15 +16,15 @@
       <router-link :to="{ name: 'all'}">
         <el-row type="flex" justify="start" align="middle" class="pb10 pl20 pr10">
           <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
-            {{filterDefaultAddress.nickName}}
+            {{defaultAddress.nickName}}
           </el-col>
           <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="text-right">
-            {{filterDefaultAddress.phone}}
+            {{defaultAddress.phone}}
           </el-col>
         </el-row>
         <el-row type="flex" justify="start" align="middle" class="pb10 pl20 pr10">
           <el-col :xs="22" :sm="22" :md="22" :lg="22" :xl="22">
-            {{`${filterDefaultAddress.province} ${filterDefaultAddress.city} ${filterDefaultAddress.area} ${filterDefaultAddress.detail}`}}
+            {{`${defaultAddress.province} ${defaultAddress.city} ${defaultAddress.area} ${defaultAddress.detail}`}}
           </el-col>
           <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2" class="text-right">
             <i class="el-icon-arrow-right"></i>
@@ -87,7 +87,7 @@
           <el-row type="flex" justify="start" align="middle" class="text-right mb20">
             <el-col :xs="0" :sm="12" :md="12" :lg="12" :xl="12" class="h3">应付总金额:</el-col>
             <el-col :xs="0" :sm="12" :md="12" :lg="12" :xl="12">
-                <el-button type="text" class="h1 padding-0">{{cartListsTotal}}</el-button>
+                <el-button type="text" class="h1 padding-0">{{cartListsTotal.totalPrice}}</el-button>
               </el-col>
           </el-row>
         </el-col>
@@ -103,10 +103,10 @@
     <el-container direction="vertical">
       <el-row type="flex" justify="start" align="middle">
         <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" class="h1">
-          <el-button type="primary" :loading="isLoading" class="width-100 pt20 pb20" @click="handleOrderAddAction(cartLists)">提交订单，去支付</el-button>
+          <el-button type="primary" :loading="isLoading" class="width-100 pt20 pb20" @click="handleOrdersAddAction(cartLists)">提交订单，去支付</el-button>
         </el-col>
         <el-col :xs="0" :sm="24" :md="24" :lg="24" :xl="24" class="text-right">
-          <el-button type="primary" :loading="isLoading" @click="handleOrderAddAction(cartLists)" style="width: 300px;">提交订单，去支付</el-button>
+          <el-button type="primary" :loading="isLoading" @click="handleOrdersAddAction(cartLists)" style="width: 300px;">提交订单，去支付</el-button>
         </el-col>
       </el-row>
       <el-row type="flex" justify="start" align="middle">

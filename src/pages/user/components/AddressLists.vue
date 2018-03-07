@@ -1,6 +1,6 @@
 <template>
 <el-container direction="vertical">
-  <el-table :data="modifyAddressLists" stripe style="width: 100%" class="mb20" v-if="modifyAddressLists && modifyAddressLists.length">
+  <el-table :data="addressLists" stripe style="width: 100%" class="mb20" v-if="addressLists && addressLists.length">
     <el-table-column
       prop="nickName"
       label="联系人"
@@ -41,11 +41,12 @@
 </el-container>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { createNamespacedHelpers } from 'vuex'
+const { mapState, mapActions } = createNamespacedHelpers('address')
 export default {
   name: 'AddressLists',
   computed: {
-    ...mapGetters(['modifyAddressLists'])
+    ...mapState(['addressLists'])
   },
   methods: {
     ...mapActions(['generateAddressListsAction', 'handleAddressDeleteAction'])
