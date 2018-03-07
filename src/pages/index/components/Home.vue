@@ -1,9 +1,10 @@
 <template>
   <el-container direction="vertical">
-    <SwiperCommon :instance="silderNames">
+    <SwiperCommon :instance="silderNames" h="70vh">
       <SilderPage01 slot="SilderPage01" />
       <SilderPage02 slot="SilderPage02" />
     </SwiperCommon>
+    <Products />
   </el-container>
 </template>
 
@@ -11,12 +12,14 @@
 import SwiperCommon from 'components/SwiperCommon.vue'
 import SilderPage01 from './SilderPage01.vue'
 import SilderPage02 from './SilderPage02.vue'
+import Products from './Products.vue'
 export default {
   name: 'Home',
   components: {
     SwiperCommon,
     SilderPage01,
-    SilderPage02
+    SilderPage02,
+    Products
   },
   data () {
     return {
