@@ -28,7 +28,8 @@
 </template>
 <script>
 import ProductSpceDatas from './ProductSpceDatas.vue'
-import { mapGetters, mapMutations } from 'vuex'
+import { createNamespacedHelpers } from 'vuex'
+const { mapGetters, mapMutations } = createNamespacedHelpers('products')
 export default {
   name: 'ProductIntroduce',
   components: {

@@ -8,7 +8,8 @@
         <el-col>
           <el-radio
             border
-            v-model="selectSpecDatas[specData.specId]"
+            :value="selectSpecDatas[specData.specId]"
+            @change="handleSpecDatasMutation({ key: specData.specId, value: spec.Cid })"
             v-for="(spec, innerIndex) in specData.specSub"
             :label="spec.Cid"
             :key="innerIndex">{{spec.Name}}</el-radio>
@@ -19,11 +20,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { createNamespacedHelpers } from 'vuex'
+const { mapState, mapMutations } = createNamespacedHelpers('products')
 export default {
   name: 'ProductSpceDatas',
   computed: {
     ...mapState(['specDatas', 'selectSpecDatas'])
+  },
+  methods: {
+    ...mapMutations(['handleSpecDatasMutation'])
   }
 }
 </script>

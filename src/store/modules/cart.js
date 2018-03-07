@@ -1,4 +1,6 @@
+import Common from 'modules/service/CommonServices.js'
 import Cart from 'modules/service/CartServices.js'
+
 const cart = {
   namespaced: true,
   state: {
@@ -61,6 +63,21 @@ const cart = {
         commit('handleLoading', { root: true })
         if (res.ret === 1001) {
           dispatch('generateCartListsAction')
+        }
+        if (res.ret === 1002) {
+          window.confirm(res.code)
+        }
+      })
+    },
+    handleCartAddAction ({ dispatch, commit, rootState }, instance) {
+      commit('generateUserInfoCheck', null, { root: true })
+      commit('handleLoading', null, { root: true })
+      let userId = rootState.userInfo.UserId
+      let { goodsId, specId, specName, number } = instance
+      Cart.AddShopCart({userId, goodsId, specId, specName, number}).then(res => {
+        commit('handleLoading', null, { root: true })
+        if (res.ret === 1001) {
+          Common.handleRedirectPage('cart')
         }
         if (res.ret === 1002) {
           window.confirm(res.code)
