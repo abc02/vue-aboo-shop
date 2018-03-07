@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ABOO阿布跑跑-智慧鞋垫</title>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+    .bottom-fixed{
+      z-index: 999;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" v-cloak>
+    <router-view></router-view>
+    <!-- <el-container>
+      <el-header>
+        <navigation-bar></navigation-bar>
+      </el-header>
+      <el-main v-loading="loading">
+        <product
+          :loading="loading"
+          :goods-info="goodsInfo"
+          :price-list="priceList"
+          :spec-datas="specDatas"
+          :select-spec-datas="selectSpecDatas"
+          :current-goods="currentGoods"
+          :number="number"
+          @on-handle-change-goods-number="handleChangeGoodsNumber"
+          @on-handle-click-cart-add="handleClickCartAdd">
+        </product>
+        <el-row v-if="currentGoods" type="flex" justify="center" align="middle">
+          <el-col :xs="24" :sm="20" :md="20" :lg="20" :xl="20">
+            <el-row type="flex" align="middle" class="bottom-fixed">
+              <el-col :xs="2" :sm="0" :md="0" :lg="0" :xl="0" :offset="1">
+                <img :src="currentGoods.Img" :alt="currentGoods.specName" class="goods-image"/>
+              </el-col>
+              <el-col :xs="8" :sm="0" :md="0" :lg="0" :xl="0" :offset="1">
+                ￥{{Number.parseFloat(currentGoods.Price).toFixed(2)}}
+              </el-col>
+              <el-col :xs="12" :sm="0" :md="0" :lg="0" :xl="0" class="text-right pt10 pb10 pr10">
+                <el-button type="primary" @click="handleClickCartAdd(currentGoods)">加入购物车</el-button>
+              </el-col>
+            </el-row>
+          </el-col>
+        </el-row> -->
+        <!-- <cart-button-fixed
+          :current-goods="currentGoods"
+          :number="number"
+          @on-handle-click-cart-add="handleClickCartAdd">
+        </cart-button-fixed> -->
+        <!-- <cart-add-dialog
+          :cart-status="cartStatus"
+          @on-handle-click-cart-status="handleClickCartStatus"
+          @on-handle-click-redirect-page="handleClickRedirectPage">
+        </cart-add-dialog>
+      </el-main>
+    </el-container> -->
+  </div>
+<script type="text/javascript" src="/product.js"></script></body>
+
+</html>

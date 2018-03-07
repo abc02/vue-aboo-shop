@@ -1,84 +1,102 @@
-<style lang="scss">
-.user-info-icon{
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  overflow: hidden;
-  border-radius: 50%;
-}
-.border-bottom {
-  border-bottom: solid 1px #e6e6e6;
-  .el-menu--horizontal {
-    border-bottom: none;
-  }
-}
-</style>
-
 <template>
-  <el-row class="border-bottom">
-    <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-      <el-row type="flex" align="middle">
-        <el-col :xs="24" :sm="24" :md="{span:3,offset:16}" :lg="{span:3,offset:16}" :xl="{span:3,offset:16}" class="text-center">
-          <el-menu :default-active="activeIndex" mode="horizontal" background-color="#ffffff" text-color="#000000" active-text-color="#f6655e">
-            <el-menu-item index="1" @click="handClickRedirectPage('index')">首页</el-menu-item>
-            <el-menu-item index="2" @click="handClickRedirectPage('help')">帮助</el-menu-item>
+  <el-row type="flex" justify="center" align="middle" class="border-bottom bg-white height-100">
+    <el-col :xs="24" :sm="20" :md="20" :lg="20" :xl="20">
+      <el-row type="flex" justify="space-between" align="middle">
+        <el-col :xs="0" :sm="16" :md="16" :lg="16" :xl="16">
+           <el-menu :default-active="activeIndex" mode="horizontal" background-color="#ffffff" text-color="#000000" active-text-color="#f6655e">
+            <el-menu-item index="1" @click="handleClickRedirectPage('index')">首页</el-menu-item>
+            <el-menu-item index="2" @click="handleClickRedirectPage('index', { page: 'help'})">帮助</el-menu-item>
           </el-menu>
         </el-col>
-        <el-col :xs="24" :sm="24" :md="1" :lg="1" :xl="1" class="text-center">
-          <el-button type="primary" size="mini" @click="handClickRedirectPage('product', {goodsId: 1})">商城</el-button>
-        </el-col>
-        <el-col :xs="24" :sm="24" :md="1" :lg="1" :xl="1" class="text-center">
-          <el-button v-if="!userInfo" type="text" @click="handClickRedirectPage('login')">登录</el-button>
-          <el-dropdown v-else>
-            <span class="el-dropdown-link">
-              <img :src="userInfo.Icon" alt="头像" class="user-info-icon">
-            </span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="handClickRedirectPage('user')">我的账号</el-dropdown-item>
-              <el-dropdown-item @click.native="handleClickRedirectLogOut">登出</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+        <el-col :xs="0" :sm="4" :md="4" :lg="4" :xl="4">
+          <el-row type="flex" justify="start" align="middle">
+            <el-col :xs="0" :sm="12" :md="12" :lg="12" :xl="12" class="text-center">
+              <el-button type="primary" size="mini" @click="handleClickRedirectPage('product', {goodsId: 7})">商城</el-button>
+            </el-col>
+            <el-col :xs="0" :sm="12" :md="12" :lg="12" :xl="12" class="text-center">
+              <el-button v-if="!userInfo" type="text" @click="handleClickRedirectPage('login')">登录</el-button>
+              <el-dropdown v-else>
+                <div style="width: 40px; overflow: hidden; border-radius: 50%;">
+                  <img :src="userInfo.Icon" alt="头像" >
+                </div>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item @click.native="handleClickRedirectPage('user')">我的账号</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleClickSessionStorageUserInfoOut">登出</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </el-col>
+          </el-row>
         </el-col>
       </el-row>
+      <el-row type="flex" justify="start" align="middle">
+        <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0">
+          <el-row type="flex" justify="start" align="middle">
+            <el-col :xs="4" :sm="0" :md="0" :lg="0" :xl="0" class="text-center">
+              <el-button type="text" size="medium" @click="isChildBar = true" icon="el-icon-menu" class="h1"></el-button>
+            </el-col>
+            <el-col :xs="16" :sm="0" :md="0" :lg="0" :xl="0" class="text-center">ABOO商城</el-col>
+            <el-col :xs="4" :sm="0" :md="0" :lg="0" :xl="0"></el-col>
+          </el-row>
+        </el-col>
+      </el-row>
+      <el-dialog
+        title="ABOO商城"
+        center
+        :visible.sync="isChildBar"
+        top="60px"
+        :fullscreen="true">
+        <el-container direction="vertical" class="bg-white pl10 pr10">
+          <el-container direction="vertical">
+            <el-row type="flex" justify="start" align="middle" class="border-bottom pt10 pb10" @click.native="handleClickRedirectPage('user')" v-if="userInfo">
+              <el-col :xs="22" :sm="0" :md="0" :lg="0" :xl="0">我的账号</el-col>
+              <el-col :xs="2" :sm="0" :md="0" :lg="0" :xl="0" class="text-center">
+                <i class="el-icon-arrow-right"></i>
+              </el-col>
+            </el-row>
+            <el-row type="flex" justify="start" align="middle" class="border-bottom pt10 pb10" @click.native="handleClickRedirectPage('login')" v-else>
+              <el-col :xs="22" :sm="0" :md="0" :lg="0" :xl="0">我的账号</el-col>
+              <el-col :xs="2" :sm="0" :md="0" :lg="0" :xl="0" class="text-center">
+                <i class="el-icon-arrow-right"></i>
+              </el-col>
+            </el-row>
+          </el-container>
+          <el-container direction="vertical">
+            <el-row type="flex" justify="start" align="middle" class="border-bottom pt20 pb20">
+              <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" class="p bold">商品分类</el-col>
+            </el-row>
+            <el-row type="flex" justify="start" align="middle" class="pt10 pb10" @click.native="handleClickRedirectPage('product', { goodsId: 7 })">
+              <el-col :xs="22" :sm="0" :md="0" :lg="0" :xl="0">智慧鞋垫</el-col>
+              <el-col :xs="2" :sm="0" :md="0" :lg="0" :xl="0" class="text-center">
+                <i class="el-icon-arrow-right"></i>
+              </el-col>
+            </el-row>
+          </el-container>
+        </el-container>
+      </el-dialog>
     </el-col>
   </el-row>
-<!--<el-menu-item index="3" >产品</el-menu-item>
-  <el-menu-item index="4" v-if="!userInfo" >登录</el-menu-item>
-  <el-submenu v-else index="4">
-    <template slot="title">
-      <img :src="userInfo.Icon" alt="头像" class="user-info-icon">
-    </template>
-    <el-menu-item index="4-1" >我的账号</el-menu-item>
-    <el-menu-item index="4-2" @click="handleClickRedirectLogOut">登出</el-menu-item>
-  </el-submenu> -->
 </template>
 
 <script>
-import Vue from 'vue'
-import qs from 'qs'
-import VueSessionStorage from 'vue-sessionstorage'
-import NavigationBase from './NavigationBase'
-Vue.use(VueSessionStorage)
+import CommonBase from 'mixins/CommonBase'
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'NavigationBar',
   props: ['activeIndex'],
-  extends: NavigationBase,
+  mixins: [CommonBase],
   data () {
     return {
-      userInfo: null
+      isChildBar: false
     }
+  },
+  computed: {
+    ...mapState(['userInfo'])
   },
   methods: {
-    handleClickRedirectLogOut () {
-      this.$session.remove('userInfo')
-      location.reload()
-    }
+    ...mapMutations(['generateUserInfo'])
   },
   created () {
-    let isUserInfo = this.$session.exists('userInfo')
-    if (!isUserInfo) return
-    let userInfoString = this.$session.get('userInfo')
-    this.userInfo = qs.parse(userInfoString)
+    this.generateUserInfo()
   }
 }
 </script>

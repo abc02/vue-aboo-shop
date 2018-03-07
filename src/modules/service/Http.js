@@ -26,18 +26,20 @@ export default class Http {
    * 判断请求是否成功
    */
   static isSuccess (res) {
+    // console.log(res)
+    // debugger
     const OUTER_STATUS = res.status
     const INNER_STATUS = res.data.ret
     // 请求错误
     if (OUTER_STATUS !== 200) {
       return false
     }
-    // 请求成功 1003 Token 超时
+    // 请求成功 1003 Token 超时或未登录，认证失败
     if (INNER_STATUS === 1003) {
-      // let sessionKey = sessionStorage.getItem('sessionKey')
-      // sessionStorage.removeItem(sessionKey)
-      // sessionStorage.removeItem('sessionKey')
-      // location.href = 'login.html'
+      let sessionKey = sessionStorage.getItem('sessionKey')
+      sessionStorage.removeItem(sessionKey)
+      sessionStorage.removeItem('sessionKey')
+      location.href = 'login.html'
     }
     return true
   }
@@ -62,10 +64,11 @@ export default class Http {
     // header['accept'] = 'application/json'
     // header['content-type'] = 'application/x-www-form-urlencoded'
     let sessionKey = sessionStorage.getItem('sessionKey')
-    let isUserInfo = sessionStorage.getItem(sessionKey)
-    if (!isUserInfo) return
     let userInfoString = sessionStorage.getItem(sessionKey)
-    let userInfo = qs.parse(userInfoString)
+    // if (!userInfoString) {
+    //   location.href = 'login.html'
+    // }
+    let userInfo = JSON.parse(userInfoString)
     if (userInfo) {
       header['Authorization'] = userInfo.JwtToken
     }

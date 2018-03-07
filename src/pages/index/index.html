@@ -2,34 +2,20 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>ABOO阿布跑跑-孩子去哪儿，轻松知晓</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- <title>ABOO阿布跑跑-孩子去哪儿，轻松知晓</title> -->
   <style>
-    .el-header,
-    .el-main,
-    .el-footer {
-      padding: 0 !important;
-    }
-    .el-header {
-      z-index: 109;
+    [v-cloak] {
+      display: none;
     }
   </style>
 </head>
 
 <body>
-  <div id="app" v-cloak>
-    <el-container>
-      <el-header>
-        <navigation-bar active-index="1"></navigation-bar>
-      </el-header>
-      <el-main>
-        <swiper> </swiper>
-        <product-introduction> </product-introduction>
-      </el-main>
-      <el-footer height="20vh" :style="footStyle">
-        <foot> </foot>
-      </el-footer>
-    </el-container>
+  <div id="app" v-cloak class="bg-gray">
+      <router-view></router-view>
   </div>
 </body>
 

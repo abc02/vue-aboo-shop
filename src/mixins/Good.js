@@ -1,4 +1,3 @@
-// 商品车组件
 // 服务层组件
 import ShopServices from 'modules/service/ShopServices.js'
 
@@ -7,38 +6,29 @@ export default {
     goodsInfo: null,
     priceList: null,
     specDatas: null,
-    selectSpecDatas: {},
-    currentGoods: null,
+    selectSpecDatas: null,
     number: 1
   },
   computed: {
-    selectSpecData () {
-      if (this.specDatas && this.specDatas.length) {
-        let SpecId = []
+    specIdArray () {
+      if (this.specDatas && this.specDatas.length && this.selectSpecDatas) {
+        let arr = []
         let keys = Object.keys(this.selectSpecDatas)
         keys.forEach(key => {
-          SpecId.push(this.selectSpecDatas[key])
+          arr.push(this.selectSpecDatas[key])
         })
-        return SpecId
+        return arr
       }
-      return null
+      return []
     },
-    total () {
-      if (this.currentGoods) {
-        let total = this.currentGoods.Price * this.number
-        return `￥${total}`
-      }
-      return null
-    }
-  },
-  watch: {
-    selectSpecData () {
-      if (this.priceList && this.priceList.length && this.selectSpecData && this.selectSpecData.length === 3) {
+    currentGoods () {
+      if (this.priceList && this.priceList.length && this.specIdArray && this.specIdArray.length) {
+        let currentGoods = null
         let spceArray = []
-        let spceId = this.selectSpecData.join(',')
+        let spceId = this.specIdArray.join(',')
         this.priceList.forEach(Good => {
           if (Good.SpecId === spceId) {
-            this.currentGoods = Good
+            currentGoods = Good
           }
         })
         for (let key in this.selectSpecDatas) {
@@ -55,27 +45,36 @@ export default {
             }
           })
         }
-        this.currentGoods.specName = spceArray.join('|')
+        currentGoods.specName = spceArray.join('|')
+        currentGoods.number = this.number
+        return currentGoods
       }
       return null
     }
   },
   methods: {
-    handleChangeNumber (newNunber) {
-      if (!this.currentGoods) return this.$message.error('请选择规格')
-      this.currentGoods.number = newNunber
+    handleChangeGoodsNumber (newValue) {
+      this.number = newValue
     },
-    handleGetGoodsSpec (formData) {
+    generateGetGoodsSpec (formData) {
       this.handleLoading()
       ShopServices.GetGoodsSpec(formData).then(res => {
         this.handleLoading()
         if (res.ret === 1001) {
-          this.goodsInfo = res.goodsinfo
-          this.priceList = res.priceList
-          this.specDatas = res.specDatas
+          let {goodsinfo, priceList, specDatas} = res
+          this.goodsInfo = goodsinfo
+          this.priceList = priceList
+          this.specDatas = specDatas
+          let selectSpecDatas = {}
+          specDatas.forEach(specData => {
+            selectSpecDatas[specData.specId] = specData.specSub[0].Cid
+          })
+          // selectSpecDatas[this.specDatas[0].specId] = this.specDatas[0].specSub[0].Cid
+          this.selectSpecDatas = selectSpecDatas
         }
         if (res.ret === 1002) {
           this.$message.info(res.code)
+          this.handleClickRedirectPage('product', {goodsId: 7})
         }
       })
     }

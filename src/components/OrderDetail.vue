@@ -17,12 +17,12 @@
     <el-main v-loading="loading" v-if="orderADetail && orderBList">
       <el-row type="flex" justify="space-between" align="middle">
         <el-col :span="12">订单号：{{orderId}}</el-col>
-        <el-col :span="3" class="right-center">
+        <!-- <el-col :span="3" class="right-center">
             <el-button
               size="mini"
               type="primary"
               >继续支付</el-button>
-        </el-col>
+        </el-col> -->
       </el-row>
       <el-row>
         <el-col>
@@ -39,7 +39,7 @@
           支付状态：
         </el-col>
         <el-col :span="3">
-          {{modifyOrderADetailail.Status}}
+          {{modifyOrderADetailail.Status.text}}
         </el-col>
       </el-row>
       <el-row class="order-el-row">
@@ -98,7 +98,7 @@
               label="价格"
               width="120">
                 <template slot-scope="scope">
-                     {{`￥${scope.row.Price}.00`}}
+                   {{`￥${Number.parseFloat(scope.row.Price).toFixed(2)}`}}
                 </template>
             </el-table-column>
             <el-table-column
@@ -112,7 +112,7 @@
               label="小计"
               width="120">
               <template slot-scope="scope">
-                {{`￥${scope.row.Number * scope.row.Price}.00`}}
+                {{`￥${Number.parseFloat(scope.row.Number * scope.row.Price).toFixed(2)}`}}
               </template>
             </el-table-column>
           </el-table>
@@ -126,14 +126,14 @@
           {{modifyOrderBListArr.total}}
         </el-col>
       </el-row>
-     <el-row class="order-el-row right-center" type="flex" justify="end" align="middle">
+     <!-- <el-row class="order-el-row right-center" type="flex" justify="end" align="middle">
         <el-col :span="3">
             运费：
         </el-col>
         <el-col :span="3">
           +￥0.00
         </el-col>
-      </el-row>
+      </el-row> -->
       <el-row class="order-el-row right-center" type="flex" justify="end" align="middle">
         <el-col :span="3">
             总计：
@@ -163,10 +163,10 @@ export default {
       let address = JSON.parse(this.orderADetail.Address)
       let date = Number.parseInt(this.orderADetail.CreateTime + '000')
       obj.Address = `${address.Province} ${address.City} ${address.Area} ${address.Detail} ${address.NickName} ${address.Phone}`
-      obj.Pirce = `¥${this.orderADetail.Price}.00`
+      obj.Pirce = `￥${Number.parseFloat(this.orderADetail.Price).toFixed(2)}`
       obj.CreateTime = this.handleOrderCreateTimeText(date)
       obj.Status = this.handleOrderStatusArrayText(this.orderADetail)
-      obj.PayType = '支付宝'
+      obj.PayType = '在线支付'
       return obj
     },
     modifyOrderBListArr () {
@@ -177,17 +177,18 @@ export default {
       })
       return {
         arr,
-        total: `￥${total}.00`
+        total: `￥${Number.parseFloat(total).toFixed(2)}`
       }
     }
   },
-  methods: {
-    handleClickOrderStatus (status) {
-      this.$emit('on-handle-click-order-status', status)
-    }
-  },
+  // methods: {
+  //   handleClickOrderStatus (status) {
+  //     this.$emit('on-handle-click-order-status', status)
+  //   }
+  // },
   created () {
-    this.$emit('on-handle-get-order-detail', this.orderId)
+    this.generateGetOrderDetail(this.orderId)
+    // this.$emit('on-handle-get-order-detail', this.orderId)
   }
 }
 </script>

@@ -14,7 +14,7 @@
 </style>
 
 <template>
-  <el-container class="wraper" direction="vertical" v-loading>
+  <el-container direction="vertical" v-loading="loading">
     <el-row>
       <el-col class="h1">提交订单</el-col>
     </el-row>

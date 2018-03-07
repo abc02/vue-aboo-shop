@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>阿布跑跑-购物车</title>
+  <!-- <title></title> -->
   <style>
     [v-cloak] {
       display: none;
@@ -14,26 +14,8 @@
 </head>
 
 <body>
-  <div id="app" v-cloak>
-    <el-container>
-      <el-header>
-        <navigation-bar></navigation-bar>
-      </el-header>
-      <el-main>
-        <cart-list 
-          :cart-lists="cartLists"
-          @on-handle-click-redirect-buy="handleClickRedirectBuy"
-          @on-handle-click-redirect-product="handleClickRedirectProduct"
-          @on-handle-click-cart-delete="handleClickCartDelete">
-        </cart-list>
-      </el-main>
-      <el-footer height="auto">
-        <foot></foot>
-      </el-footer>
-    </el-container>
-
-
+  <div id="app" v-cloak class="bg-gray">
+    <router-view></router-view>
   </div>
 </body>
-
 </html>

@@ -13,7 +13,7 @@
       <sign-code @on-handle-click-send-sms="handleClickSendSms(formData, 2)" ref="signcode"/>
     </el-form-item>
      <el-form-item>
-      <el-input v-model="formData.password" @keyup.native.enter="PhoneRegisterAccount" type="password" placeholder="新密码"></el-input>
+      <el-input v-model="formData.password" @keyup.native.enter="handleClickPhoneSignUp(formData)" type="password" placeholder="新密码"></el-input>
     </el-form-item>
     <el-form-item>
       <el-button class="width-100" type="primary" @click="handleClickPhoneSignUp(formData)">注册</el-button>

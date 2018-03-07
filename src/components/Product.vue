@@ -1,55 +1,155 @@
-<style lang="scss">
-  .image {
-    width: 100%;
-    display: block;
-  }
-</style>
-
 <template>
-    <el-container direction="vertical" v-if="goodsinfo && priceList && specDatas">
+  <el-row v-if="goodsInfo && priceList && specDatas && currentGoods" type="flex" justify="center" align="middle">
+    <el-col :xs="24" :sm="20" :md="20" :lg="20" :xl="20">
+      <!-- PC HTML -->
       <el-row>
-        <el-col :span="12">
-          <image src="//ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1389304265,2918777290&fm=27&gp=0.jpg" class="image"/>
+        <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+          <img :src="currentGoods.Img" alt="">
         </el-col>
-        <el-col :span="12">
+        <el-col :xs="0" :sm="12" :md="12" :lg="12" :xl="12">
           <el-row>
-            <el-col :span="24">{{goodsInfo.Title}}</el-col>
+            <el-col class="h1">{{goodsInfo.GoodsName}}</el-col>
           </el-row>
           <el-row>
-            <el-col :span="24">{{goodsInfo.Intr}}</el-col>
+            <el-col class="h2">{{goodsInfo.Intr}}</el-col>
+          </el-row>
+          <product-spec-datas
+            :select-spec-datas="selectSpecDatas"
+            :spec-datas="specDatas">
+          </product-spec-datas>
+          <el-row>
+            <el-col class="h3">数量</el-col>
+          </el-row>
+          <el-row>
+            <el-col>
+              <el-input-number @change="handleChangeGoodsNumber" :value="number" :min="1" :max="10" label="数量"></el-input-number>
+            </el-col>
+          </el-row>
+          <el-row type="flex" justify="start" align="middle">
+            <!-- <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6">
+              <el-button type="primary">立即购买</el-button>
+            </el-col> -->
+            <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6">
+              <el-button type="primary" @click="handleClickCartAdd(currentGoods)">加入购车</el-button>
+            </el-col>
           </el-row>
         </el-col>
       </el-row>
-    </el-container>
+      <!-- MODILE HTML -->
+      <el-row>
+        <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" class="h1">{{goodsInfo.GoodsName}}</el-col>
+      </el-row>
+      <el-row>
+        <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" class="h2">{{goodsInfo.Intr}}</el-col>
+      </el-row>
+      <el-row>
+        <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0">
+          <product-spec-datas
+            :select-spec-datas="selectSpecDatas"
+            :spec-datas="specDatas">
+          </product-spec-datas>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" class="h3">数量</el-col>
+      </el-row>
+      <el-row>
+        <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0">
+          <el-input-number @change="handleChangeGoodsNumber" :value="number" :min="1" :max="10" label="数量"></el-input-number>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0">xxx</el-col>
+      </el-row>
+        <el-row>
+        <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0">xxx</el-col>
+      </el-row>
+        <el-row>
+        <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0">xxx</el-col>
+      </el-row>
+      </el-col>
+  </el-row>
+  <!-- <el-container direction="vertical" v-if="goodsInfo && priceList && specDatas">
+    <el-row :gutter="20" type="flex" justify="center" align="top">
+      <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+        <el-row type="flex" justify="end" align="middle">
+          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+            <img v-if="currentGoods" :src="currentGoods.Img" alt="">
+          </el-col>
+        </el-row>
+      </el-col>
+      <el-col :xs="0" :sm="12" :md="12" :lg="12" :xl="12" >
+        <el-row>
+          <el-col class="h1">
+            {{goodsInfo.GoodsName}}
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col class="h2">
+            {{goodsInfo.Intr}}
+          </el-col>
+        </el-row>
+        <product-spec-datas
+          class="el-row"
+          :select-spec-datas="selectSpecDatas"
+          :spec-datas="specDatas">
+        </product-spec-datas>
+        <el-row>
+          <el-col class="h3">数量</el-col>
+        </el-row>
+        <el-row>
+          <el-col>
+            <el-input-number @change="handleChangeGoodsNumber" :value="number" :min="1" :max="10" label="数量"></el-input-number>
+          </el-col>
+        </el-row>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" class="h1">
+        {{goodsInfo.GoodsName}}
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" class="h2">
+        {{goodsInfo.Intr}}
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0">
+       <product-spec-datas
+          :select-spec-datas="selectSpecDatas"
+          :spec-datas="specDatas"></product-spec-datas>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" class="h3">数量</el-col>
+    </el-row>
+    <el-row>
+      <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0">
+         <el-input-number @change="handleChangeGoodsNumber" :value="number" :min="1" :max="10" label="数量"></el-input-number>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0">xxx</el-col>
+    </el-row>
+      <el-row>
+      <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0">xxx</el-col>
+    </el-row>
+      <el-row>
+      <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0">xxx</el-col>
+    </el-row>
+  </el-container> -->
 </template>
 
 <script>
-import axios from 'axios'
-import qs from 'qs'
-import API from 'utils/api'
-
-let { goodsId } = qs.parse(location.search.substr(1))
-
+import ProductBase from './ProductBase'
+import ProductSpceDatas from './ProductSpceDatas'
 export default {
   name: 'Product',
-  data () {
-    return {
-      goodsInfo: null,
-      priceList: null,
-      specDatas: null
-    }
-  },
-  methods: {
-    redirectToCart () {
-      location.href = 'cart.html'
-    }
-  },
-  async created () {
-    let res = await axios.post(API.GetGoodsSpec, { goodsId })
-    console.log(res)
-    this.goodsInfo = res.data.goodsinfo
-    this.priceList = res.data.priceList
-    this.specDatas = res.data.specDatas
+  extends: ProductBase,
+  props: ['goodsInfo', 'priceList', 'specDatas', 'selectSpecDatas', 'currentGoods', 'number'],
+  components: {
+    'product-spec-datas': ProductSpceDatas
   }
 }
 </script>

@@ -69,7 +69,7 @@
 
 <template>
   <div class="aboo">
-    <el-container class="wraper">
+    <el-container direction="vertical" class="wraper">
       <el-row class="container">
         <ul class="preview-container">
           <li class="preview-item"

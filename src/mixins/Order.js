@@ -1,6 +1,3 @@
-// 订单组件
-import OrderList from 'components/OrderList'
-import OrderDetail from 'components/OrderDetail'
 // 服务层组件
 import ShopServices from 'modules/service/ShopServices.js'
 export default {
@@ -14,23 +11,20 @@ export default {
     firstGet: true
   },
   computed: {
-    total () {
-      if (this.orderLists && this.orderLists.length) {
-        return this.orderLists.length
-      }
-      return 0
-    }
-  },
-  components: {
-    'order-list': OrderList,
-    'order-detail': OrderDetail
+    // total () {
+    //   if (this.orderLists && this.orderLists.length) {
+    //     return this.orderLists.length
+    //   }
+    //   return 0
+    // }
   },
   methods: {
     handleClickOrderStatus (status, orderId) {
       if (status === '2') { this.orderId = orderId }
       this.orderStatus = status
     },
-    handleGetOrderLists (limit) {
+    generateGetOrderLists (limit) {
+      this.generateCheckUserInfo()
       let userId = this.userInfo.UserId
       this.handleLoading()
       ShopServices.GetOrderList({userId, limit}).then(res => {
@@ -42,9 +36,14 @@ export default {
         if (res.ret === 1002) {
           this.$message(res.code)
         }
+        if (res.ret === 1003) {
+          this.handleClickRedirectLogOut()
+          this.handleClickRedirectPage('login')
+        }
       })
     },
-    handleGetOrderDetail (orderId) {
+    generateGetOrderDetail (orderId) {
+      this.generateCheckUserInfo()
       let userId = this.userInfo.UserId
       this.handleLoading()
       ShopServices.GetOrderDetail({userId, orderId}).then(res => {
@@ -55,6 +54,10 @@ export default {
         }
         if (res.ret === 1002) {
           this.$message.error(res.code)
+        }
+        if (res.ret === 1003) {
+          this.handleClickRedirectLogOut()
+          this.handleClickRedirectPage('login')
         }
       })
     },
@@ -84,10 +87,14 @@ export default {
       ShopServices.AddOrder(formData).then(res => {
         this.handleLoading()
         if (res.ret === 1001) {
-          this.handleAsyncPay.call(null, res)
+          this.handleBcPay(res)
         }
         if (res.ret === 1002) {
           this.$message(res.code)
+        }
+        if (res.ret === 1003) {
+          this.handleClickRedirectLogOut()
+          this.handleClickRedirectPage('login')
         }
       })
     }

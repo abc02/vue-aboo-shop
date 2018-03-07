@@ -15,12 +15,15 @@
     "axios": "^0.17.1",
     "element-ui": "^2.0.11",
     "fonts.css": "^1.5.0",
+    "mint-ui": "^2.2.13",
     "normalize.css": "^7.0.0",
     "qs": "^6.5.1",
     "swiper": "^4.1.0",
     "vue": "^2.5.2",
     "vue-area-linkage": "^1.2.6",
-    "vue-sessionstorage": "^1.0.0"
+    "vue-router": "^3.0.1",
+    "vue-sessionstorage": "^1.0.0",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>阿布跑跑-提交订单</title>
+  <!-- <title>阿布跑跑-购买结算</title> -->
   <style>
     [v-cloak] {
       display: none;
@@ -14,25 +14,77 @@
 </head>
 
 <body>
-  <div id="app">
-    <el-container>
-      <el-header>
-        <navigation-bar></navigation-bar>
-      </el-header>
-      <el-main>
-        <buy-list 
-          :address-lists="addressLists" 
-          :cart-lists="cartLists" :loading="loading" 
-          @on-handle-click-address-update="handleClickAddressUpdate"
-          @on-handle-click-address-delete="handleClickAddressDelete" 
-          @on-handle-click-address-switch-default="handleClickAddressSwitchDefault"
+  <div id="app" v-cloak class="bg-gray">
+    <router-view></router-view>
+        <!-- <address-preview-lists
+          :address-lists="addressLists"
+          :address-status="addressStatus"
+          @on-handle-click-address-add="handleClickAddressAdd"
+          @on-handle-click-address-status="handleClickAddressStatus">
+        </address-preview-lists>
+        <address-lists-mobile
+          :address-lists="addressLists"
+          @on-handle-click-address-add="handleClickAddressAdd"
+          @on-handle-click-address-status="handleClickAddressStatus"
+          @on-generate-get-address-lists="generateGetAddressLists">
+        </address-lists-mobile>
+        <order-detail-preview-lists
+          :loading="loading"
+          :address-lists="addressLists"
+          :cart-lists="cartLists"
+          @on-handle-click-redirect-page="handleClickRedirectPage"
           @on-handle-click-order-add="handleClickOrderAdd">
-        </buy-list>
-      </el-main>
-      <el-footer height="auto">
-        <foot></foot>
-      </el-footer>
-    </el-container>
+        </order-detail-preview-lists> -->
+        <!-- <el-row type="flex" justify="center" align="middle">
+          <el-col :xs="24" :sm="20" :md="20" :lg="20" :xl="20">
+            <el-row type="flex" justify="end" align="middle" class="text-right">
+              <el-col :xs="0" :sm="3" :md="3" :lg="3" :xl="3">
+                商品总价：
+              </el-col>
+              <el-col :xs="0" :sm="3" :md="3" :lg="3" :xl="3">
+                {{total}}
+              </el-col>
+            </el-row> -->
+            <!-- <el-row type="flex" justify="end" align="middle">
+              <el-col :xs="0" :sm="3" :md="3" :lg="3" :xl="3" class="text-right">
+                运费：
+              </el-col>
+              <el-col :xs="12" :sm="0" :md="0" :lg="0" :xl="0" class="text-left">
+                运费：
+              </el-col>
+              <el-col :xs="12" :sm="3" :md="3" :lg="3" :xl="3" class="text-right">
+                ¥0.00
+              </el-col>
+            </el-row> -->
+            <!-- <el-row type="flex" justify="end" align="middle">
+              <el-col :xs="0" :sm="3" :md="3" :lg="3" :xl="3" class="text-right">
+                应付总额：	
+              </el-col>
+              <el-col :xs="12" :sm="0" :md="0" :lg="0" :xl="0" class="text-left">
+                应付总额：	
+              </el-col>
+              <el-col :xs="12" :sm="3" :md="3" :lg="3" :xl="3" class="text-right">
+                {{total}}
+              </el-col>
+            </el-row>
+            <el-row type="flex" justify="end" align="middle">
+              <el-col :xs="0" :sm="24" :md="24" :lg="24" :xl="24" class="text-right">
+                <el-button type="primary" :loading="loading" @click="handleClickOrderAdd(cartLists, mailAddress)">提交订单，去支付</el-button>
+              </el-col>
+              <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" class="text-right">
+                <el-button class="bottom-fixed width-100 pl20 pr20 pt20 pb20" type="primary" :loading="loading" @click="handleClickOrderAdd(cartLists, mailAddress)">提交订单，去支付</el-button>
+              </el-col>
+            </el-row>
+          </el-col>
+        </el-row> -->
+        <!-- <address-dialog
+          :loading="loading"
+          :fullscreen="false"
+          :address-form-data="addressFormData"
+          :address-status="addressStatus"
+          @on-handle-click-address-status="handleClickAddressStatus"
+          @on-handle-click-address-add="handleClickAddressAdd">
+        </address-dialog> -->
   </div>
   <script id='spay-script' src='https://jspay.beecloud.cn/1/pay/jsbutton/returnscripts?appId=3f1d3241-fa3b-4bdb-98fc-761334b70932'></script>
 </body>

@@ -1,19 +1,25 @@
-// 收货地址组件
-import AddressList from 'components/AddressList'
-import AddressAdd from 'components/AddressAdd'
-import AddressUpdate from 'components/AddressUpdate'
 // 服务层组件
 import ShopServices from 'modules/service/ShopServices'
 export default {
   data: {
     addressLists: null,
     addressUpdate: null,
-    addressStatus: 1 // 1 地址列表 2 添加表单 // 编辑表单
+    addressFormData: null,
+    addressStatus: 1 // 1 地址列表 2 添加表单 3 编辑表单 4 移动端列表
   },
-  components: {
-    'address-list': AddressList,
-    'address-add': AddressAdd,
-    'address-update': AddressUpdate
+  computed: {
+    mailAddress () {
+      if (this.addressLists && this.addressLists.length) {
+        let currentAddress
+        this.addressLists.slice(0).forEach(address => {
+          if (address.IsDefault === 1) {
+            currentAddress = address
+          }
+        })
+        return currentAddress
+      }
+      return null
+    }
   },
   methods: {
     handleClickAddressStatus (status, address) {
@@ -65,6 +71,7 @@ export default {
       }
     },
     handleClickAddressAdd (formData) {
+      console.log(formData)
       if (!this.handleCheckFormData(formData)) return
       let ModifyFormData = this.handleModifyFormData('add', formData)
       this.handleLoading()
@@ -72,10 +79,13 @@ export default {
         this.handleLoading()
         if (res.ret === 1001) {
           this.$message.success(res.code)
-          let timer = setTimeout(() => {
-            this.addressStatus = 1
-            clearTimeout(timer)
-          }, 800)
+          this.handleClickAddressStatus(1)
+          this.$nextTick(() => {
+            this.generateGetAddressLists()
+          })
+        }
+        if (res.ret === 1002) {
+          this.$message.error(res.code)
         }
       })
     },
@@ -137,8 +147,8 @@ export default {
         })
       }).catch(d => d)
     },
-    handleGetAddressLists () {
-      this.handleCheckUserInfo()
+    generateGetAddressLists () {
+      this.generateCheckUserInfo()
       let userId = this.userInfo.UserId
       this.handleLoading()
       ShopServices.GetAddressList({userId}).then(res => {
@@ -148,6 +158,7 @@ export default {
         }
         if (res.ret === 1002) {
           this.addressLists = null
+          this.handleClickAddressStatus(2)
         }
       })
     }
