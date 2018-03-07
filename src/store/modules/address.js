@@ -120,7 +120,7 @@ const address = {
           commit('generateAddressListsMutation', res.data)
         }
         if (res.ret === 1002) {
-          window.confirm(res.code)
+          // window.confirm(res.code)
           // Router.push({ name: 'form', params: { type: 'add', isFirst: true } })
         }
       })
@@ -162,10 +162,10 @@ const address = {
         }
       })
     },
-    handleAddressDeleteAction ({ commit, state, dispatch }, addressId) {
+    handleAddressDeleteAction ({ dispatch, commit, rootState }, addressId) {
       if (!window.confirm('此操作将删除该收货地址, 是否继续?')) return
       commit('generateUserInfoCheck', null, { root: true })
-      let userId = state.userInfo.UserId
+      let userId = rootState.userInfo.UserId
       commit('handleLoading', null, { root: true })
       Address.DeleteAddress({addressId, userId}).then(res => {
         commit('handleLoading', null, { root: true })
@@ -179,9 +179,9 @@ const address = {
         }
       })
     },
-    handleAddressSetDefaultAction ({ commit, dispatch, state }, addressId) {
+    handleAddressSetDefaultAction ({ dispatch, commit, rootState }, addressId) {
       commit('generateUserInfoCheck', null, { root: true })
-      let userId = state.userInfo.UserId
+      let userId = rootState.userInfo.UserId
       commit('handleLoading', null, { root: true })
       Address.UpdateAddressDefault({userId, addressId}).then(res => {
         commit('handleLoading', null, { root: true })

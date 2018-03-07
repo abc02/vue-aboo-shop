@@ -1,5 +1,6 @@
 import pca from 'modules/service/pca.json'
-import { mapState, mapActions } from 'vuex'
+import { mapState, createNamespacedHelpers } from 'vuex'
+const { mapActions } = createNamespacedHelpers('address')
 export default {
   name: 'AddressForm',
   props: ['type', 'instance'],
@@ -39,7 +40,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['handleAddressDeleteAction', 'handleAddressSetDefaultAction', 'handleAddressUpdateAction', 'handleAddressAddAction']),
+    ...mapActions([
+      'handleAddressDeleteAction',
+      'handleAddressSetDefaultAction',
+      'handleAddressUpdateAction',
+      'handleAddressAddAction']),
     handleAddress () {
       // 合法校验&非空字符串
       let { nickName, phone, province, city, area, detail } = this
@@ -53,7 +58,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['isLoading', 'addressLists'])
+    ...mapState(['isLoading'])
   },
   watch: {
     addressLists: {
