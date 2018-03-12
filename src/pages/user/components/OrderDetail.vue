@@ -1,5 +1,5 @@
 <template>
-  <el-container direction="vertical" v-if="modifyOrderADetail && modifyOrderBLists">
+  <el-container direction="vertical" v-if="orderADetail && orderBList">
       <el-row type="flex" justify="start" align="middle" class="mb20">
         <el-col :xs="0" :sm="2" :md="2" :lg="2" :xl="2">
           <router-link :to="{ name: 'orderslists'}">
@@ -7,14 +7,14 @@
           </router-link>
         </el-col>
         <el-col :xs="0" :sm="18" :md="18" :lg="18" :xl="18">订单号：{{orderId}}</el-col>
-        <el-col :xs="0" :sm="4" :md="4" :lg="4" :xl="4" v-if="modifyOrderADetail.status.button" class="text-right">
-          <el-button size="mini" type="primary">{{modifyOrderADetail.status.button}}</el-button>
+        <el-col :xs="0" :sm="4" :md="4" :lg="4" :xl="4" v-if="orderADetail.status.button" class="text-right">
+          <el-button size="mini" type="primary">{{orderADetail.status.button}}</el-button>
         </el-col>
       </el-row>
       <el-container direction="vertical" class="border pt20 pb20 pl10 pr10">
         <el-row type="flex" justify="start" align="middle" class="pt20 pb20">
           <el-col :xs="0" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-steps :active="modifyOrderADetail.status.status - 1" align-center>
+            <el-steps :active="orderADetail.status.status - 1" align-center>
               <el-step title="下单"></el-step>
               <el-step title="支付成功"></el-step>
               <el-step title="已发货"></el-step>
@@ -28,7 +28,7 @@
               支付状态：
             </el-col>
             <el-col :xs="0" :sm="19" :md="19" :lg="19" :xl="19">
-              {{modifyOrderADetail.status.text}}
+              {{orderADetail.status.text}}
             </el-col>
           </el-row>
           <el-row type="flex" justify="start" align="middle" class="pt20 pb20 border-bottom">
@@ -36,7 +36,7 @@
               支付方式：
             </el-col>
             <el-col :xs="0" :sm="19" :md="19" :lg="19" :xl="19">
-              {{modifyOrderADetail.payType}}
+              {{orderADetail.payType}}
             </el-col>
           </el-row>
           <el-row type="flex" justify="start" align="middle" class="pt20 pb20 border-bottom">
@@ -44,7 +44,7 @@
               总金额：
             </el-col>
             <el-col :xs="0" :sm="19" :md="19" :lg="19" :xl="19">
-              {{modifyOrderADetail.price}}
+              {{orderADetail.price}}
             </el-col>
           </el-row>
           <el-row type="flex" justify="start" align="middle" class="pt20 pb20 border-bottom">
@@ -52,7 +52,7 @@
               下单时间：
             </el-col>
             <el-col :xs="0" :sm="19" :md="19" :lg="19" :xl="19">
-              {{modifyOrderADetail.createTime}}
+              {{orderADetail.createTime}}
             </el-col>
           </el-row>
           <el-row type="flex" justify="start" align="middle" class="pt20 pb20">
@@ -60,12 +60,12 @@
               收货地址：
             </el-col>
             <el-col :xs="0" :sm="19" :md="19" :lg="19" :xl="19">
-              {{modifyOrderADetail.address}}
+              {{orderADetail.address}}
             </el-col>
           </el-row>
         </el-container>
         <el-container direction="vertical" class="pl20 pr20">
-          <el-table :data="modifyOrderBLists" header-row-class-name="bg-gray" header-cell-class-name="bg-gray" style="width: 100%">
+          <el-table :data="orderBList" header-row-class-name="bg-gray" header-cell-class-name="bg-gray" style="width: 100%">
             <el-table-column
               width="70">
               <template slot-scope="scope">
@@ -105,7 +105,7 @@
                 商品总金额：
             </el-col>
             <el-col :xs="0" :sm="2" :md="2" :lg="2" :xl="2">
-              {{modifyOrderADetail.price}}
+              {{orderADetail.price}}
             </el-col>
           </el-row>
           <el-row type="flex" justify="start" align="middle" class="pt10 pb10 border-bottom text-right">
@@ -121,7 +121,7 @@
                 总计：
             </el-col>
             <el-col :xs="0" :sm="2" :md="2" :lg="2" :xl="2">
-              {{modifyOrderADetail.price}}
+              {{orderADetail.price}}
             </el-col>
           </el-row>
         </el-container>
@@ -130,18 +130,19 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { createNamespacedHelpers } from 'vuex'
+const { mapState, mapActions } = createNamespacedHelpers('orders')
 export default {
   name: 'OrderDetail',
   props: ['orderId'],
   computed: {
-    ...mapGetters(['modifyOrderADetail', 'modifyOrderBLists'])
+    ...mapState(['orderADetail', 'orderBList'])
   },
   methods: {
-    ...mapActions(['generateGetOrderDetailAction'])
+    ...mapActions(['generateOrdersDetailAction'])
   },
   created () {
-    this.generateGetOrderDetailAction(this.orderId)
+    this.generateOrdersDetailAction(this.orderId)
   }
 }
 </script>

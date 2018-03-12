@@ -1,5 +1,5 @@
 <template>
-  <el-container class="relative height-100">
+  <el-container class="relative height-100 bg-white">
     <el-container class="absolute-middle-center">
       <div class="relativer mr20">
         <img :src="preview" alt="preview" style="width: 237px; height: 399px" />

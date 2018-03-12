@@ -12,14 +12,14 @@
             {{userInfo.NickName}}
           </el-col>
         </el-row>
-        <el-row>
+        <!-- <el-row>
           <el-col>
             <router-link :to="{ name: 'profile' }">
               <el-button type="text">编辑我的个人资料</el-button>
             </router-link>
             <el-button type="text">修改密码</el-button>
           </el-col>
-        </el-row>
+        </el-row> -->
       </el-col>
     </el-row>
   </el-container>

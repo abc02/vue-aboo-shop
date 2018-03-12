@@ -136,8 +136,11 @@
     <div class="row row-1">
       <div class="logo-container">
         <img class="logo" :src="Logo" alt="">
-        <a class="download-button" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.gcs.mcj.insole">
-          <img class="download-image" :src="Download" alt="">
+        <a class="download-button border pt10 pb10" target="_blank" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.gcs.mcj.insole" style="color: white; border-radius:30px">
+          立即下载
+        </a>
+        <a class="download-button border pt10 pb10" target="_blank" href="store.html" style="color: white; border-radius:30px">
+          进入商城
         </a>
       </div>
       <div class="arrow-container">

@@ -1,6 +1,6 @@
 import Common from 'modules/service/CommonServices.js'
 import Order from 'modules/service/OrderServices.js'
-
+import Router from 'pages/store/router/index.js'
 const orders = {
   namespaced: true,
   state: {
@@ -96,7 +96,7 @@ const orders = {
       }
       state.ordersLists = modifyOrderLists(ordersLists)
     },
-    generateOrderDetailMutation (state, instance) {
+    generateOrdersDetailMutation (state, instance) {
       let { orderADetail, orderBList } = instance
       // orderADetail
       let modifyOrderADetail = instance => {
@@ -194,16 +194,34 @@ const orders = {
       Order.AddOrder(instance).then(res => {
         commit('handleLoading', null, { root: true })
         if (res.ret === 1001) {
-          // this.isSubmit = true
           commit('handleSubmit', true)
-          window.confirm(res.code)
-          // this.$router.push({
-          //   name: 'pay', params: { sign: res.sign, instance: res }
-          // })
+          Router.push({ name: 'pay', params: { sign: res.sign, instance: res } })
         }
         if (res.ret === 1002) {
           window.confirm(res.code)
         }
+      })
+    },
+    handleOrdersBcPay ({ dispatch, commit, state, rootGetters }, instance) {
+      if (process.env.NODE_ENV === 'production') {
+        instance.returnUrl = 'https://abupao.com/store.html?page=result'
+      } else {
+        instance.returnUrl = 'http://localhost:8090/store.html?page=result'
+      }
+      let { amount, orderId, sign, title, returnUrl } = instance
+      console.log(instance)
+      BC.err = (data) => {
+        // 注册错误信息接受
+        alert(data['ERROR'])
+      }
+      // 需要支付时调用BC.click接口传入参数
+      BC.click({
+        title, // 商品名
+        amount, // 总价（分）
+        out_trade_no: orderId, // 自定义订单号
+        sign, // 商品信息hash值，含义和生成方式见下文
+        return_url: returnUrl // 支付成功后跳转的商户页面,可选，默认为http://payservice.beecloud.cn/spay/result.php
+        // instant_channel: instantChannel
       })
     }
   }

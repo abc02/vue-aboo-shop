@@ -1,42 +1,44 @@
 <template>
   <el-dialog
-  :visible="false"
-  width="80%"
+  v-if="isDialog"
+  :visible="isDialog"
+  top="25vh"
+  width="60vw"
   center
   :show-close="false">
-  <el-row>
-    <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="h1 text-center">
-      <i class="el-icon-success"></i>
-    </el-col>
-  </el-row>
-  <el-row>
-    <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="h2 text-center">
-      商品已经加入购物车
-    </el-col>
-  </el-row>
-  <span slot="footer">
-    <el-row>
-      <el-col :xs="0" :sm="24" :md="24" :lg="24" :xl="24" >
-        <el-button @click="handleClickCartStatus(1)">继续购物</el-button>
-        <el-button type="primary" @click="handleClickRedirectPage('cart')">查看购物车</el-button>
+  <el-container direction="vertical">
+    <el-row type="flex" justify="center" align="middle">
+      <el-col :xs="24" :sm="16" :md="16" :lg="16" :xl="16" class="text-center mb20">
+        <i class="el-icon-circle-check-outline" style="font-size: 3.6rem;"></i>
       </el-col>
     </el-row>
-    <el-row>
-      <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0">
-        <el-button class="width-100" @click="handleClickCartStatus(1)">继续购物</el-button>
+    <el-row type="flex" justify="center" align="middle">
+      <el-col :xs="24" :sm="16" :md="16" :lg="16" :xl="16" class="border-bottom text-center pb20">
+        <span style="font-size: 1.3rem;">{{message}}</span>
       </el-col>
     </el-row>
-     <el-row>
-      <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0">
-        <el-button class="width-100" type="primary" @click="handleClickRedirectPage('cart')">查看购物车</el-button>
+  </el-container>
+  <el-container direction="vertical" slot="footer">
+    <el-row type="flex" justify="center" align="middle">
+      <el-col :xs="0" :sm="16" :md="16" :lg="16" :xl="16" >
+        <el-button @click="close" class="mr20">继续购物车</el-button>
+        <router-link :to="{ name: 'cart' }">
+          <el-button type="primary">查看购物车</el-button>
+        </router-link>
       </el-col>
     </el-row>
-  </span>
+  </el-container>
 </el-dialog>
 </template>
 
 <script>
 export default {
-  name: 'Dialog'
+  name: 'Dialog',
+  props: ['isDialog', 'message'],
+  methods: {
+    close () {
+      this.$emit('close')
+    }
+  }
 }
 </script>

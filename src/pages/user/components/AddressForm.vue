@@ -85,7 +85,7 @@ input{
        <el-row type="flex" justify="start" align="middle" class="pt10 pb10">
         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
           <el-button type="primary" size="medium" :loading="isLoading" @click="handleAddress">保存</el-button>
-          <el-button type="danger" size="medium" :loading="isLoading" @click="handleAddressDeleteAction(addressId)">删除</el-button>
+          <el-button size="medium" :loading="isLoading" @click="handleAddressDeleteAction(addressId)">删除</el-button>
         </el-col>
       </el-row>
     </el-container>

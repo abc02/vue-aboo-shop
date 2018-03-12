@@ -1,5 +1,8 @@
 import Common from 'modules/service/CommonServices.js'
 const mutations = {
+  // handleDialog (state) {
+  //   state.isDialog = !state.isDialog
+  // },
   handleLoading (state) {
     state.isLoading = !state.isLoading
   },

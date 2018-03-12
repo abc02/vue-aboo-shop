@@ -1,5 +1,5 @@
 <template>
-  <el-row type="flex" justify="center" align="middle" class="border-bottom bg-white height-100">
+  <el-row type="flex" justify="center" align="middle" class="border-bottom bg-white" sytle="height: 60px">
     <el-col :xs="24" :sm="20" :md="20" :lg="20" :xl="20">
       <el-row type="flex" justify="space-between" align="middle">
         <el-col :xs="0" :sm="16" :md="16" :lg="16" :xl="16">

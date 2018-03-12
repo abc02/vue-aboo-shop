@@ -10,6 +10,7 @@ const routes = [
   {
     path: '/',
     component: Enter,
+    redirect: { name: 'login' },
     children: [
       {
         path: '/login',

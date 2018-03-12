@@ -39,6 +39,7 @@ module.exports = {
       'components': '@/components',
       'mixins': '@/mixins',
       'modules': '@/modules',
+      'pages': '@/pages',
       'router': '@/router',
       'store': '@/store',
       'styles': '@/styles',

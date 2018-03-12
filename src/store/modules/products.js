@@ -1,8 +1,10 @@
+import Common from 'modules/service/CommonServices.js'
 import Goods from 'modules/service/GoodsServices.js'
-
+import Store from 'pages/store/router/index.js'
 const products = {
   namespaced: true,
   state: {
+    goodsLists: null,
     goodsInfo: null,
     priceList: null,
     specDatas: null,
@@ -87,9 +89,43 @@ const products = {
         selectSpecDatas[specData.specId] = specData.specSub[0].Cid
       })
       state.selectSpecDatas = selectSpecDatas
+    },
+    generateGoodsListsMutation (state, instance) {
+      let modifyGoodsLists = instance => {
+        let arr = []
+        instance.slice(0).forEach(goods => {
+          let { Id, Sales, GoodsName, Intr, CreateTime, Img } = goods
+          arr.push({
+            id: Id,
+            sales: Sales,
+            goodsName: GoodsName,
+            intr: Intr,
+            createTime: Common.handleCreateTimeText(CreateTime),
+            img: Img
+          })
+        })
+        return arr
+      }
+      if (Array.isArray(instance)) {
+        state.goodsLists = modifyGoodsLists(instance)
+      } else {
+        state.goodsLists = instance
+      }
     }
   },
   actions: {
+    generateGoodsListsAction ({ dispatch, commit }, limit) {
+      commit('handleLoading', null, { root: true })
+      Goods.GetGoodsList({limit}).then(res => {
+        commit('handleLoading', null, { root: true })
+        if (res.ret === 1001) {
+          commit('generateGoodsListsMutation', res.data)
+        }
+        if (res.ret === 1002) {
+          window.confirm(res.code)
+        }
+      })
+    },
     generateGoodsSpecAction ({ dispatch, commit }, goodsId) {
       commit('handleLoading', null, { root: true })
       Goods.GetGoodsSpec({goodsId}).then(res => {
@@ -98,7 +134,7 @@ const products = {
           commit('generateGoodsSpecMutation', res)
         }
         if (res.ret === 1002) {
-          window.confirm(res.code)
+          Store.push({ name: 'store' })
         }
       })
     }

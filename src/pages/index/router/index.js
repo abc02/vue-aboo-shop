@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import NavigationBarHomePage from 'components/NavigationBarHomePage.vue'
-import FootCommon from 'components/FootCommon.vue'
-import Index from '../components/Index.vue'
-import Help from '../components/Help.vue'
+import FooterPage from 'components/FooterPage.vue'
+import Index from 'components/Index.vue'
 import Home from '../components/Home.vue'
+import Help from '../components/Help.vue'
 import Mobile from '../components/Mobile.vue'
-import qs from 'qs'
+// import qs from 'qs'
 Vue.use(Router)
 
 let HomeFootStyle = {
@@ -18,35 +18,36 @@ const routes = [
     path: '/',
     component: Index,
     redirect: { name: 'index' },
+    // props: { pageHeaderHeight: '0px' },
     children: [
       {
         path: 'index',
         name: 'index',
         components: {
           default: Home,
-          header: NavigationBarHomePage,
-          footer: FootCommon
+          pageheader: NavigationBarHomePage,
+          pagefooter: FooterPage
         },
-        props: { header: { activeIndex: '1' }, footer: { FootStyle: HomeFootStyle } },
+        props: { pageheader: { activeIndex: '1' }, pagefooter: { FootStyle: HomeFootStyle } },
         meta: {
           title: 'ABOO阿布跑跑-孩子去哪儿，轻松知晓'
         }
       },
       {
-        path: '/help',
+        path: 'help',
         name: 'help',
         components: {
           default: Help,
-          header: NavigationBarHomePage,
-          footer: FootCommon
+          pageheader: NavigationBarHomePage,
+          pagefooter: FooterPage
         },
-        props: { header: { activeIndex: '2' } },
+        props: { pageheader: { activeIndex: '2' } },
         meta: {
           title: '使用帮助'
         }
       },
       {
-        path: '/mobile',
+        path: 'mobile',
         name: 'mobile',
         component: Mobile,
         meta: {
@@ -65,10 +66,14 @@ let isMobile = /Mobile/i.test(navigator.userAgent)
 if (isMobile) {
   router.push({ name: 'mobile' })
 } else {
-  let { page } = qs.parse(location.search.substr(1))
-  if (page) {
-    router.push({ name: page })
+  let isIndex = /index/.test(location.pathname.substr(1))
+  if (isIndex) {
+    router.push('/')
   }
+  // let { page } = qs.parse(location.search.substr(1))
+  // if (page) {
+  //   router.push({ name: page })
+  // }
 }
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */

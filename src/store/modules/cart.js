@@ -1,9 +1,10 @@
-import Common from 'modules/service/CommonServices.js'
+// import Common from 'modules/service/CommonServices.js'
 import Cart from 'modules/service/CartServices.js'
 
 const cart = {
   namespaced: true,
   state: {
+    isDialog: false,
     cartLists: null,
     isEdit: false,
     editText: '编辑'
@@ -35,12 +36,18 @@ const cart = {
         state.editText = '编辑'
       }
     },
+    handeDialogOpen (state) {
+      state.isDialog = true
+    },
+    handeDialogClose (state) {
+      state.isDialog = false
+    },
     generateCartListsMutations (state, cartLists) {
       state.cartLists = cartLists
     }
   },
   actions: {
-    generateCartListsAction ({ dispatch, commit, rootState }) {
+    generateCartListsAction ({ commit, rootState }) {
       commit('generateUserInfoCheck', null, { root: true })
       let userId = rootState.userInfo.UserId
       commit('handleLoading', null, { root: true })
@@ -54,13 +61,13 @@ const cart = {
         }
       })
     },
-    handleCartDeleteAction ({ commit, dispatch, state }, key) {
+    handleCartDeleteAction ({ commit, dispatch, state, rootState }, key) {
       if (!window.confirm('您确定要删除吗')) return
-      commit('generateUserInfoCheck', { root: true })
-      let userId = state.userInfo.UserId
-      commit('handleLoading', { root: true })
+      commit('generateUserInfoCheck', null, { root: true })
+      let userId = rootState.userInfo.UserId
+      commit('handleLoading', null, { root: true })
       Cart.DelShopCart({userId, key}).then(res => {
-        commit('handleLoading', { root: true })
+        commit('handleLoading', null, { root: true })
         if (res.ret === 1001) {
           dispatch('generateCartListsAction')
         }
@@ -69,7 +76,7 @@ const cart = {
         }
       })
     },
-    handleCartAddAction ({ dispatch, commit, rootState }, instance) {
+    handleCartAddAction ({ commit, rootState }, instance) {
       commit('generateUserInfoCheck', null, { root: true })
       commit('handleLoading', null, { root: true })
       let userId = rootState.userInfo.UserId
@@ -77,7 +84,7 @@ const cart = {
       Cart.AddShopCart({userId, goodsId, specId, specName, number}).then(res => {
         commit('handleLoading', null, { root: true })
         if (res.ret === 1001) {
-          Common.handleRedirectPage('cart')
+          commit('handeDialogOpen')
         }
         if (res.ret === 1002) {
           window.confirm(res.code)

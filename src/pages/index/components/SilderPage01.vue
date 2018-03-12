@@ -1,5 +1,5 @@
 <template>
-  <el-container class="relative height-100">
+  <el-container class="relative height-100 bg-white">
     <img :src="ab01" alt="ab01" class="absolute-bottom-left" style="width: 479px; height:480px">
     <div class="absolute-middle-right text-right" style="right: 12%">
         <h1 class="mb20" style="font-size: 3.8rem;">阿布跑跑<span style="color: #28bff7;font-size: 5.6rem;">智慧</span>鞋垫</h1>

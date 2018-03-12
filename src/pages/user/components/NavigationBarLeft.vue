@@ -4,10 +4,10 @@
       <i class="el-icon-setting"></i>
       <span slot="title">我的账号</span>
     </el-menu-item>
-    <el-menu-item index="2" route="/user/profile">
+    <!-- <el-menu-item index="2" route="/user/profile">
       <i class="el-icon-edit"></i>
       <span slot="title">我的个人资料</span>
-    </el-menu-item>
+    </el-menu-item> -->
     <el-menu-item index="3" route="/user/orders/orderslists">
       <i class="el-icon-goods"></i>
       <span slot="title">我的订单</span>

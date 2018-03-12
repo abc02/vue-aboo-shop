@@ -28,31 +28,31 @@ class Common {
   static handleSessionStorageUserInfoOut () {
     let sessionKey = sessionStorage.getItem('sessionKey')
     sessionStorage.removeItem(sessionKey)
-    location.reload()
+    this.handleRedirectPage('store')
     // return
   }
-  static handlePay (data) {
-    if (process.env.NODE_ENV === 'production') {
-      data.returnUrl = 'https://abupao.com/result.html'
-    } else {
-      data.returnUrl = 'http://localhost:8090/result.html'
-    }
-    let { amount, orderId, sign, title, returnUrl } = data
-    console.log(data)
-    BC.err = (data) => {
-      // 注册错误信息接受
-      alert(data['ERROR'])
-    }
-    // 需要支付时调用BC.click接口传入参数
-    BC.click({
-      title, // 商品名
-      amount, // 总价（分）
-      out_trade_no: orderId, // 自定义订单号
-      sign, // 商品信息hash值，含义和生成方式见下文
-      return_url: returnUrl // 支付成功后跳转的商户页面,可选，默认为http://payservice.beecloud.cn/spay/result.php
-      // instant_channel: instantChannel
-    })
-  }
+  // static handlePay (data) {
+  //   if (process.env.NODE_ENV === 'production') {
+  //     data.returnUrl = 'https://abupao.com/result.html'
+  //   } else {
+  //     data.returnUrl = 'http://localhost:8090/result.html'
+  //   }
+  //   let { amount, orderId, sign, title, returnUrl } = data
+  //   console.log(data)
+  //   BC.err = (data) => {
+  //     // 注册错误信息接受
+  //     alert(data['ERROR'])
+  //   }
+  //   // 需要支付时调用BC.click接口传入参数
+  //   BC.click({
+  //     title, // 商品名
+  //     amount, // 总价（分）
+  //     out_trade_no: orderId, // 自定义订单号
+  //     sign, // 商品信息hash值，含义和生成方式见下文
+  //     return_url: returnUrl // 支付成功后跳转的商户页面,可选，默认为http://payservice.beecloud.cn/spay/result.php
+  //     // instant_channel: instantChannel
+  //   })
+  // }
   static handleCreateTimeText (date) {
     if ((date + '').length < 12) {
       date = Number.parseInt(date + '000')

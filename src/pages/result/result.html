@@ -13,20 +13,7 @@
 </head>
 <body>
   <div id="app" v-cloak>
-    <el-container>
-      <el-header height="auto">
-        <navigation-bar></navigation-bar>
-      </el-header>
-      <el-main>
-        <el-row type="flex" justify="center" align="middle">
-          <el-col :xs="24" :sm="20" :md="20" :lg="20" :xl="20">
-            <el-row>
-              <el-col>订单支付成功！</el-col>
-            </el-row>
-          </el-col>
-        </el-row>
-      </el-main>
-    </el-container>
+    <router-view />
   </div>
 </body>
 </html>
