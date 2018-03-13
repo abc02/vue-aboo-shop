@@ -1,27 +1,21 @@
 <template>
   <el-row type="flex" justify="center" align="top">
-    <el-col :span="20" class="min-heigth mt20">
-      <el-container direction="vertical">
-         <el-aside>
-            <router-view name="navigationBarLeft"></router-view>
-          </el-aside>
+    <el-col :span="20">
+      <el-container class="mt20">
+        <el-aside>
+           <router-view name="navigationBarLeft" class="min-heigth " />
+        </el-aside>
         <el-main>
-          <router-view></router-view>
-        </el-main>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
+       </el-main>
       </el-container>
     </el-col>
   </el-row>
 </template>
 <script>
-import { mapMutations } from 'vuex'
 export default {
-  name: 'User',
-  methods: {
-    ...mapMutations(['handleUserInfoCheckMutation'])
-  },
-  created () {
-    console.log('created')
-    this.handleUserInfoCheckMutation()
-  }
+  name: 'User'
 }
 </script>

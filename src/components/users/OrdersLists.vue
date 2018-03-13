@@ -31,7 +31,7 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-alert title="您的账户暂时没有订单。 " type="info" :closable="false" class="mb20" v-else></el-alert>
+      <el-alert title="您的账户暂时没有订单。" type="info" :closable="false" class="mb20" v-else></el-alert>
     </el-col>
     <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0"  class="bg-gray">
       <el-container direction="vertical" v-for="(order, index) in ordersLists" :key="index" class="bg-white mb20" v-if="ordersLists && ordersLists.length">
@@ -110,8 +110,11 @@ export default {
       this.handleOrdersBcPay(instance)
     }
   },
-  created () {
+  activated () {
     this.generateOrdersListsAction()
   }
+  // created () {
+  //   this.generateOrdersListsAction()
+  // }
 }
 </script>

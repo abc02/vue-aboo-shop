@@ -1,27 +1,22 @@
 <template>
-  <el-menu default-active="1">
-    <el-menu-item index="1" route="/user">
-      <router-link :to="{ name: 'user'} ">
-        <i class="el-icon-setting"></i>
-        <span>我的账号</span>
-      </router-link>
+  <el-menu :default-active="activeIndex" router >
+    <el-menu-item index="1" :route="{ name: 'info'}">
+      <i class="el-icon-setting"></i>
+      <span slot="title">我的账号</span>
     </el-menu-item>
-    <el-menu-item index="2">
-      <router-link :to="{ name: 'orderslists'} ">
+    <el-menu-item index="2" :route="{ name: 'orderslists'}">
         <i class="el-icon-goods"></i>
-        <span>我的订单</span>
-      </router-link>
+        <span slot="title">我的订单</span>
     </el-menu-item>
-    <el-menu-item index="3" route="/user/address/addresslists">
-      <router-link :to="{ name: 'addresslists'} ">
+    <el-menu-item index="3" :route="{ name: 'addresslists'}">
         <i class="el-icon-location-outline"></i>
-        <span>我的收货地址</span>
-      </router-link>
+        <span slot="title">我的收货地址</span>
     </el-menu-item>
   </el-menu>
 </template>
 <script>
 export default {
-  name: 'NavigationBarLeft'
+  name: 'NavigationBarLeft',
+  props: ['activeIndex']
 }
 </script>

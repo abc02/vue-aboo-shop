@@ -27,29 +27,83 @@
       label="操作"
       width="180">
     <template slot-scope="scope">
-      <router-link :to="{ name: 'addressform', params: { type: 'edit', instance: scope.row}}">
-        <el-button size="mini">编辑</el-button>
-      </router-link>
+      <el-button size="mini" @click="handleAddressDialog('edit', scope.row)">编辑</el-button>
       <el-button size="mini" type="danger" @click="handleAddressDeleteAction(scope.row.addressId)">删除</el-button>
     </template>
     </el-table-column>
   </el-table>
   <el-alert title="您的账户暂时没有地址。 " type="info" :closable="false" class="mb20" v-else></el-alert>
-  <router-link :to="{ name: 'addressform', params: { type: 'add' } }">
-    <el-button type="primary" icon="el-icon-circle-plus-outline">新增收货地址</el-button>
-  </router-link>
+  <el-row type="flex" justify="start" align="middle">
+    <el-col :span="4">
+       <el-button type="primary" icon="el-icon-circle-plus-outline" @click="handleAddressDialog('add')">新增收货地址</el-button>
+    </el-col>
+  </el-row>
+  <el-dialog
+    v-if="isDialog"
+    :visible="isDialog"
+    width="60vw"
+    :show-close="false"
+    :close-on-click-modal="false"
+    :close-on-press-escape="true">
+    <el-row type="flex" justify="start" align="middle" slot="title" class="pt10 ml20 mr20">
+      <el-col :span="20">{{title}}</el-col>
+      <el-col :span="4" class="text-right">
+        <el-button type="text" icon="el-icon-close" @click="handleDialogClose"></el-button>
+      </el-col>
+    </el-row>
+    <Form :isDialog="true" :type="type" :instance="currentAddress" @close="handleDialogClose" />
+  </el-dialog>
 </el-container>
 </template>
 <script>
+import Form from 'components/address/Form.vue'
 import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions } = createNamespacedHelpers('address')
 export default {
   name: 'AddressLists',
+  data () {
+    return {
+      isDialog: false,
+      type: '',
+      currentAddress: null
+    }
+  },
+  components: {
+    Form
+  },
   computed: {
-    ...mapState(['addressLists'])
+    ...mapState(['addressLists']),
+    title () {
+      if (this.type === 'edit') {
+        return '编辑地址'
+      } else if (this.type === 'add') {
+        return '添加并使用新地址'
+      }
+      return ''
+    }
+  },
+  watch: {
+    addressLists: {
+      handler () {
+        this.isDialog = false
+    },
+    deep: true
+    }
   },
   methods: {
-    ...mapActions(['generateAddressListsAction', 'handleAddressDeleteAction'])
+    ...mapActions(['generateAddressListsAction', 'handleAddressDeleteAction']),
+     handleAddressDialog (type, instance) {
+      if (type === 'edit') {
+        this.currentAddress = instance
+      } else if (type === 'add') {
+        this.currentAddress = null
+      }
+      this.type = type
+      this.isDialog = true
+    },
+    handleDialogClose () {
+      this.isDialog = false
+    }
   },
   created () {
     this.generateAddressListsAction()

@@ -39,12 +39,10 @@ const mutations = {
     let sessionKey = sessionStorage.getItem('sessionKey')
     let userInfo = JSON.parse(sessionStorage.getItem(sessionKey))
     if (userInfo) {
-      let { UserId, NickName, JwtToken, Icon } = userInfo
+      let { UserId, NickName, Icon } = userInfo
       state.userInfo = {
-        UserId,
         userId: UserId,
         nickName: NickName,
-        jwtToken: JwtToken,
         icon: Icon
       }
     } else {
@@ -54,11 +52,12 @@ const mutations = {
   handleUserInfoOutMutation (state, page) {
     let sessionKey = sessionStorage.getItem('sessionKey')
     sessionStorage.removeItem(sessionKey)
+    sessionStorage.removeItem('sessionKey')
     state.userInfo = null
     if (page) {
       Index.push({ name: page })
     } else {
-      Index.push('/')
+      Index.push({ path: '/' })
     }
   }
 }

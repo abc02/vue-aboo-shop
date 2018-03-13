@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // 通用导航组件
 
-import NavigationBarBuyHeader from 'components/NavigationBarBuyHeader.vue'
+// import NavigationBarBuyHeader from 'components/NavigationBarBuyHeader.vue'
 // 通用底部组件
 import FooterPage from 'components/FooterPage.vue'
 import FooterBottom from 'components/FooterBottom.vue'
@@ -13,32 +13,35 @@ import Index from 'components/Index.vue'
 // PC端控制入口
 import PC from 'components/PC.vue'
 // 首页所需组件, 顶部，头部，轮播，列表，详情页
-import NavigationBarTopHeader from 'components/PC/NavigationBarTopHeader.vue'
-import NavigationBarStorePage from 'components/PC/NavigationBarStorePage.vue'
+import NavigationBarTopHeader from 'components/pc/NavigationBarTopHeader.vue'
+import NavigationBarStorePage from 'components/pc/NavigationBarStorePage.vue'
 import Swiper from 'components/Swiper.vue'
-import ProductsLists from 'components/PC/ProductsLists.vue'
-import Product from 'components/PC/Product.vue'
+import ProductsLists from 'components/pc/ProductsLists.vue'
+import Product from 'components/pc/Product.vue'
 
 // 购物车页所需头部，
-import NavigationBarCartHeader from 'components/PC/NavigationBarCartHeader.vue'
-import Cart from 'components/PC/Cart.vue'
+import NavigationBarCartHeader from 'components/pc/NavigationBarCartHeader.vue'
+import Cart from 'components/pc/Cart.vue'
 
-// 支付页所需组件
-import Buy from '../components/Buy.vue'
-import AddressPreviewLists from 'components/address/AddressPreviewLists.vue'
-import OrdersPreview from '../components/OrdersPreview.vue'
+// 支付页所需组件 头部，地址预览，订单预览
+import NavigationBarBuytHeader from 'components/pc/NavigationBarBuyHeader.vue'
+import Buy from 'components/pc/Buy.vue'
+import AddressPreviewLists from 'components/pc/AddressPreviewLists.vue'
+import OrdersPreview from 'components/pc/OrdersPreview.vue'
 
 // 用户页所需组件
-import NavigationBarUserHeader from 'components/PC/NavigationBarUserHeader.vue'
+import NavigationBarUserHeader from 'components/pc/NavigationBarUserHeader.vue'
 import User from 'components/users/User.vue'
 import NavigationBarLeft from 'components/users/NavigationBarLeft.vue'
 import UserInfo from 'components/users/UserInfo.vue'
-import Orders from 'components/users/Orders.vue'
+// import Orders from 'components/users/Orders.vue'
 import OrdersLists from 'components/users/OrdersLists.vue'
 import OrderDetail from 'components/users/OrderDetail.vue'
-import Address from 'components/users/Address.vue'
+// import Address from 'components/users/Address.vue'
 import AddressLists from 'components/users/AddressLists.vue'
 import AddressForm from 'components/users/AddressForm.vue'
+// 支付页面所需组件
+import Pay from 'components/pc/Pay.vue'
 
 // Mobile端控制入口
 import Mobile from 'components/Mobile.vue'
@@ -47,10 +50,10 @@ import NavigationBarStorePageMobile from 'components/Mobile/NavigationBarStorePa
 import ProductsListsMobile from 'components/Mobile/ProductsLists.vue'
 import ProductMobile from 'components/Mobile/Product.vue'
 
-// import Orders from '../components/Orders.vue'
+import Orders from '../components/Orders.vue'
 import Summary from '../components/Summary.vue'
-import Pay from '../components/Pay.vue'
-// import Address from '../components/Address.vue'
+
+import Address from '../components/Address.vue'
 import Select from '../components/Select.vue'
 import Result from '../components/Result.vue'
 // 登录模块
@@ -101,34 +104,13 @@ const routes = [
             meta: {
               title: '购买产品'
             }
-          },
-          {
-            path: 'buy',
-            name: 'buy',
-            components: {
-              default: Buy
-            },
-            props: { default: true },
-            children: [
-              {
-                path: 'checkout',
-                name: 'checkout',
-                components: {
-                  addressPreviewLists: AddressPreviewLists,
-                  ordersPreview: OrdersPreview
-                },
-                props: { default: true },
-                meta: {
-                  title: '在线购买 | ABOO商城'
-                }
-              }
-            ]
           }
         ]
       },
       {
-        path: 'user',
+        path: '/user',
         name: 'user',
+        redirect: { name: 'info' },
         components: {
           default: User,
           pageheader: NavigationBarUserHeader,
@@ -137,13 +119,39 @@ const routes = [
         },
         children: [
           {
-            path: '',
+            path: 'info',
+            name: 'info',
             components: {
               default: UserInfo,
               navigationBarLeft: NavigationBarLeft
             },
+            props: { navigationBarLeft: { activeIndex: '1' } },
             meta: {
               title: '我的账户'
+            }
+          },
+          {
+            path: 'orderslists',
+            name: 'orderslists',
+            components: {
+              default: OrdersLists,
+              navigationBarLeft: NavigationBarLeft
+            },
+            props: { navigationBarLeft: { activeIndex: '2' } },
+            meta: {
+              title: '我的订单'
+            }
+          },
+          {
+            path: 'ordersdetail/:orderId',
+            name: 'ordersdetail',
+            components: {
+              default: OrderDetail,
+              navigationBarLeft: NavigationBarLeft
+            },
+            props: { navigationBarLeft: { activeIndex: '2' }, default: true },
+            meta: {
+              title: '我的订单详情'
             }
           },
           {
@@ -153,43 +161,27 @@ const routes = [
               default: AddressLists,
               navigationBarLeft: NavigationBarLeft
             },
+            props: { navigationBarLeft: { activeIndex: '3' } },
             meta: {
               title: '我的收货地址'
             }
-          },
-          {
-            path: 'addressform/:type',
-            name: 'addressform',
-            components: {
-              default: AddressForm,
-              navigationBarLeft: NavigationBarLeft
-            },
-            meta: {
-              title: ''
-            },
-            props: true
-          },
-          {
-            path: 'orderslists',
-            name: 'orderslists',
-            component: OrdersLists,
-            meta: {
-              title: '我的订单'
-            }
-          },
-          {
-            path: 'ordersdetail/:orderId',
-            name: 'ordersdetail',
-            component: OrderDetail,
-            props: true,
-            meta: {
-              title: '我的订单详情'
-            }
           }
+          // {
+          //   path: 'addressform/:type',
+          //   name: 'addressform',
+          //   components: {
+          //     default: AddressForm,
+          //     navigationBarLeft: NavigationBarLeft
+          //   },
+          //   props: { navigationBarLeft: { activeIndex: '3' }, default: true },
+          //   meta: {
+          //     title: '编辑地址'
+          //   }
+          // }
         ]
       },
       {
-        path: 'cart',
+        path: '/cart',
         name: 'cart',
         components: {
           default: Cart,
@@ -203,7 +195,44 @@ const routes = [
         }
       },
       {
-        path: 'mobile',
+        path: '/buy',
+        name: 'buy',
+        components: {
+          default: Buy,
+          pageheader: NavigationBarBuytHeader,
+          pagefooter: FooterPage,
+          bottomfooter: FooterBottom
+        },
+        children: [
+          {
+            path: 'checkout',
+            name: 'checkout',
+            components: {
+              addressPreviewLists: AddressPreviewLists,
+              ordersPreview: OrdersPreview
+            },
+            meta: {
+              title: '在线购买'
+            }
+          }
+        ]
+      },
+      {
+        path: '/orders/:sign',
+        name: 'orders',
+        components: {
+          default: Pay,
+          pageheader: NavigationBarStorePage,
+          pagefooter: FooterPage,
+          bottomfooter: FooterBottom
+        },
+        props: { default: true },
+        meta: {
+          title: '去支付'
+        }
+      },
+      {
+        path: '/mobile',
         name: 'mobile',
         components: {
           default: Mobile,
@@ -222,7 +251,7 @@ const routes = [
           },
           {
             path: 'product/:goodsId',
-            name: 'product',
+            name: 'productMobile',
             components: {
               default: ProductMobile
             },
@@ -233,14 +262,14 @@ const routes = [
           },
           {
             path: 'orders',
-            name: 'orders',
+            name: 'ordersMobile',
             components: {
               default: Orders
             },
             children: [
               {
                 path: 'summary',
-                name: 'summary',
+                name: 'summaryMobile',
                 components: {
                   summary: Summary
                 },
@@ -251,7 +280,7 @@ const routes = [
               },
               {
                 path: 'pay/:sign',
-                name: 'pay',
+                name: 'payMobile',
                 components: {
                   pay: Pay
                 },
@@ -267,7 +296,7 @@ const routes = [
             name: 'address',
             components: {
               default: Address,
-              pageheader: NavigationBarBuyHeader,
+              // pageheader: NavigationBarBuyHeader,
               bottomfooter: FooterBottom
             },
             children: [
@@ -286,11 +315,11 @@ const routes = [
         ]
       },
       {
-        path: 'result',
+        path: '/result',
         name: 'result',
         components: {
           default: Result,
-          pageheader: NavigationBarBuyHeader,
+          // pageheader: NavigationBarBuyHeader,
           bottomfooter: FooterBottom
         },
         meta: {
@@ -335,20 +364,20 @@ const routes = [
         meta: {
           title: '忘记密码'
         }
-      },
-      {
-        path: 'orderslists',
-        name: 'orderslists',
-        components: {
-          default: OrdersLists,
-          pageheader: NavigationBarStorePage,
-          bottomfooter: FooterBottom
-        },
-        // component: OrdersLists,
-        meta: {
-          title: '我的订单'
-        }
       }
+      // {
+      //   path: 'orderslists',
+      //   name: 'orderslists',
+      //   components: {
+      //     default: OrdersLists,
+      //     pageheader: NavigationBarStorePage,
+      //     bottomfooter: FooterBottom
+      //   },
+      //   // component: OrdersLists,
+      //   meta: {
+      //     title: '我的订单'
+      //   }
+      // }
     ]
   }
 ]

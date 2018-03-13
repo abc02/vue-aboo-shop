@@ -20,16 +20,16 @@
               我的账号
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>
-               <router-link :to="{ name: 'user'}">
-                  <span class="pointer">我的账号</span>
-                </router-link>
-              </el-dropdown-item>
-              <el-dropdown-item>
-                <router-link :to="{ name: 'orderslists'}">
-                  <span class="pointer">我的订单</span>
-                </router-link>
-              </el-dropdown-item>
+              <router-link :to="{ name: 'info'}">
+                <el-dropdown-item>
+                    <span class="pointer">我的账号</span>
+                </el-dropdown-item>
+              </router-link>
+              <router-link :to="{ name: 'orderslists'}">
+                <el-dropdown-item>
+                    <span class="pointer">我的订单</span>
+                </el-dropdown-item>
+              </router-link>
               <el-dropdown-item @click.native="handleUserInfoOutMutation">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>

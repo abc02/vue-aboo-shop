@@ -1,6 +1,6 @@
 import Common from 'modules/service/CommonServices.js'
 import Order from 'modules/service/OrderServices.js'
-import Router from 'pages/index/router/index.js'
+import Index from 'pages/index/router/index.js'
 const orders = {
   namespaced: true,
   state: {
@@ -42,7 +42,8 @@ const orders = {
         let address = JSON.parse(Address)
         let date = Number.parseInt(CreateTime + '000')
         return {
-          address: `${address.Province} ${address.City} ${address.Area} ${address.Detail} ${address.NickName} ${address.Phone}`,
+          address,
+          addressLonger: `${address.Province} ${address.City} ${address.Area} ${address.Detail} ${address.NickName} ${address.Phone}`,
           createTime: Common.handleCreateTimeText(date),
           payType: '在线支付',
           phone: Phone,
@@ -77,12 +78,10 @@ const orders = {
       // 判断是已登录
       commit('handleUserInfoCheckMutation', null, { root: true })
       if (!rootState.userInfo) return
-      let { userId, jwtToken } = rootState.userInfo
-      console.log(userId, jwtToken)
+      let { userId } = rootState.userInfo
       commit('handleLoading', null, { root: true })
-      Order.GetOrderList({userId, limit}, {Authorization: jwtToken}).then(res => {
+      Order.GetOrderList({userId, limit}, true).then(res => {
         console.log(res)
-        debugger
         commit('handleLoading', null, { root: true })
         if (res.ret === 1001) {
           commit('generateOrdersListsMutation', res.data)
@@ -96,9 +95,9 @@ const orders = {
       // 判断是已登录
       commit('handleUserInfoCheckMutation', null, { root: true })
       if (!rootState.userInfo) return
-      let { userId, jwtToken } = rootState.userInfo
+      let { userId } = rootState.userInfo
       commit('handleLoading', null, { root: true })
-      Order.GetOrderDetail({userId, orderId}, {Authorization: jwtToken}).then(res => {
+      Order.GetOrderDetail({userId, orderId}, true).then(res => {
         commit('handleLoading', null, { root: true })
         if (res.ret === 1001) {
           commit('generateOrdersDetailMutation', res)
@@ -113,9 +112,7 @@ const orders = {
         return window.confirm('您已经成功提交订单，请不要重复提交。')
       }
       commit('handleUserInfoCheckMutation', null, { root: true })
-      if (!rootState.userInfo) return
-      let { userId, jwtToken } = rootState.userInfo
-      let { addressId } = rootGetters['address/defaultAddress']
+      let { userId, addressId } = rootGetters['address/defaultAddress']
       commit('handleLoading', null, { root: true })
       let goodsId = []
       let specId = []
@@ -138,11 +135,11 @@ const orders = {
         number: number.join('##'),
         desc: desc.join('##')
       }
-      Order.AddOrder(instance, {Authorization: jwtToken}).then(res => {
+      Order.AddOrder(instance, true).then(res => {
         commit('handleLoading', null, { root: true })
         if (res.ret === 1001) {
           commit('handleSubmit', true)
-          Router.push({ name: 'pay', params: { sign: res.sign, instance: res } })
+          Index.push({ name: 'orders', params: { sign: res.sign, instance: res } })
         }
         if (res.ret === 1002) {
           window.confirm(res.code)
@@ -151,12 +148,11 @@ const orders = {
     },
     handleOrdersBcPay ({ dispatch, commit, state, rootGetters }, instance) {
       if (process.env.NODE_ENV === 'production') {
-        instance.returnUrl = 'https://abupao.com/store.html?page=result'
+        instance.returnUrl = 'https://abupao.com/index.html?page=result'
       } else {
-        instance.returnUrl = 'http://localhost:8090/store.html?page=result'
+        instance.returnUrl = 'http://localhost:8090/index.html?page=result'
       }
-      let { amount, orderId, sign, title, returnUrl } = instance
-      console.log(instance)
+      let { amount, orderId, sign, title, returnUrl, instantChannel } = instance
       BC.err = (data) => {
         // 注册错误信息接受
         alert(data['ERROR'])
@@ -167,8 +163,8 @@ const orders = {
         amount, // 总价（分）
         out_trade_no: orderId, // 自定义订单号
         sign, // 商品信息hash值，含义和生成方式见下文
-        return_url: returnUrl // 支付成功后跳转的商户页面,可选，默认为http://payservice.beecloud.cn/spay/result.php
-        // instant_channel: instantChannel
+        return_url: returnUrl, // 支付成功后跳转的商户页面,可选，默认为http://payservice.beecloud.cn/spay/result.php
+        instant_channel: instantChannel
       })
     }
   }

@@ -158,7 +158,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 input{
   border: none;
   outline: none;
