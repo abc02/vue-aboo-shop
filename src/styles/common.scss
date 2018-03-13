@@ -103,6 +103,12 @@
     /* z-index: 99; */
     margin: 0;
 }
+.shadow{
+    box-shadow: 1px -1px 4px rgba(0,0,0,.1);
+}
+.block{
+    display: block;
+}
 
 .bg-white {
     background:white;
@@ -191,6 +197,12 @@
     .bg-gray {
         background-color: #F7F8F9 !important;
         background: #F7F8F9;
+    }
+    .shadow{
+        box-shadow: none;
+    }
+    .border{
+        border: none;
     }
 }
 .pointer {

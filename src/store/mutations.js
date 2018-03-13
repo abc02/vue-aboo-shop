@@ -1,21 +1,65 @@
-import Common from 'modules/service/CommonServices.js'
+import Index from 'pages/index/router/index.js'
 const mutations = {
-  // handleDialog (state) {
-  //   state.isDialog = !state.isDialog
-  // },
   handleLoading (state) {
     state.isLoading = !state.isLoading
   },
   generateUserInfo (state) {
-    let userInfo = Common.generateSessionStorageUserInfo()
-    state.userInfo = userInfo
-  },
-  generateUserInfoCheck (state) {
-    let userInfo = Common.generateSessionStorageUserInfo()
-    if (!userInfo) {
-      Common.handleRedirectPage('login')
+    let sessionKey = sessionStorage.getItem('sessionKey')
+    let userInfo = JSON.parse(sessionStorage.getItem(sessionKey))
+    if (userInfo) {
+      let { UserId, NickName, JwtToken, Icon } = userInfo
+      state.userInfo = {
+        UserId,
+        userId: UserId,
+        nickName: NickName,
+        jwtToken: JwtToken,
+        icon: Icon
+      }
+    } else {
+      state.userInfo = null
     }
-    state.userInfo = userInfo
+  },
+  generateUserInfoMutation (state) {
+    let sessionKey = sessionStorage.getItem('sessionKey')
+    let userInfo = JSON.parse(sessionStorage.getItem(sessionKey))
+    if (userInfo) {
+      let { UserId, NickName, JwtToken, Icon } = userInfo
+      state.userInfo = {
+        UserId,
+        userId: UserId,
+        nickName: NickName,
+        jwtToken: JwtToken,
+        icon: Icon
+      }
+    } else {
+      state.userInfo = null
+    }
+  },
+  handleUserInfoCheckMutation (state) {
+    let sessionKey = sessionStorage.getItem('sessionKey')
+    let userInfo = JSON.parse(sessionStorage.getItem(sessionKey))
+    if (userInfo) {
+      let { UserId, NickName, JwtToken, Icon } = userInfo
+      state.userInfo = {
+        UserId,
+        userId: UserId,
+        nickName: NickName,
+        jwtToken: JwtToken,
+        icon: Icon
+      }
+    } else {
+      Index.push({ name: 'login' })
+    }
+  },
+  handleUserInfoOutMutation (state, page) {
+    let sessionKey = sessionStorage.getItem('sessionKey')
+    sessionStorage.removeItem(sessionKey)
+    state.userInfo = null
+    if (page) {
+      Index.push({ name: page })
+    } else {
+      Index.push('/')
+    }
   }
 }
 

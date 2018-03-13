@@ -1,16 +1,19 @@
 import axios from 'axios'
 import qs from 'qs'
+import Index from 'pages/index/router/index.js'
 export default class Http {
-  static request (method, url, data) {
-    const headers = this.createAuthHeader()
-    const param = {
+  static request (method, url, data, headers) {
+    // headers = this.createAuthHeader(JwtToken)
+    let params = {
       url,
       data: qs.stringify(data),
-      method,
-      headers
+      method
+    }
+    if (headers) {
+      params['headers'] = headers
     }
     return new Promise((resolve, reject) => {
-      axios.request(param).then(res => {
+      axios.request(params).then(res => {
         if (this.isSuccess(res)) {
           resolve(res.data)
         } else {
@@ -39,7 +42,7 @@ export default class Http {
       let sessionKey = sessionStorage.getItem('sessionKey')
       sessionStorage.removeItem(sessionKey)
       sessionStorage.removeItem('sessionKey')
-      location.href = 'login.html'
+      Index.push({ name: 'login' })
     }
     return true
   }
@@ -59,39 +62,30 @@ export default class Http {
   /**
    * 构造权限头部
    */
-  static createAuthHeader () {
+  static createAuthHeader (JwtToken) {
     const header = {}
-    // header['accept'] = 'application/json'
-    // header['content-type'] = 'application/x-www-form-urlencoded'
-    let sessionKey = sessionStorage.getItem('sessionKey')
-    let userInfoString = sessionStorage.getItem(sessionKey)
-    // if (!userInfoString) {
-    //   location.href = 'login.html'
-    // }
-    let userInfo = JSON.parse(userInfoString)
-    if (userInfo) {
-      header['Authorization'] = userInfo.JwtToken
-    }
+    header['Authorization'] = JwtToken
+    console.log(header)
     return header
   }
 
-  static get (url, data) {
-    return this.request('GET', url, data)
+  static get (url, data, headers) {
+    return this.request('GET', url, data, headers)
   }
 
-  static put (url, data) {
-    return this.request('PUT', url, data)
+  static put (url, data, headers) {
+    return this.request('PUT', url, data, headers)
   }
 
-  static post (url, data) {
-    return this.request('POST', url, data)
+  static post (url, data, headers) {
+    return this.request('POST', url, data, headers)
   }
 
-  static patch (url, data) {
-    return this.request('PATCH', url, data)
+  static patch (url, data, headers) {
+    return this.request('PATCH', url, data, headers)
   }
 
-  static delete (url, data) {
-    return this.request('DELETE', url, data)
+  static delete (url, data, headers) {
+    return this.request('DELETE', url, data, headers)
   }
 }

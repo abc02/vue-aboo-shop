@@ -1,6 +1,6 @@
 import Common from 'modules/service/CommonServices.js'
 import Order from 'modules/service/OrderServices.js'
-import Router from 'pages/store/router/index.js'
+import Router from 'pages/index/router/index.js'
 const orders = {
   namespaced: true,
   state: {
@@ -8,68 +8,6 @@ const orders = {
     orderADetail: null,
     orderBList: null,
     isSubmit: false
-  },
-  getters: {
-    // modifyOrderLists: state => {
-    //   let { ordersLists } = state
-    //   if (ordersLists) {
-    //     let arr = []
-    //     let date
-    //     ordersLists.forEach(order => {
-    //       let { CreateTime, Img, OrderId, Price, Sign, Status } = order
-    //       date = Number.parseInt(CreateTime + '000')
-    //       arr.push({
-    //         createTime: Common.handleCreateTimeText(date),
-    //         img: Img,
-    //         orderId: OrderId,
-    //         price: `￥${Number.parseFloat(Price).toFixed(2)}`,
-    //         sign: Sign,
-    //         status: Common.handleOuterStatus(Status),
-    //         payType: '在线支付'
-    //       })
-    //     })
-    //     return arr
-    //   }
-    //   return []
-    // },
-    // modifyOrderADetail: state => {
-    //   let { orderADetail } = state
-    //   if (orderADetail) {
-    //     let { Address, CreateTime, Phone, Price, Status } = orderADetail
-    //     let address = JSON.parse(Address)
-    //     let date = Number.parseInt(CreateTime + '000')
-    //     return {
-    //       address: `${address.Province} ${address.City} ${address.Area} ${address.Detail} ${address.NickName} ${address.Phone}`,
-    //       createTime: Common.handleCreateTimeText(date),
-    //       payType: '在线支付',
-    //       phone: Phone,
-    //       price: `￥${Number.parseFloat(Price).toFixed(2)}`,
-    //       status: Common.handleOuterStatus(Status)
-    //     }
-    //   }
-    //   return null
-    // },
-    // modifyOrderBLists: state => {
-    //   let { orderBList } = state
-    //   if (orderBList && orderBList.length) {
-    //     let arr = []
-    //     orderBList.slice(0).forEach(orderItem => {
-    //       let { Desc, GoodsId, GoodsName, Img, Price, Status } = orderItem
-    //       arr.push({
-    //         desc: Desc,
-    //         goodsId: GoodsId,
-    //         goodsName: GoodsName,
-    //         img: Img,
-    //         number: orderItem.Number,
-    //         price: `￥${Number.parseFloat(Price).toFixed(2)}`,
-    //         subTotal: `￥${Number.parseFloat(orderItem.Number * Price).toFixed(2)}`,
-    //         status: Common.handleInnerStatus(Status)
-    //       })
-    //     })
-    //     return arr
-    //   }
-    //   return []
-    // }
   },
   mutations: {
     handleSubmit (state, status) {
@@ -136,10 +74,15 @@ const orders = {
   },
   actions: {
     generateOrdersListsAction ({ dispatch, commit, rootState }, limit) {
-      commit('generateUserInfoCheck', null, { root: true })
-      let userId = rootState.userInfo.UserId
+      // 判断是已登录
+      commit('handleUserInfoCheckMutation', null, { root: true })
+      if (!rootState.userInfo) return
+      let { userId, jwtToken } = rootState.userInfo
+      console.log(userId, jwtToken)
       commit('handleLoading', null, { root: true })
-      Order.GetOrderList({userId}).then(res => {
+      Order.GetOrderList({userId, limit}, {Authorization: jwtToken}).then(res => {
+        console.log(res)
+        debugger
         commit('handleLoading', null, { root: true })
         if (res.ret === 1001) {
           commit('generateOrdersListsMutation', res.data)
@@ -150,10 +93,12 @@ const orders = {
       })
     },
     generateOrdersDetailAction ({ dispatch, commit, rootState }, orderId) {
-      commit('generateUserInfoCheck', null, { root: true })
-      let userId = rootState.userInfo.UserId
+      // 判断是已登录
+      commit('handleUserInfoCheckMutation', null, { root: true })
+      if (!rootState.userInfo) return
+      let { userId, jwtToken } = rootState.userInfo
       commit('handleLoading', null, { root: true })
-      Order.GetOrderDetail({userId, orderId}).then(res => {
+      Order.GetOrderDetail({userId, orderId}, {Authorization: jwtToken}).then(res => {
         commit('handleLoading', null, { root: true })
         if (res.ret === 1001) {
           commit('generateOrdersDetailMutation', res)
@@ -163,12 +108,14 @@ const orders = {
         }
       })
     },
-    handleOrdersAddAction ({ dispatch, commit, state, rootGetters }, cartLists) {
+    handleOrdersAddAction ({ dispatch, commit, state, rootState, rootGetters }, cartLists) {
       if (state.isSubmit) {
         return window.confirm('您已经成功提交订单，请不要重复提交。')
       }
-      commit('generateUserInfoCheck', null, { root: true })
-      let { userId, addressId } = rootGetters['address/defaultAddress']
+      commit('handleUserInfoCheckMutation', null, { root: true })
+      if (!rootState.userInfo) return
+      let { userId, jwtToken } = rootState.userInfo
+      let { addressId } = rootGetters['address/defaultAddress']
       commit('handleLoading', null, { root: true })
       let goodsId = []
       let specId = []
@@ -191,7 +138,7 @@ const orders = {
         number: number.join('##'),
         desc: desc.join('##')
       }
-      Order.AddOrder(instance).then(res => {
+      Order.AddOrder(instance, {Authorization: jwtToken}).then(res => {
         commit('handleLoading', null, { root: true })
         if (res.ret === 1001) {
           commit('handleSubmit', true)

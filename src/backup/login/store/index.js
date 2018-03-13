@@ -1,13 +1,20 @@
-// import Common from 'modules/service/CommonServices'
+import Vue from 'vue'
+import Vuex from 'vuex'
+import Router from '../router/index.js'
+import Common from 'modules/service/CommonServices'
 import Sign from 'modules/service/SignServices'
-import Index from 'pages/index/router/index.js'
-const login = {
-  namespaced: true,
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
   state: {
+    loading: false,
     waitSecond: {},
     intervalId: null
   },
   mutations: {
+    handleLoading (state) {
+      state.loading = !state.loading
+    },
     handleWaitSecondMutation (state, second) {
       if (state.isWaiting) {
         return
@@ -23,16 +30,33 @@ const login = {
     }
   },
   actions: {
-    handleMallsLoginAccount ({ commit, state }, instance) {
-      commit('handleLoading', null, { root: true })
+    handleSendSmsAction ({ commit, state }, instance) {
+      commit('handleLoading')
+      let {phone, style} = instance
+      if (!phone) {
+        return window.confirm('手机号码不能为空')
+      }
+      Sign.SendSms({phone, style}).then(res => {
+        commit('handleLoading')
+        console.log(res)
+        if (res.data.ret === 1001) {
+          this.$message.success(res.data.code)
+          if (style === 2) return this.onCb(60)
+          if (style === 3) return this.onCb(60)
+        }
+        if (res.data.ret === 1002) {
+          window.confirm(res.code)
+        }
+      })
+    },
+    handlePhoneLoginAction ({ commit, state }, instance) {
+      commit('handleLoading')
       // PhoneLoginAccount -> MallsLoginAccount
       Sign.MallsLoginAccount(instance).then(res => {
-        commit('handleLoading', null, { root: true })
+        commit('handleLoading')
         if (res.data.ret === 1001) {
-          let key = 'userInfo'
-          sessionStorage.setItem('sessionKey', key)
-          sessionStorage.setItem(key, JSON.stringify(res.data))
-          Index.push('/')
+          Common.handleSessionStorageUserInfo(res.data)
+          Common.handleRedirectPage('user')
         }
         if (res.data.ret === 1002) {
           window.confirm(res.data.code)
@@ -40,12 +64,12 @@ const login = {
       })
     },
     handlePhoneRegisterAction ({ commit, state }, instance) {
-      commit('handleLoading', null, { root: true })
+      commit('handleLoading')
       Sign.PhoneRegisterAccount(instance).then(res => {
-        commit('handleLoading', null, { root: true })
+        commit('handleLoading')
         if (res.data.ret === 1001) {
           if (window.confirm(res.data.code)) {
-            Index.push({ name: 'login' })
+            Router.push({ name: 'login' })
           }
         }
         if (res.data.ret === 1002) {
@@ -54,12 +78,12 @@ const login = {
       })
     },
     handlePhoneForgotAction ({ commit, state }, instance) {
-      commit('handleLoading', null, { root: true })
+      commit('handleLoading')
       Sign.PhonePasswordGet(instance).then(res => {
-        commit('handleLoading', null, { root: true })
+        commit('handleLoading')
         if (res.data.ret === 1001) {
           if (window.confirm(res.data.code)) {
-            Index.push({ name: 'login' })
+            Router.push({ name: 'login' })
           }
         }
         if (res.data.ret === 1002) {
@@ -73,10 +97,10 @@ const login = {
       if (!phone) {
         return window.confirm('手机号码不能为空')
       }
-      commit('handleLoading', null, { root: true })
+      commit('handleLoading')
       commit('handleWaitSecondMutation', 60)
       Sign.SendSms({phone, style}).then(res => {
-        commit('handleLoading', null, { root: true })
+        commit('handleLoading')
         if (res.data.ret === 1001) {
           window.confirm(res.data.code)
         }
@@ -86,5 +110,6 @@ const login = {
       })
     }
   }
-}
-export default login
+})
+
+export default store

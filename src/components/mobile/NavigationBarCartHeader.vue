@@ -1,26 +1,6 @@
 <template>
   <el-row type="flex" justify="center" align="middle" style="height: 60px">
     <el-col :xs="24" :sm="20" :md="20" :lg="20" :xl="20">
-      <el-row type="flex" justify="start" align="middle">
-        <el-col :xs="0" :sm="2" :md="2" :lg="2" :xl="2" class="pointer">
-          <router-link to="/">
-            ABOO商城
-          </router-link>
-        </el-col>
-        <el-col :xs="0" :sm="20" :md="20" :lg="20" :xl="20"></el-col>
-        <el-col :xs="0" :sm="2" :md="2" :lg="2" :xl="2">
-          <el-dropdown>
-            <span class="pointer">
-              我的账号
-            </span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="handleClickRedirectPage('user')">我的账号</el-dropdown-item>
-              <el-dropdown-item @click.native="handleClickRedirectPage('user', { page: 'orderslists'})">我的订单</el-dropdown-item>
-              <el-dropdown-item  @click.native="handleClickSessionStorageUserInfoOut">退出</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </el-col>
-      </el-row>
       <el-row type="flex" justify="start" align="middle" class="text-center">
         <el-col :xs="6" :sm="0" :md="0" :lg="0" :xl="0">
           <el-button type="text" @click="isDialog = true">按钮</el-button>
@@ -72,12 +52,10 @@
 </template>
 
 <script>
-import CommonBase from 'mixins/CommonBase'
 import { mapState, mapMutations, createNamespacedHelpers } from 'vuex'
 const { mapGetters } = createNamespacedHelpers('cart')
 export default {
   name: 'NavigationBarCartHeader',
-  mixins: [CommonBase],
   data () {
     return {
       isDialog: false
@@ -97,13 +75,8 @@ export default {
   },
   methods: {
     ...mapMutations({
-      handleUserInfoOut: 'handleUserInfoOut',
       handleEdit: 'cart/handleEdit'
-    }),
-    handleRedirctProduct (goodsId) {
-      this.$router.push({ name: 'product', params: { goodsId } })
-      this.isDialog = false
-    }
+    })
   }
 }
 </script>

@@ -25,10 +25,10 @@ class Common {
     let userInfo = JSON.parse(sessionStorage.getItem(sessionKey))
     return userInfo
   }
-  static handleSessionStorageUserInfoOut () {
+  static handleSessionStorageUserInfoOut (page, param) {
     let sessionKey = sessionStorage.getItem('sessionKey')
     sessionStorage.removeItem(sessionKey)
-    this.handleRedirectPage('store')
+    this.handleRedirectPage(page, param)
     // return
   }
   // static handlePay (data) {

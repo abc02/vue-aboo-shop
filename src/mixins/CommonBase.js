@@ -4,8 +4,8 @@ export default {
     handleClickRedirectPage (page, param) {
       Common.handleRedirectPage(page, param)
     },
-    handleClickSessionStorageUserInfoOut () {
-      Common.handleSessionStorageUserInfoOut()
+    handleClickSessionStorageUserInfoOut (page, param) {
+      Common.handleSessionStorageUserInfoOut(page, param)
     },
     handleClickBcPay (data, type) {
       if (type) {

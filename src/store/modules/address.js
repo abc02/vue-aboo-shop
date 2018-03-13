@@ -92,10 +92,12 @@ const address = {
   },
   actions: {
     generateAddressListsAction ({ dispatch, commit, rootState }) {
-      commit('generateUserInfoCheck', null, { root: true })
-      let userId = rootState.userInfo.UserId
+      // 判断是已登录
+      commit('handleUserInfoCheckMutation', null, { root: true })
+      if (!rootState.userInfo) return
+      let { userId, jwtToken } = rootState.userInfo
       commit('handleLoading', null, { root: true })
-      Address.GetAddressList({userId}).then(res => {
+      Address.GetAddressList({userId}, {Authorization: jwtToken}).then(res => {
         commit('handleLoading', null, { root: true })
         if (res.ret === 1001) {
           commit('generateAddressListsMutation', res.data)
@@ -108,11 +110,13 @@ const address = {
       })
     },
     handleAddressAddAction ({ dispatch, commit, rootState }, instance) {
-      commit('generateUserInfoCheck', null, { root: true })
-      let userId = rootState.userInfo.UserId
+      // 判断是已登录
+      commit('handleUserInfoCheckMutation', null, { root: true })
+      if (!rootState.userInfo) return
+      let { userId, jwtToken } = rootState.userInfo
       commit('handleLoading', null, { root: true })
       let { nickName, phone, province, city, area, detail, isFirst } = instance
-      Address.AddAddress({nickName, phone, province, city, area, detail, userId}).then(res => {
+      Address.AddAddress({nickName, phone, province, city, area, detail, userId}, {Authorization: jwtToken}).then(res => {
         commit('handleLoading', null, { root: true })
         if (res.ret === 1001) {
           dispatch('generateAddressListsAction')
@@ -126,9 +130,12 @@ const address = {
       })
     },
     handleAddressUpdateAction ({ dispatch, commit, rootState }, instance) {
-      commit('generateUserInfoCheck', null, { root: true })
+      // 判断是已登录
+      commit('handleUserInfoCheckMutation', null, { root: true })
+      if (!rootState.userInfo) return
+      let { jwtToken } = rootState.userInfo
       commit('handleLoading', null, { root: true })
-      Address.UpdateAddress({...instance}).then(res => {
+      Address.UpdateAddress({...instance}, {Authorization: jwtToken}).then(res => {
         commit('handleLoading', null, { root: true })
         if (res.ret === 1001) {
           // commit('handleAddressUpdateMutation', instance)
@@ -143,10 +150,12 @@ const address = {
     },
     handleAddressDeleteAction ({ dispatch, commit, rootState }, addressId) {
       if (!window.confirm('此操作将删除该收货地址, 是否继续?')) return
-      commit('generateUserInfoCheck', null, { root: true })
-      let userId = rootState.userInfo.UserId
+      // 判断是已登录
+      commit('handleUserInfoCheckMutation', null, { root: true })
+      if (!rootState.userInfo) return
+      let { userId, jwtToken } = rootState.userInfo
       commit('handleLoading', null, { root: true })
-      Address.DeleteAddress({addressId, userId}).then(res => {
+      Address.DeleteAddress({addressId, userId}, {Authorization: jwtToken}).then(res => {
         commit('handleLoading', null, { root: true })
         if (res.ret === 1001) {
           dispatch('generateAddressListsAction')
@@ -158,10 +167,12 @@ const address = {
       })
     },
     handleAddressSetDefaultAction ({ dispatch, commit, rootState }, addressId) {
-      commit('generateUserInfoCheck', null, { root: true })
-      let userId = rootState.userInfo.UserId
+      // 判断是已登录
+      commit('handleUserInfoCheckMutation', null, { root: true })
+      if (!rootState.userInfo) return
+      let { userId, jwtToken } = rootState.userInfo
       commit('handleLoading', null, { root: true })
-      Address.UpdateAddressDefault({userId, addressId}).then(res => {
+      Address.UpdateAddressDefault({userId, addressId}, {Authorization: jwtToken}).then(res => {
         commit('handleLoading', null, { root: true })
         if (res.ret === 1001) {
           dispatch('generateAddressListsAction')

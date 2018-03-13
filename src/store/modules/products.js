@@ -1,6 +1,6 @@
 import Common from 'modules/service/CommonServices.js'
 import Goods from 'modules/service/GoodsServices.js'
-import Store from 'pages/store/router/index.js'
+import Index from 'pages/index/router/index.js'
 const products = {
   namespaced: true,
   state: {
@@ -80,15 +80,19 @@ const products = {
       state.selectSpecDatas[key] = value
     },
     generateGoodsSpecMutation (state, instance) {
-      let {goodsinfo, priceList, specDatas} = instance
-      state.goodsInfo = goodsinfo
-      state.priceList = priceList
-      state.specDatas = specDatas
-      let selectSpecDatas = {}
-      specDatas.forEach(specData => {
-        selectSpecDatas[specData.specId] = specData.specSub[0].Cid
-      })
-      state.selectSpecDatas = selectSpecDatas
+      let ModifyfGoodsSpec = (state, instance) => {
+        let {goodsinfo, priceList, specDatas} = instance
+        state.goodsInfo = goodsinfo
+        state.priceList = priceList
+        state.specDatas = specDatas
+        let selectSpecDatas = {}
+        specDatas.forEach(specData => {
+          selectSpecDatas[specData.specId] = specData.specSub[0].Cid
+        })
+        state.selectSpecDatas = selectSpecDatas
+      }
+      if (instance.ret === 1001) ModifyfGoodsSpec(state, instance)
+      if (instance.ret === 1002) Index.push('/')
     },
     generateGoodsListsMutation (state, instance) {
       let modifyGoodsLists = instance => {
@@ -106,37 +110,20 @@ const products = {
         })
         return arr
       }
-      if (Array.isArray(instance)) {
-        state.goodsLists = modifyGoodsLists(instance)
-      } else {
-        state.goodsLists = instance
-      }
+      if (instance.ret === 1001) state.goodsLists = modifyGoodsLists(instance.data)
+      if (instance.ret === 1002) state.goodsLists = null
     }
   },
   actions: {
-    generateGoodsListsAction ({ dispatch, commit }, limit) {
+    async generateGoodsListsAction ({ dispatch, commit }, limit) {
       commit('handleLoading', null, { root: true })
-      Goods.GetGoodsList({limit}).then(res => {
-        commit('handleLoading', null, { root: true })
-        if (res.ret === 1001) {
-          commit('generateGoodsListsMutation', res.data)
-        }
-        if (res.ret === 1002) {
-          window.confirm(res.code)
-        }
-      })
+      commit('generateGoodsListsMutation', await Goods.GetGoodsList({limit}))
+      commit('handleLoading', null, { root: true })
     },
-    generateGoodsSpecAction ({ dispatch, commit }, goodsId) {
+    async generateGoodsSpecAction ({ dispatch, commit }, goodsId) {
       commit('handleLoading', null, { root: true })
-      Goods.GetGoodsSpec({goodsId}).then(res => {
-        commit('handleLoading', null, { root: true })
-        if (res.ret === 1001) {
-          commit('generateGoodsSpecMutation', res)
-        }
-        if (res.ret === 1002) {
-          Store.push({ name: 'store' })
-        }
-      })
+      commit('generateGoodsSpecMutation', await Goods.GetGoodsSpec({goodsId}))
+      commit('handleLoading', null, { root: true })
     }
   }
 }

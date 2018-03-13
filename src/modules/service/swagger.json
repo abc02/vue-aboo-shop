@@ -4015,6 +4015,39 @@
                 }
             }
         },
+        "/xiedian_login/MallsLoginAccount": {
+            "post": {
+                "tags": [
+                    "xiedian_login"
+                ],
+                "description": "手机登录",
+                "operationId": "XiedianLoginController.手机登录",
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "phone",
+                        "description": "手机号",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "password",
+                        "description": "密码",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{int}"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
         "/xiedian_login/PhonePasswordGet": {
             "post": {
                 "tags": [

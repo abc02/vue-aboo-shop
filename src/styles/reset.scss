@@ -94,3 +94,9 @@ img {
     border-color: $aboo-color !important;
     color: $aboo-color !important;
 }
+.el-input__inner {
+    border-color: rgba($color: #606266, $alpha: .7) !important;
+}
+.el-input__inner:focus {
+    border-color: $aboo-color !important;
+}

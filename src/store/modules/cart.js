@@ -42,54 +42,47 @@ const cart = {
     handeDialogClose (state) {
       state.isDialog = false
     },
-    generateCartListsMutations (state, cartLists) {
-      state.cartLists = cartLists
+    generateCartListsMutations (state, instance) {
+      if (instance.ret === 1001) state.cartLists = instance.data
+      if (instance.ret === 1002) state.cartLists = null
     }
   },
   actions: {
-    generateCartListsAction ({ commit, rootState }) {
-      commit('generateUserInfoCheck', null, { root: true })
-      let userId = rootState.userInfo.UserId
+    async generateCartListsAction ({ commit, dispatch, rootState }) {
+      // 判断是已登录
+      commit('handleUserInfoCheckMutation', null, { root: true })
+      if (!rootState.userInfo) return
+      let { userId, jwtToken } = rootState.userInfo
       commit('handleLoading', null, { root: true })
-      Cart.GetShopCart({userId}).then(res => {
-        commit('handleLoading', null, { root: true })
-        if (res.ret === 1001) {
-          commit('generateCartListsMutations', res.data)
-        }
-        if (res.ret === 1002) {
-          commit('generateCartListsMutations', null)
-        }
-      })
+      // 请求
+      commit('generateCartListsMutations', await Cart.GetShopCart({userId}, {Authorization: jwtToken}))
+      commit('handleLoading', null, { root: true })
     },
-    handleCartDeleteAction ({ commit, dispatch, state, rootState }, key) {
+    async handleCartDeleteAction ({ commit, dispatch, state, rootState }, key) {
       if (!window.confirm('您确定要删除吗')) return
-      commit('generateUserInfoCheck', null, { root: true })
-      let userId = rootState.userInfo.UserId
+      // 判断是已登录
+      commit('handleUserInfoCheckMutation', null, { root: true })
+      if (!rootState.userInfo) return
+      let { userId, jwtToken } = rootState.userInfo
       commit('handleLoading', null, { root: true })
-      Cart.DelShopCart({userId, key}).then(res => {
-        commit('handleLoading', null, { root: true })
-        if (res.ret === 1001) {
-          dispatch('generateCartListsAction')
-        }
-        if (res.ret === 1002) {
-          window.confirm(res.code)
-        }
-      })
+      // 请求
+      let res = await Cart.DelShopCart({userId, key}, {Authorization: jwtToken})
+      commit('handleLoading', null, { root: true })
+      if (res.ret === 1001) dispatch('generateCartListsAction')
+      if (res.ret === 1002) window.confirm(res.code)
     },
-    handleCartAddAction ({ commit, rootState }, instance) {
-      commit('generateUserInfoCheck', null, { root: true })
-      commit('handleLoading', null, { root: true })
-      let userId = rootState.userInfo.UserId
+    async handleCartAddAction ({ commit, rootState }, instance) {
+      // 判断是已登录
+      commit('handleUserInfoCheckMutation', null, { root: true })
+      if (!rootState.userInfo) return
+      let { userId, jwtToken } = rootState.userInfo
       let { goodsId, specId, specName, number } = instance
-      Cart.AddShopCart({userId, goodsId, specId, specName, number}).then(res => {
-        commit('handleLoading', null, { root: true })
-        if (res.ret === 1001) {
-          commit('handeDialogOpen')
-        }
-        if (res.ret === 1002) {
-          window.confirm(res.code)
-        }
-      })
+      commit('handleLoading', null, { root: true })
+      // 请求
+      let res = await Cart.AddShopCart({userId, goodsId, specId, specName, number}, {Authorization: jwtToken})
+      commit('handleLoading', null, { root: true })
+      if (res.ret === 1001) commit('handeDialogOpen')
+      if (res.ret === 1002) window.confirm(res.code)
     }
   }
 }

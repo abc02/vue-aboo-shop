@@ -4,16 +4,16 @@ import url from './Api.js'
 
 class Cart {
   // 添加购物车
-  static AddShopCart (data) {
-    return Http.post(url.AddShopCart, data)
+  static AddShopCart (data, headers) {
+    return Http.post(url.AddShopCart, data, headers)
   }
   // 获取购物车
-  static GetShopCart (data) {
-    return Http.post(url.GetShopCart, data)
+  static GetShopCart (data, headers) {
+    return Http.post(url.GetShopCart, data, headers)
   }
   //  删除购物车指定商品
-  static DelShopCart (data) {
-    return Http.post(url.DelShopCart, data)
+  static DelShopCart (data, headers) {
+    return Http.post(url.DelShopCart, data, headers)
   }
 }
 
