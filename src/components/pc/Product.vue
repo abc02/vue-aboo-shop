@@ -17,7 +17,6 @@
         </el-row>
         <el-row type="flex" justify="start" align="top">
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <img :src="productDetail" alt="alt">
           </el-col>
         </el-row>
       </el-col>
@@ -57,7 +56,6 @@
   </el-container>
 </template>
 <script>
-import productDetail from 'assets/product_detail.jpg'
 import ProductIntroduce from 'components/product/ProductIntroduce.vue'
 import { mapActions, createNamespacedHelpers } from 'vuex'
 const { mapGetters } = createNamespacedHelpers('products')
@@ -65,11 +63,6 @@ const { mapState, mapMutations } = createNamespacedHelpers('cart')
 export default {
   name: 'Product',
   props: ['goodsId'],
-  data () {
-    return {
-      productDetail
-    }
-  },
   components: {
     ProductIntroduce
   },

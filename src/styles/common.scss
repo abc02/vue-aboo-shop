@@ -1,4 +1,5 @@
 @charset "utf-8";
+@import './color.scss';
 
 .text-center{
     text-align: center;
@@ -90,6 +91,14 @@
     bottom:0;
     left:0;
 }
+.fixed-bottom {
+    position: fixed !important;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    border-top: 1px solid #eee;
+    box-shadow: 0 -2px 4px rgba(0,0,0,.1);
+}
 .bottom-fixed {
     position: fixed !important;
     bottom: 0;
@@ -165,6 +174,9 @@
     border:1px solid #44abf2 !important;
     color: #44abf2 !important;
 }
+.border-radius {
+    border-radius: 50%;
+}
 .border {
     border: 1px solid #e7e7e7;
 }
@@ -184,7 +196,7 @@
     border-bottom: none;
 }
 .min-heigth {
-    min-height: 680px;
+    min-height: 580px;
 }
 @media (max-width: 768px) {
     .min-heigth {
@@ -218,4 +230,8 @@
 }
 .visibility:hover .active{
     visibility: visible;
+}
+.footer-page-aboo{
+    color: white;
+    background-color: $aboo-color;
 }

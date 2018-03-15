@@ -15,16 +15,9 @@
               <el-button type="primary" round class="ml10" style="padding: 3px 9px;" v-if="cartListsTotal">{{cartListsTotal.totalNumbar}}</el-button>
             </span>
           </router-link>
-          <el-dropdown v-if="userInfo">
-            <span class="p pointer mr20 ml20">
-              我的账号
-            </span>
+          <el-dropdown v-if="userInfo" class="p pointer">
+            <span class="relative" style="margin-left: 35px;"><img :src="userInfo.icon" alt="icon" style="width: 24px; height: 24px; margin-left: -35px;" class="border-radius mr10 absolute-middle-left" />{{userInfo.nickName}} </span>
             <el-dropdown-menu slot="dropdown">
-              <router-link :to="{ name: 'info'}">
-                <el-dropdown-item>
-                    <span class="pointer">我的账号</span>
-                </el-dropdown-item>
-              </router-link>
               <router-link :to="{ name: 'orderslists'}">
                 <el-dropdown-item>
                     <span class="pointer">我的订单</span>

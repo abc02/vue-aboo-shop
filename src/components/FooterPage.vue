@@ -1,5 +1,5 @@
 <template>
-  <el-row type="flex" justify="center" align="middle" class="height-100" :style="FootStyle">
+  <el-row type="flex" justify="center" align="middle" :style="FootStyle" :class="`${className}`">
     <el-col :xs="0" :sm="20" :md="20" :lg="20" :xl="20" class="pt20 pb20">
       <el-row type="flex" justify="start" align="top">
         <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
@@ -43,6 +43,6 @@
 <script>
 export default {
   name: 'FootPage',
-  props: ['FootStyle']
+  props: ['FootStyle', 'className']
 }
 </script>

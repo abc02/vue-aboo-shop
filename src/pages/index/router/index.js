@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// 通用导航组件
 
-// import NavigationBarBuyHeader from 'components/NavigationBarBuyHeader.vue'
 // 通用底部组件
 import FooterPage from 'components/FooterPage.vue'
 import FooterBottom from 'components/FooterBottom.vue'
@@ -57,7 +55,8 @@ import Summary from 'components/mobile/Summary.vue'
 import PayMobile from 'components/mobile/Pay.vue'
 import Select from 'components/mobile/Select.vue'
 
-import Result from '../components/Result.vue'
+// 支付成功返回模块
+import Result from 'components/Result.vue'
 // 登录模块
 // import Enter from 'components/login/Enter.vue'
 import LogIn from 'components/login/LogIn.vue'

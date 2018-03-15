@@ -40,18 +40,12 @@
   </el-row>
   <el-dialog
     v-if="isDialog"
-    :visible="isDialog"
+    :title="title"
+    :visible.sync="isDialog"
     width="60vw"
-    :show-close="false"
     :close-on-click-modal="false"
     :close-on-press-escape="true">
-    <el-row type="flex" justify="start" align="middle" slot="title" class="pt10 ml20 mr20">
-      <el-col :span="20">{{title}}</el-col>
-      <el-col :span="4" class="text-right">
-        <el-button type="text" icon="el-icon-close" @click="handleDialogClose"></el-button>
-      </el-col>
-    </el-row>
-    <Form :isDialog="true" :type="type" :instance="currentAddress" @close="handleDialogClose" />
+    <Form :isDialog="true" :type="type" :instance="currentAddress" @close="isDialog = false" />
   </el-dialog>
 </el-container>
 </template>

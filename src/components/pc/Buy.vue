@@ -5,7 +5,7 @@
       <router-view name="ordersPreview" />
       <el-row type="flex" justify="start" align="middle">
         <el-col :xs="0" :sm="24" :md="24" :lg="24" :xl="24" class="text-right">
-          <el-button type="primary" :loading="isLoading" @click="handleOrdersAddAction(cartLists)" style="width: 300px;">提交订单，去支付</el-button>
+          <el-button type="primary" :loading="isLoading" :disabled="!defaultAddress" @click="handleOrdersAddAction(cartLists)" style="width: 300px;">提交订单，去支付</el-button>
         </el-col>
       </el-row>
       <el-row type="flex" justify="start" align="middle">
@@ -26,8 +26,7 @@ export default {
     ...mapState({
       isLoading: 'isLoading',
       cartLists: state => state.cart.cartLists,
-      type: state => state.address.type,
-      currentAddress: state => state.address.currentAddress
+      defaultAddress: state => state.address.defaultAddress
     })
   },
   methods: {

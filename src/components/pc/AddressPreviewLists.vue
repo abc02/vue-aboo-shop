@@ -39,32 +39,25 @@
     <el-container direction="vertical" v-else>
       <el-row type="flex" justify="start" align="top">
         <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-          <Form type="add" :isFirst="true"/>
+          <Form type="add" :isFirst="true" />
         </el-col>
       </el-row>
     </el-container>
     <el-dialog
       v-if="isDialog"
-      :visible="isDialog"
+      :title="title"
+      :visible.sync="isDialog"
       width="60vw"
-      :show-close="false"
       :close-on-click-modal="false"
       :close-on-press-escape="true">
-      <el-row type="flex" justify="start" align="middle" slot="title">
-        <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">{{title}}</el-col>
-        <el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="text-right">
-          <el-button type="text" icon="el-icon-close" @click="handleDialogClose"></el-button>
-        </el-col>
-      </el-row>
-      <Form :isDialog="true" :type="type" :instance="currentAddress" @close="handleDialogClose" />
+      <Form :isDialog="true" :type="type" :instance="currentAddress" @close="isDialog = false" />
     </el-dialog>
-    <!-- <AddressDialog v-if="isDialog" :type="type" :instance="currentAddress"/> -->
   </el-container>
 </template>
 
 <script>
-import AddressDialog from './AddressDialog.vue'
-import Form from './Form.vue'
+import AddressDialog from 'components/address/AddressDialog.vue'
+import Form from 'components/address//Form.vue'
 import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions } = createNamespacedHelpers('address')
 export default {
