@@ -23,21 +23,11 @@ const login = {
     }
   },
   actions: {
-    handleMallsLoginAccount ({ commit, state }, instance) {
+    async handleMallsLoginAccount ({ commit, state }, instance) {
       commit('handleLoading', null, { root: true })
       // PhoneLoginAccount -> MallsLoginAccount
-      Sign.MallsLoginAccount(instance).then(res => {
-        commit('handleLoading', null, { root: true })
-        if (res.data.ret === 1001) {
-          let key = 'userInfo'
-          sessionStorage.setItem('sessionKey', key)
-          sessionStorage.setItem(key, JSON.stringify(res.data))
-          Index.push('/')
-        }
-        if (res.data.ret === 1002) {
-          window.confirm(res.data.code)
-        }
-      })
+      commit('handleUserInfoMutation', await Sign.MallsLoginAccount(instance), { root: true })
+      commit('handleLoading', null, { root: true })
     },
     handlePhoneRegisterAction ({ commit, state }, instance) {
       commit('handleLoading', null, { root: true })

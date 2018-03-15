@@ -1,63 +1,63 @@
-import Index from 'pages/index/router/index.js'
+import router from 'pages/index/router/index.js'
+import qs from 'qs'
 const mutations = {
   handleLoading (state) {
     state.isLoading = !state.isLoading
   },
-  generateUserInfo (state) {
-    let sessionKey = sessionStorage.getItem('sessionKey')
-    let userInfo = JSON.parse(sessionStorage.getItem(sessionKey))
-    if (userInfo) {
-      let { UserId, NickName, JwtToken, Icon } = userInfo
-      state.userInfo = {
-        UserId,
-        userId: UserId,
+  handleUserInfoMutation (state, instance) {
+    if (instance.ret === 1001) {
+      let { BindingNum, Ciphertext, Icon, JwtToken, NickName, UserId } = instance
+      let userInfo = {
+        bindingNum: BindingNum,
+        ciphertext: Ciphertext,
+        icon: Icon,
+        JwtToken,
         nickName: NickName,
-        jwtToken: JwtToken,
-        icon: Icon
+        userId: UserId
       }
-    } else {
-      state.userInfo = null
+      state.userInfo = userInfo
+      let key = 'userInfo'
+      sessionStorage.setItem('sessionKey', key)
+      sessionStorage.setItem(key, JSON.stringify(userInfo))
+      let isMobile = /Mobile/i.test(navigator.userAgent)
+      if (isMobile) {
+        router.push({ name: 'mobile' })
+      } else {
+        router.push('/')
+      }
     }
+    if (instance.ret === 1002) window.confirm(instance.code)
   },
   generateUserInfoMutation (state) {
     let sessionKey = sessionStorage.getItem('sessionKey')
-    let userInfo = JSON.parse(sessionStorage.getItem(sessionKey))
-    if (userInfo) {
-      let { UserId, NickName, JwtToken, Icon } = userInfo
-      state.userInfo = {
-        UserId,
-        userId: UserId,
-        nickName: NickName,
-        jwtToken: JwtToken,
-        icon: Icon
-      }
+    let sessionUserInfo = JSON.parse(sessionStorage.getItem(sessionKey))
+    let urlUserInfo = qs.parse(location.search.substr(1))
+    if (sessionUserInfo) {
+      state.userInfo = sessionUserInfo
+    } else if (urlUserInfo) {
+      state.userInfo = urlUserInfo
     } else {
       state.userInfo = null
     }
   },
   handleUserInfoCheckMutation (state) {
-    let sessionKey = sessionStorage.getItem('sessionKey')
-    let userInfo = JSON.parse(sessionStorage.getItem(sessionKey))
-    if (userInfo) {
-      let { UserId, NickName, Icon } = userInfo
-      state.userInfo = {
-        userId: UserId,
-        nickName: NickName,
-        icon: Icon
-      }
-    } else {
-      Index.push({ name: 'login' })
-    }
+    if (!state.userInfo) router.push({ name: 'login' })
   },
   handleUserInfoOutMutation (state, page) {
+    console.log(page)
     let sessionKey = sessionStorage.getItem('sessionKey')
     sessionStorage.removeItem(sessionKey)
     sessionStorage.removeItem('sessionKey')
     state.userInfo = null
-    if (page) {
-      Index.push({ name: page })
+    let isMobile = /Mobile/i.test(navigator.userAgent)
+    if (isMobile) {
+      router.push({ name: 'mobileIndex' })
     } else {
-      Index.push({ path: '/' })
+      if (page) {
+        router.push({ name: page })
+      } else {
+        router.push({ path: '/' })
+      }
     }
   }
 }

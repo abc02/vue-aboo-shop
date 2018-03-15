@@ -31,39 +31,38 @@ import OrdersPreview from 'components/pc/OrdersPreview.vue'
 
 // 用户页所需组件
 import NavigationBarUserHeader from 'components/pc/NavigationBarUserHeader.vue'
-import User from 'components/users/User.vue'
-import NavigationBarLeft from 'components/users/NavigationBarLeft.vue'
-import UserInfo from 'components/users/UserInfo.vue'
-// import Orders from 'components/users/Orders.vue'
-import OrdersLists from 'components/users/OrdersLists.vue'
-import OrderDetail from 'components/users/OrderDetail.vue'
-// import Address from 'components/users/Address.vue'
-import AddressLists from 'components/users/AddressLists.vue'
-import AddressForm from 'components/users/AddressForm.vue'
+import User from 'components/pc/User.vue'
+import NavigationBarLeft from 'components/pc/NavigationBarLeft.vue'
+import UserInfo from 'components/pc/UserInfo.vue'
+import OrdersLists from 'components/pc/OrdersLists.vue'
+import OrderDetail from 'components/pc/OrderDetail.vue'
+import AddressLists from 'components/pc/AddressLists.vue'
 // 支付页面所需组件
 import Pay from 'components/pc/Pay.vue'
 
 // Mobile端控制入口
 import Mobile from 'components/Mobile.vue'
 // 首页所需组件, 头部，轮播，列表，详情页
-import NavigationBarStorePageMobile from 'components/Mobile/NavigationBarStorePage.vue'
-import ProductsListsMobile from 'components/Mobile/ProductsLists.vue'
-import ProductMobile from 'components/Mobile/Product.vue'
+import NavigationBarStorePageMobile from 'components/mobile/NavigationBarStorePage.vue'
+import ProductsListsMobile from 'components/mobile/ProductsLists.vue'
+import ProductMobile from 'components/mobile/Product.vue'
+// 购车车页
+import CartMobile from 'components/mobile/Cart.vue'
+// 用户页 我的账户 我的订单
+import UserMobile from 'components/mobile/User.vue'
+import OrdersListsMobile from 'components/mobile/OrdersLists.vue'
+// 支付页面
+import Orders from 'components/mobile/Orders.vue'
+import Summary from 'components/mobile/Summary.vue'
+import PayMobile from 'components/mobile/Pay.vue'
+import Select from 'components/mobile/Select.vue'
 
-import Orders from '../components/Orders.vue'
-import Summary from '../components/Summary.vue'
-
-import Address from '../components/Address.vue'
-import Select from '../components/Select.vue'
 import Result from '../components/Result.vue'
 // 登录模块
 // import Enter from 'components/login/Enter.vue'
 import LogIn from 'components/login/LogIn.vue'
 import Register from 'components/login/Register.vue'
 import Forgot from 'components/login/Forgot.vue'
-
-// 订单订单
-// import OrdersLists from 'components/orders/OrdersLists.vue'
 
 import qs from 'qs'
 Vue.use(Router)
@@ -75,6 +74,7 @@ const routes = [
     children: [
       {
         path: '',
+        redirect: { name: 'index' },
         components: {
           default: PC,
           topheader: NavigationBarTopHeader,
@@ -84,7 +84,8 @@ const routes = [
         },
         children: [
           {
-            path: '',
+            path: 'index',
+            name: 'index',
             components: {
               default: ProductsLists,
               swiper: Swiper
@@ -234,6 +235,7 @@ const routes = [
       {
         path: '/mobile',
         name: 'mobile',
+        redirect: { name: 'mobileIndex' },
         components: {
           default: Mobile,
           pageheader: NavigationBarStorePageMobile,
@@ -242,12 +244,16 @@ const routes = [
         },
         children: [
           {
-            path: '',
+            path: 'index',
+            name: 'mobileIndex',
             components: {
               default: ProductsListsMobile,
               swiper: Swiper
             },
-            props: { swiper: { slotNames: 3, swiperHeight: '180px' } }
+            props: { swiper: { slotNames: 3, swiperHeight: '180px' } },
+            meta: {
+              title: 'ABOO商城'
+            }
           },
           {
             path: 'product/:goodsId',
@@ -257,7 +263,40 @@ const routes = [
             },
             props: { default: true },
             meta: {
-              title: '购买产品'
+              title: '产品页'
+            }
+          },
+          {
+            path: 'cart',
+            name: 'cartMobile',
+            components: {
+              default: CartMobile
+            },
+            props: { default: true },
+            meta: {
+              title: '我的购物车'
+            }
+          },
+          {
+            path: 'user',
+            name: 'userMobile',
+            components: {
+              default: UserMobile
+            },
+            props: { default: true },
+            meta: {
+              title: '我的账户'
+            }
+          },
+          {
+            path: 'orderslists',
+            name: 'orderslistsMobile',
+            components: {
+              default: OrdersListsMobile
+            },
+            props: { default: true },
+            meta: {
+              title: '我的订单'
             }
           },
           {
@@ -269,11 +308,11 @@ const routes = [
             children: [
               {
                 path: 'summary',
-                name: 'summaryMobile',
+                name: 'summary',
                 components: {
-                  summary: Summary
+                  default: Summary
                 },
-                props: { summary: true },
+                props: { default: true },
                 meta: {
                   title: '提交订单'
                 }
@@ -282,9 +321,9 @@ const routes = [
                 path: 'pay/:sign',
                 name: 'payMobile',
                 components: {
-                  pay: Pay
+                  default: PayMobile
                 },
-                props: { pay: true },
+                props: { default: true },
                 meta: {
                   title: '去支付'
                 }
@@ -295,22 +334,12 @@ const routes = [
             path: 'address',
             name: 'address',
             components: {
-              default: Address,
-              // pageheader: NavigationBarBuyHeader,
-              bottomfooter: FooterBottom
+              default: Select
             },
-            children: [
-              {
-                path: 'select',
-                name: 'select',
-                components: {
-                  select: Select
-                },
-                meta: {
-                  title: '选择地址'
-                }
-              }
-            ]
+            props: { default: true },
+            meta: {
+              title: '选择地址'
+            }
           }
         ]
       },
@@ -365,19 +394,6 @@ const routes = [
           title: '忘记密码'
         }
       }
-      // {
-      //   path: 'orderslists',
-      //   name: 'orderslists',
-      //   components: {
-      //     default: OrdersLists,
-      //     pageheader: NavigationBarStorePage,
-      //     bottomfooter: FooterBottom
-      //   },
-      //   // component: OrdersLists,
-      //   meta: {
-      //     title: '我的订单'
-      //   }
-      // }
     ]
   }
 ]

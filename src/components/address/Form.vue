@@ -1,22 +1,22 @@
 <template>
   <el-container direction="vertical" class="pl10 pr10 bg-white">
     <el-row type="flex" justify="start" align="middle" class="border-bottom pb10 pt10">
-      <el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="p">收件人</el-col>
+      <el-col :span="4" class="p">收件人</el-col>
       <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
-        <input type="text" v-model="nickName" class="width-100">
+        <input type="text" v-model="nickName" class="width-100 input-none">
       </el-col>
     </el-row>
     <el-row type="flex" justify="start" align="middle" class="border-bottom pb10 pt10">
-      <el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="p">联系电话</el-col>
-      <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
-        <input type="text" v-model="phone" class="width-100">
+      <el-col :span="4" class="p">联系电话</el-col>
+      <el-col :span="20">
+        <input type="text" v-model="phone" class="width-100 input-none">
       </el-col>
     </el-row>
     <el-row type="flex" justify="start" align="middle" class="border-bottom pb10 pt10">
-      <el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="p">选择地区</el-col>
-      <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
+      <el-col :span="4" class="p">选择地区</el-col>
+      <el-col :span="20">
         <el-row type="flex" justify="start" align="middle" :gutter="10">
-          <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+          <el-col :span="8">
             <el-select v-model="province" placeholder="请选择" size="mini">
               <el-option
                 v-for="(val, key, index) in addressData"
@@ -26,7 +26,7 @@
               </el-option>
             </el-select>
           </el-col>
-          <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+          <el-col :span="8">
               <el-select v-model="city" placeholder="请选择" size="mini">
               <el-option
                 v-for="(val, key, index) in cityLists"
@@ -36,7 +36,7 @@
               </el-option>
             </el-select>
           </el-col>
-          <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+          <el-col :span="8">
             <el-select v-model="area" placeholder="请选择" size="mini">
               <el-option
                 v-for="(item, index) in areaLists"
@@ -50,15 +50,20 @@
       </el-col>
     </el-row>
     <el-row type="flex" justify="start" align="middle" class="border-bottom pb10 pt10">
-      <el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="p">详细地址</el-col>
-      <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
-        <input type="text" v-model="detail" class="width-100">
+      <el-col :span="4" class="p">详细地址</el-col>
+      <el-col :span="20">
+        <input type="text" v-model="detail" class="width-100 input-none">
       </el-col>
     </el-row>
     <el-row type="flex" justify="start" align="middle">
       <el-col :xs="0" :sm="24" :md="24" :lg="24" :xl="24" class="pb10 pt20">
         <el-button type="primary" :loading="isLoading" @click="handleAddress">保存并使用</el-button>
         <el-button @click="handleDialogClose" v-show="isDialog">取消</el-button>
+      </el-col>
+    </el-row>
+    <el-row type="flex" justify="start" align="middle" v-if="type === 'edit'">
+      <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" class="pb10 pt20">
+        <el-button type="text" :loading="isLoading" @click="handleAddressDeleteAction(addressId)">删除地址</el-button>
       </el-col>
     </el-row>
     <el-row>
@@ -157,14 +162,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-input{
-  border: none;
-  outline: none;
-}
-input:focus{
-    border: none;
-    outline: none;
-  }
-</style>

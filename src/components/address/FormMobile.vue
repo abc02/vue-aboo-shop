@@ -1,12 +1,12 @@
 <template>
   <el-container direction="vertical">
     <el-row type="flex" justify="start" align="middle">
-      <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" class="mt10 mb10 pl10 pr10 relative">
+      <el-col :span="24" class="pt10 pb10 pl10 pr10 bg-gray relative">
           {{title}}
-         <i class="el-icon-close button-right" @click="close"></i>
+         <i class="el-icon-close absolute-middle-right mr20 h3" v-show="!isFirst" @click="close"></i>
       </el-col>
     </el-row>
-     <Form :type="type" :instance="instance"/>
+    <Form :type="type" :instance="instance" />
   </el-container >
 </template>
 
@@ -14,7 +14,7 @@
 import Form from './Form.vue'
 export default {
   name: 'FormMoblie',
-  props: ['type', 'instance'],
+  props: ['type', 'instance', 'isFirst'],
   components: {
     Form
   },

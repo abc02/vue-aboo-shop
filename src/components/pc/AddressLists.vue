@@ -86,13 +86,13 @@ export default {
     addressLists: {
       handler () {
         this.isDialog = false
-    },
-    deep: true
+      },
+      deep: true
     }
   },
   methods: {
     ...mapActions(['generateAddressListsAction', 'handleAddressDeleteAction']),
-     handleAddressDialog (type, instance) {
+    handleAddressDialog (type, instance) {
       if (type === 'edit') {
         this.currentAddress = instance
       } else if (type === 'add') {

@@ -1,7 +1,7 @@
 <template>
   <el-container direction="vertical">
     <router-view name="swiper" />
-    <el-row type="flex" justify="center" align="top" class="mt20">
+    <el-row type="flex" justify="center" align="top">
       <el-col :span="24">
         <keep-alive>
           <router-view></router-view>

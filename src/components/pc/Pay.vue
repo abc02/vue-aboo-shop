@@ -1,7 +1,7 @@
 <template>
 <el-row type="flex" justify="center" align="middle">
-    <el-col :span="20">
-      <el-container direction="vertical" class="mt20" v-if="isPay" >
+    <el-col :span="20" class="border-bottom mt20  bg-white">
+      <el-container direction="vertical" v-if="isPay" >
         <el-row type="flex" justify="start" align="middle" class="pt20 pb20">
           <el-col :span="2" class="h1 text-center">
             <i class="el-icon-tickets"></i>
@@ -23,8 +23,13 @@
             </el-row>
           </el-col>
         </el-row>
-         <el-collapse>
-         <el-collapse-item title="订单详情">
+        <el-collapse class="mb20">
+         <el-collapse-item>
+            <template slot="title">
+             <el-row type="flex" justify="start" align="top">
+              <el-col :span="24" class="h3 gray text-center">订单详情</el-col>
+              </el-row>
+            </template>
             <el-row type="flex" justify="start" align="top" :gutter="20" class="pb10">
               <el-col :span="8" class="h3 gray text-right">订单号:</el-col>
               <el-col :span="16" class="h3">{{instance.orderId}}</el-col>
@@ -52,12 +57,13 @@
             </el-row>
           </el-collapse-item>
         </el-collapse>
-        <el-row type="flex" justify="start" align="middle" class="pt20 pb20 mt20">
-          <el-col :span="24" class="h3">
-            支付方式
-          </el-col>
+        <el-row type="flex" justify="start" align="middle" class="pb10 pt10">
+          <el-col :span="24" class="h3">在线支付平台</el-col>
         </el-row>
-        <el-row type="flex" justify="start" align="middle" class="pt10 pb10" >
+        <el-row type="flex" justify="start" align="middle" class="pb10 pt10">
+          <el-col :span="24" class="p">支付宝单笔限额：快捷支付因银行而异，一般是 10000-50000；余额支付是 50000。如遇限额问题，建议往支付宝充值后再使用余额支付。</el-col>
+        </el-row>
+        <el-row type="flex" justify="start" align="middle" class="pt10 pb10 mb20">
           <el-col :span="4" class="border text-center pointer" style="height: 80px;">
             <el-row type="flex" justify="center" align="middle" @click.native="handleBcPay(instance, 'ali')" class="height-100">
               <img :src="alipay" alt="alipay" style="width: 40px; height:40px;" class="mr20"><span class="h1 gray bold">支付宝</span>
@@ -65,7 +71,7 @@
           </el-col>
         </el-row>
       </el-container>
-      <el-container direction="vertical" class="border-bottom pt20 pb20 bg-white" v-else>
+      <el-container direction="vertical" v-else>
         <el-row type="flex" justify="start" align="middle" class="pt20 pb20">
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="h1 text-center">
             <i class="el-icon-loading"></i>

@@ -157,14 +157,3 @@ export default {
   }
 }
 </script>
-
-<style>
-input{
-  border: none;
-  outline: none;
-}
-input:focus{
-    border: none;
-    outline: none;
-  }
-</style>

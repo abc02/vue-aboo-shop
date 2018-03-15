@@ -11,6 +11,10 @@ class Address {
   static GetAddressList (data, isHeaders = false) {
     return Http.post(url.GetAddressList, data, isHeaders)
   }
+  // 获取默认地址
+  static GetDefaulAddress (data, isHeaders = false) {
+    return Http.post(url.GetDefaulAddress, data, isHeaders)
+  }
   // 修改收货地址
   static UpdateAddress (data, isHeaders = false) {
     return Http.post(url.UpdateAddress, data, isHeaders)

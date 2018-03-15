@@ -23,7 +23,9 @@
     <el-dialog
         v-if="isDialog"
         :visible="isDialog"
-        width="65vw"
+        width="100vw"
+        :fullscreen="true"
+        :modal="false"
         center
         :show-close="false">
         <el-container direction="vertical">
@@ -42,22 +44,14 @@
           </el-row>
         </el-container>
         <el-container direction="vertical" slot="footer">
-          <el-row type="flex" justify="center" align="middle">
-            <el-col :xs="0" :sm="16" :md="16" :lg="16" :xl="16" >
-              <el-button @click="handeDialogClose" class="mr20">继续购物车</el-button>
-              <router-link :to="{ name: 'cart' }">
-                <el-button type="primary">查看购物车</el-button>
-              </router-link>
+          <el-row type="flex" justify="start" align="middle">
+            <el-col :span="24" class="mb20">
+              <el-button @click="handeDialogClose" class="width-100">继续购物</el-button>
             </el-col>
           </el-row>
           <el-row type="flex" justify="start" align="middle">
-            <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" class="mb20">
-              <el-button @click="handeDialogClose" class="width-100">继续购物车</el-button>
-            </el-col>
-          </el-row>
-          <el-row type="flex" justify="start" align="middle">
-            <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" >
-              <router-link :to="{ name: 'cart' }">
+            <el-col :span="24" >
+              <router-link :to="{ name: 'cartMobile' }">
                 <el-button type="primary" class="width-100">查看购物车</el-button>
               </router-link>
             </el-col>
@@ -97,18 +91,20 @@ export default {
   // created () {
   //   this.handeDialogClose()
   //   this.generateGoodsSpecAction(this.goodsId)
-  // },
-  // beforeRouteUpdate (to, from, next) {
-  //   // 在当前路由改变，但是该组件被复用时调用
-  //   // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
-  //   // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
-  //   // 可以访问组件实例 `this`
-  //   let { goodsId } = to.params
-  //   if (goodsId) {
-  //     this.generateGoodsSpecAction(goodsId)
-  //   }
-  //   next()
-  // },
+  // }
+  beforeRouteUpdate (to, from, next) {
+    console.log('beforeRouteUpdate')
+    // 在当前路由改变，但是该组件被复用时调用
+    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+    // 可以访问组件实例 `this`
+    let { goodsId } = to.params
+    if (goodsId) {
+      this.handeDialogClose()
+      this.generateGoodsSpecAction(goodsId)
+    }
+    next()
+  },
   activated  () {
     console.log('activated')
     this.handeDialogClose()

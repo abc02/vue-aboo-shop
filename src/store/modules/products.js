@@ -1,6 +1,6 @@
 import Common from 'modules/service/CommonServices.js'
 import Goods from 'modules/service/GoodsServices.js'
-import Index from 'pages/index/router/index.js'
+import router from 'pages/index/router/index.js'
 const products = {
   namespaced: true,
   state: {
@@ -92,7 +92,7 @@ const products = {
         state.selectSpecDatas = selectSpecDatas
       }
       if (instance.ret === 1001) ModifyfGoodsSpec(state, instance)
-      if (instance.ret === 1002) Index.push('/')
+      if (instance.ret === 1002) router.push('/')
     },
     generateGoodsListsMutation (state, instance) {
       let modifyGoodsLists = instance => {

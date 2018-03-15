@@ -8,21 +8,10 @@
           </router-link>
         </el-col>
       </el-row>
-      <el-row type="flex" justify="start" align="middle" class="text-center">
-        <el-col :xs="6" :sm="0" :md="0" :lg="0" :xl="0">
-          <el-button type="text" @click="isDialog = true">按钮</el-button>
-        </el-col>
-        <el-col :xs="12" :sm="0" :md="0" :lg="0" :xl="0" class="h3 gray">
-          <router-link to="/">
+      <el-row type="flex" justify="start" align="middle">
+        <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" class="text-center h3 gray">
+          <router-link :to="{ name: 'mobile' }">
             <div>ABOO商城</div>
-          </router-link>
-        </el-col>
-        <el-col :xs="6" :sm="0" :md="0" :lg="0" :xl="0">
-          <router-link :to="{ name: 'cart' }">
-            <el-badge :value="cartListsTotal.totalNumbar" class="item" v-if="cartListsTotal">
-              <el-button type="text">购物车</el-button>
-            </el-badge>
-            <el-button type="text" v-else>购物车</el-button>
           </router-link>
         </el-col>
       </el-row>
@@ -30,13 +19,19 @@
   </el-row>
 </template>
 <script>
-import { mapState, createNamespacedHelpers } from 'vuex'
+import { mapState, mapMutations, createNamespacedHelpers } from 'vuex'
 const { mapGetters } = createNamespacedHelpers('cart')
 export default {
   name: 'NavigationBarStorePage',
   computed: {
     ...mapState(['userInfo']),
     ...mapGetters(['cartListsTotal'])
+  },
+  methods: {
+    ...mapMutations(['generateUserInfoMutation'])
+  },
+  created () {
+    this.generateUserInfoMutation()
   }
 }
 </script>

@@ -22,11 +22,17 @@
   </el-container>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'Index',
   computed: {
     ...mapState(['isLoading'])
+  },
+  methods: {
+    ...mapMutations(['generateUserInfoMutation'])
+  },
+  created () {
+    this.generateUserInfoMutation()
   }
 }
 </script>

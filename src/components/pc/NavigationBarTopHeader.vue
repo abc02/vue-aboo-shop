@@ -30,7 +30,7 @@
                     <span class="pointer">我的订单</span>
                 </el-dropdown-item>
               </router-link>
-              <el-dropdown-item @click.native="handleUserInfoOutMutation">退出</el-dropdown-item>
+              <el-dropdown-item @click.native="handleUserInfoOutMutation('index', $event)">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
           <span class="p" v-else>

@@ -60,7 +60,7 @@
               收货地址：
             </el-col>
             <el-col :xs="0" :sm="19" :md="19" :lg="19" :xl="19">
-              {{orderADetail.address}}
+              {{orderADetail.addressLonger}}
             </el-col>
           </el-row>
         </el-container>

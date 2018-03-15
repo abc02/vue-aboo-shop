@@ -10,7 +10,7 @@
 </style>
 
 <template>
-  <el-row type="flex" justify="center" align="middle" style="height: 100vh;">
+  <el-row type="flex" justify="center" align="middle" style="height: 90vh;">
     <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6" class="border pt20 pb20 pl20 pr20 shadow">
       <el-row type="flex" justify="start" align="middle" class="text-center">
         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="h1 bold mt20 mb20">登录 </el-col>
@@ -32,7 +32,7 @@
             </el-row>
           </el-form-item>
           <el-form-item>
-            <el-button  class="width-100" type="primary" :loading="isLoading" @click="handlePhoneLoginAction(formData)">登录</el-button>
+            <el-button  class="width-100" type="primary" :loading="isLoading" @click="handleMallsLoginAccount(formData)">登录</el-button>
           </el-form-item>
         </el-form>
         </el-col>

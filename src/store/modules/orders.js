@@ -1,6 +1,6 @@
 import Common from 'modules/service/CommonServices.js'
 import Order from 'modules/service/OrderServices.js'
-import Index from 'pages/index/router/index.js'
+import router from 'pages/index/router/index.js'
 const orders = {
   namespaced: true,
   state: {
@@ -81,7 +81,6 @@ const orders = {
       let { userId } = rootState.userInfo
       commit('handleLoading', null, { root: true })
       Order.GetOrderList({userId, limit}, true).then(res => {
-        console.log(res)
         commit('handleLoading', null, { root: true })
         if (res.ret === 1001) {
           commit('generateOrdersListsMutation', res.data)
@@ -139,7 +138,12 @@ const orders = {
         commit('handleLoading', null, { root: true })
         if (res.ret === 1001) {
           commit('handleSubmit', true)
-          Index.push({ name: 'orders', params: { sign: res.sign, instance: res } })
+          let isMobile = /Mobile/i.test(navigator.userAgent)
+          if (isMobile) {
+            router.push({ name: 'payMobile', params: { sign: res.sign, instance: res } })
+          } else {
+            router.push({ name: 'orders', params: { sign: res.sign, instance: res } })
+          }
         }
         if (res.ret === 1002) {
           window.confirm(res.code)
@@ -148,7 +152,7 @@ const orders = {
     },
     handleOrdersBcPay ({ dispatch, commit, state, rootGetters }, instance) {
       if (process.env.NODE_ENV === 'production') {
-        instance.returnUrl = 'https://abupao.com/index.html?page=result'
+        instance.returnUrl = 'https://shop.abpao.com/index.html?page=result'
       } else {
         instance.returnUrl = 'http://localhost:8090/index.html?page=result'
       }

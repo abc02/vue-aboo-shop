@@ -1,26 +1,20 @@
 import axios from 'axios'
 import qs from 'qs'
-import Index from 'pages/index/router/index.js'
+import store from 'store/index.js'
+import router from 'pages/index/router/index.js'
+
 export default class Http {
   static request (method, url, data, isHeaders) {
-    let params
-    let headers = this.createAuthHeader()
-    console.log(isHeaders, headers)
     if (isHeaders) {
-      params = {
-        url,
-        data: qs.stringify(data),
-        method,
-        headers
-      }
-    } else {
-      params = {
-        url,
-        data: qs.stringify(data),
-        method
-      }
+      let JWT_TOKEN = store.state.userInfo.JwtToken
+      axios.defaults.headers.common['Authorization'] = JWT_TOKEN
     }
-    console.log('req', params)
+    // let headers = this.createAuthHeader()
+    let params = {
+      url,
+      data: qs.stringify(data),
+      method
+    }
     return new Promise((resolve, reject) => {
       axios.request(params).then(res => {
         if (this.isSuccess(res)) {
@@ -51,7 +45,7 @@ export default class Http {
       let sessionKey = sessionStorage.getItem('sessionKey')
       sessionStorage.removeItem(sessionKey)
       sessionStorage.removeItem('sessionKey')
-      Index.push({ name: 'login' })
+      router.push({ name: 'login' })
     }
     return true
   }

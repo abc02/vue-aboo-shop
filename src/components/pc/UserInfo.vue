@@ -5,17 +5,11 @@
   </el-container>
 </template>
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState } from 'vuex'
 export default {
   name: 'UserInfo',
   computed: {
     ...mapState(['userInfo'])
-  },
-  methods: {
-    ...mapMutations(['handleUserInfoCheckMutation'])
-  },
-  activated () {
-    this.handleUserInfoCheckMutation()
   }
 }
 </script>

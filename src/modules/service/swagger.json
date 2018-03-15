@@ -4279,6 +4279,35 @@
                 }
             }
         },
+        "/xiedian_shop/GetDefaulAddress": {
+            "post": {
+                "tags": [
+                    "xiedian_shop"
+                ],
+                "description": "获取默认地址",
+                "operationId": "XiedianShopController.GetAddressList",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "jwttoken",
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "userId",
+                        "description": "用户id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} data"
+                    }
+                }
+            }
+        },
         "/xiedian_shop/GetGoodsList": {
             "post": {
                 "tags": [

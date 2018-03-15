@@ -4,19 +4,19 @@ import url from './Api.js'
 
 class Order {
   // 添加订单
-  static AddOrder (data, isHeaders) {
+  static AddOrder (data, isHeaders = false) {
     return Http.post(url.AddOrder, data, isHeaders)
   }
   // 获取订单列表
-  static GetOrderList (data, isHeaders) {
+  static GetOrderList (data, isHeaders = false) {
     return Http.post(url.GetOrderList, data, isHeaders)
   }
   // 获取订单详情
-  static GetOrderDetail (data, isHeaders) {
+  static GetOrderDetail (data, isHeaders = false) {
     return Http.post(url.GetOrderDetail, data, isHeaders)
   }
   // 确认收货
-  static ConfirmOrder (data, isHeaders) {
+  static ConfirmOrder (data, isHeaders = false) {
     return Http.post(url.ConfirmOrder, data, isHeaders)
   }
 }

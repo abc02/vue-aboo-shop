@@ -64,23 +64,19 @@
           <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="h3 text-right">{{orderADetail.price}}</el-col>
         </el-row>
       </el-container>
-      <el-container direction="vertical" class="border-bottom bg-white pl10 pr10 mt20">
-        <el-row type="flex" justify="start" align="middle" class="border-bottom pt20 pb20">
-          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="h3">
-            支付方式
+      <el-container direction="vertical" class="bg-white">
+        <el-row type="flex" justify="start" align="middle" class="pb10 pt10">
+          <el-col :span="24" class="p pl20 pr20 pt10 pb10">支付方式</el-col>
+        </el-row>
+        <el-row type="flex" justify="start" align="middle" class="border-top border-bottom pb10 pt10 pl10 pr10 relative"  @click.native="handleBcPay(instance, 'ali')">
+          <el-col :span="2" >
+            <img :src="alipay" alt="alipay" style="width: 32px; height:32px;">
+          </el-col>
+          <el-col :span="22">
+            <span>支付宝</span><i class="el-icon-arrow-right absolute-middle-right"></i>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="start" align="middle" class="border-bottom pt10 pb10" @click.native="handleBcPay(instance, 'ali')">
-          <el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="text-center">
-            <img :src="alipay" alt="alipay" style="width: 36px">
-          </el-col>
-          <el-col :xs="18" :sm="18" :md="18" :lg="18" :xl="18" class="h3">
-            支付宝
-          </el-col>
-          <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2" class="text-center">
-            <i class="el-icon-arrow-right"></i>
-          </el-col>
-        </el-row>
+      </el-container>
         <!-- <el-row type="flex" justify="start" align="middle" class="pt10 pb10">
           <el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="text-center">
             <img :src="wxpay" alt="wxpay" style="width: 36px">
@@ -92,7 +88,6 @@
             <i class="el-icon-arrow-right"></i>
           </el-col>
         </el-row> -->
-      </el-container>
       <!-- <el-container direction="vertical" class="bg-white mt20">
         <el-row type="flex" justify="start" align="middle">
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
@@ -145,7 +140,7 @@ export default {
   methods: {
     ...mapActions(['generateOrdersDetailAction', 'handleOrdersBcPay']),
     handleBcPay (instance, type) {
-      instance.instant_channel = type
+      instance.instantChannel = type
       this.handleOrdersBcPay(instance)
     }
   },

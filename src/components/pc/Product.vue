@@ -46,21 +46,9 @@
         <el-container direction="vertical" slot="footer">
           <el-row type="flex" justify="center" align="middle">
             <el-col :xs="0" :sm="16" :md="16" :lg="16" :xl="16" >
-              <el-button @click="handeDialogClose" class="mr20">继续购物车</el-button>
+              <el-button @click="handeDialogClose" class="mr20">继续购物</el-button>
               <router-link :to="{ name: 'cart' }">
                 <el-button type="primary">查看购物车</el-button>
-              </router-link>
-            </el-col>
-          </el-row>
-          <el-row type="flex" justify="start" align="middle">
-            <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" class="mb20">
-              <el-button @click="handeDialogClose" class="width-100">继续购物车</el-button>
-            </el-col>
-          </el-row>
-          <el-row type="flex" justify="start" align="middle">
-            <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" >
-              <router-link :to="{ name: 'cart' }">
-                <el-button type="primary" class="width-100">查看购物车</el-button>
               </router-link>
             </el-col>
           </el-row>

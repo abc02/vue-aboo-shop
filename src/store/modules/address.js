@@ -1,10 +1,11 @@
 // import Common from 'modules/service/CommonServices.js'
 import Address from 'modules/service/AddressServices.js'
-
+import router from 'pages/index/router/index.js'
 const address = {
   namespaced: true,
   state: {
-    addressLists: null
+    addressLists: null,
+    addressDefault: null
   },
   getters: {
     defaultAddress: state => {
@@ -37,10 +38,30 @@ const address = {
         })
         return arr
       }
-      if (Array.isArray(instance)) {
-        state.addressLists = modifyAddressLists(instance)
-      } else {
-        state.addressLists = instance
+      if (instance.ret === 1001) state.addressLists = modifyAddressLists(instance.data)
+      if (instance.ret === 1002) state.addressLists = null
+    },
+    generateAddressDefaultMutation (state, instance) {
+      let modifyAddressDefault = instance => {
+        let { Area, City, Detail, Id, UserId, IsDefault, NickName, Phone, Province } = instance
+        return {
+          area: Area,
+          city: City,
+          detail: Detail,
+          addressId: Id,
+          userId: UserId,
+          isDefault: IsDefault,
+          nickName: NickName,
+          phone: Phone,
+          province: Province,
+          provinceCityArea: [Province, City, Area],
+          addressLonger: `${Province}${City}${Area}${Detail}`
+        }
+      }
+      if (instance.ret === 1001) state.addressDefault = modifyAddressDefault(instance.data)
+      if (instance.ret === 1002) {
+        state.addressDefault = null
+        router.push({ name: 'address', params: { isFirst: true } })
       }
     },
     handleAddressAddMutation (state, instance) {
@@ -91,23 +112,23 @@ const address = {
     }
   },
   actions: {
-    generateAddressListsAction ({ dispatch, commit, rootState }) {
+    async generateAddressListsAction ({ dispatch, commit, rootState }) {
       // 判断是已登录
       commit('handleUserInfoCheckMutation', null, { root: true })
       if (!rootState.userInfo) return
       let { userId } = rootState.userInfo
       commit('handleLoading', null, { root: true })
-      Address.GetAddressList({userId}, true).then(res => {
-        commit('handleLoading', null, { root: true })
-        if (res.ret === 1001) {
-          commit('generateAddressListsMutation', res.data)
-        }
-        if (res.ret === 1002) {
-          console.log('address', res.data)
-          commit('generateAddressListsMutation', null)
-          // Router.push({ name: 'form', params: { type: 'add', isFirst: true } })
-        }
-      })
+      commit('generateAddressListsMutation', await Address.GetAddressList({userId}, true))
+      commit('handleLoading', null, { root: true })
+    },
+    async generateAddressDefaultAction ({ dispatch, commit, rootState }) {
+      // 判断是已登录
+      commit('handleUserInfoCheckMutation', null, { root: true })
+      if (!rootState.userInfo) return
+      let { userId } = rootState.userInfo
+      commit('handleLoading', null, { root: true })
+      commit('generateAddressDefaultMutation', await Address.GetDefaulAddress({userId}, true))
+      commit('handleLoading', null, { root: true })
     },
     handleAddressAddAction ({ dispatch, commit, rootState }, instance) {
       // 判断是已登录
@@ -122,7 +143,7 @@ const address = {
           dispatch('generateAddressListsAction')
           // 首次添加地址，阻止弹窗
           if (isFirst) return
-          commit('handleDialog', null, { root: true })
+          // commit('handleDialog', null, { root: true })
         }
         if (res.ret === 1002) {
           window.confirm(res.code)
@@ -138,7 +159,7 @@ const address = {
         if (res.ret === 1001) {
           // commit('handleAddressUpdateMutation', instance)
           dispatch('generateAddressListsAction')
-          commit('handleDialog', null, { root: true })
+          // commit('handleDialog', null, { root: true })
           // Router.push({ name: 'all' })
         }
         if (res.ret === 1002) {
