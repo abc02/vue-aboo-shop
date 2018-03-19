@@ -1,17 +1,20 @@
 // import Common from 'modules/service/CommonServices.js'
 import Address from 'modules/service/AddressServices.js'
-import router from 'pages/index/router/index.js'
+import router from 'router/index.js'
 const address = {
   namespaced: true,
   state: {
     addressLists: null,
+    addressListsTmp: null,
     addressDefault: null
   },
   getters: {
     defaultAddress: state => {
       let { addressLists } = state
       if (addressLists && addressLists.length) {
-        return (addressLists.slice(0).filter(address => address.isDefault))[0]
+        let xx = addressLists.slice(0).filter(address => address.isDefault)
+        console.log(xx[0])
+        return (xx[0])
       }
       return null
     }
@@ -38,7 +41,11 @@ const address = {
         })
         return arr
       }
-      if (instance.ret === 1001) state.addressLists = modifyAddressLists(instance.data)
+      if (instance.ret === 1001) {
+        let addressLists = modifyAddressLists(instance.data)
+        state.addressLists = addressLists
+        state.addressListsTmp = addressLists
+      }
       if (instance.ret === 1002) state.addressLists = null
     },
     generateAddressDefaultMutation (state, instance) {
@@ -61,7 +68,10 @@ const address = {
       if (instance.ret === 1001) state.addressDefault = modifyAddressDefault(instance.data)
       if (instance.ret === 1002) {
         state.addressDefault = null
-        router.push({ name: 'address', params: { isFirst: true } })
+        let isMobile = /Mobile/i.test(navigator.userAgent)
+        if (isMobile) {
+          router.push({ name: 'address', params: { isFirst: true } })
+        }
       }
     },
     handleAddressAddMutation (state, instance) {
@@ -109,11 +119,16 @@ const address = {
       addressLists.forEach(address => {
         address.isDefault = address.addressId === addressId ? 1 : 0
       })
+    },
+    handleSelectAddressMutation (state, addressId) {
+      state.addressListsTmp.forEach(address => {
+        if (address.addressId === addressId) return (address.isDefault = 1)
+        address.isDefault = 0
+      })
     }
   },
   actions: {
     async generateAddressListsAction ({ dispatch, commit, rootState }) {
-      // 判断是已登录
       commit('handleUserInfoCheckMutation', null, { root: true })
       if (!rootState.userInfo) return
       let { userId } = rootState.userInfo
@@ -122,7 +137,6 @@ const address = {
       commit('handleLoading', null, { root: true })
     },
     async generateAddressDefaultAction ({ dispatch, commit, rootState }) {
-      // 判断是已登录
       commit('handleUserInfoCheckMutation', null, { root: true })
       if (!rootState.userInfo) return
       let { userId } = rootState.userInfo
@@ -130,46 +144,27 @@ const address = {
       commit('generateAddressDefaultMutation', await Address.GetDefaulAddress({userId}, true))
       commit('handleLoading', null, { root: true })
     },
-    handleAddressAddAction ({ dispatch, commit, rootState }, instance) {
-      // 判断是已登录
+    async handleAddressAddAction ({ dispatch, commit, rootState }, instance) {
       commit('handleUserInfoCheckMutation', null, { root: true })
       if (!rootState.userInfo) return
       let { userId } = rootState.userInfo
       commit('handleLoading', null, { root: true })
-      let { nickName, phone, province, city, area, detail, isFirst } = instance
-      Address.AddAddress({nickName, phone, province, city, area, detail, userId}, true).then(res => {
-        commit('handleLoading', null, { root: true })
-        if (res.ret === 1001) {
-          dispatch('generateAddressListsAction')
-          // 首次添加地址，阻止弹窗
-          if (isFirst) return
-          // commit('handleDialog', null, { root: true })
-        }
-        if (res.ret === 1002) {
-          window.confirm(res.code)
-        }
-      })
+      let { nickName, phone, province, city, area, detail } = instance
+      let res = await Address.AddAddress({nickName, phone, province, city, area, detail, userId}, true)
+      commit('handleLoading', null, { root: true })
+      if (res.ret === 1001) dispatch('generateAddressListsAction')
+      if (res.ret === 1002) window.confirm(res.code)
     },
-    handleAddressUpdateAction ({ dispatch, commit, rootState }, instance) {
-      // 判断是已登录
+    async handleAddressUpdateAction ({ dispatch, commit, rootState }, instance) {
       commit('handleUserInfoCheckMutation', null, { root: true })
       commit('handleLoading', null, { root: true })
-      Address.UpdateAddress({...instance}, true).then(res => {
-        commit('handleLoading', null, { root: true })
-        if (res.ret === 1001) {
-          // commit('handleAddressUpdateMutation', instance)
-          dispatch('generateAddressListsAction')
-          // commit('handleDialog', null, { root: true })
-          // Router.push({ name: 'all' })
-        }
-        if (res.ret === 1002) {
-          window.confirm(res.code)
-        }
-      })
+      let res = await Address.UpdateAddress({...instance}, true)
+      commit('handleLoading', null, { root: true })
+      if (res.ret === 1001) dispatch('generateAddressListsAction')
+      if (res.ret === 1002) window.confirm(res.code)
     },
     handleAddressDeleteAction ({ dispatch, commit, rootState }, addressId) {
       if (!window.confirm('此操作将删除该收货地址, 是否继续?')) return
-      // 判断是已登录
       commit('handleUserInfoCheckMutation', null, { root: true })
       if (!rootState.userInfo) return
       let { userId } = rootState.userInfo
@@ -197,7 +192,7 @@ const address = {
           dispatch('generateAddressListsAction')
         }
         if (res.ret === 1002) {
-          window.confirm(res.code)
+          // window.confirm(res.code)
         }
       })
     }

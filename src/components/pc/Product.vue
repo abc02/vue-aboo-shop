@@ -22,37 +22,28 @@
       </el-col>
     </el-row>
     <el-dialog
-        v-if="isDialog"
-        :visible="isDialog"
-        width="65vw"
-        center
-        :show-close="false">
-        <el-container direction="vertical">
-          <el-row type="flex" justify="center" align="middle">
-            <el-col :xs="24" :sm="16" :md="16" :lg="16" :xl="16" class="text-center mb20">
-              <i class="el-icon-circle-check-outline" style="font-size: 3.6rem;"></i>
-            </el-col>
-          </el-row>
-          <el-row type="flex" justify="center" align="middle">
-            <el-col :xs="0" :sm="16" :md="16" :lg="16" :xl="16" class="border-bottom text-center pb20">
-              <span style="font-size: 1.3rem;">{{`${currentGoods.number}件商品已经加入购物车`}}</span>
-            </el-col>
-             <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" class="border-bottom text-center pb20">
-              <span style="font-size: 0.8rem;">{{`${currentGoods.number}件商品已经加入购物车`}}</span>
-            </el-col>
-          </el-row>
-        </el-container>
-        <el-container direction="vertical" slot="footer">
-          <el-row type="flex" justify="center" align="middle">
-            <el-col :xs="0" :sm="16" :md="16" :lg="16" :xl="16" >
-              <el-button @click="handeDialogClose" class="mr20">继续购物</el-button>
-              <router-link :to="{ name: 'cart' }">
-                <el-button type="primary">查看购物车</el-button>
-              </router-link>
-            </el-col>
-          </el-row>
-        </el-container>
-      </el-dialog>
+      v-if="isDialog"
+      :visible="isDialog"
+      width="45vw"
+      center
+      :show-close="false">
+        <el-row type="flex" justify="center" align="middle" class="text-center success">
+          <el-col :span="24" class="pt20 pb20">
+            <i class="el-icon-circle-check-outline mb20" style="font-size: 3.6rem;"></i>
+              <p style="font-size: 1.3rem;">{{`${currentGoods.number}件商品已经加入购物车`}}</p>
+          </el-col>
+        </el-row>
+      <el-container direction="vertical" slot="footer">
+        <el-row type="flex" justify="center" align="middle">
+          <el-col :span="16" >
+            <el-button @click="handeDialogClose" class="mr20">继续购物</el-button>
+            <router-link :to="{ name: 'cart' }">
+              <el-button type="primary">查看购物车</el-button>
+            </router-link>
+          </el-col>
+        </el-row>
+      </el-container>
+    </el-dialog>
   </el-container>
 </template>
 <script>
@@ -77,9 +68,11 @@ export default {
       handleCartAddAction: 'cart/handleCartAddAction'
     })
   },
-  activated  () {
-    this.handeDialogClose()
+  activated () {
     this.generateGoodsSpecAction(this.goodsId)
+  },
+  deactivated () {
+    this.handeDialogClose()
   }
 }
 </script>

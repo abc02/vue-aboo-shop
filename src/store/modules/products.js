@@ -1,6 +1,6 @@
 import Common from 'modules/service/CommonServices.js'
 import Goods from 'modules/service/GoodsServices.js'
-import router from 'pages/index/router/index.js'
+import router from 'router/index.js'
 const products = {
   namespaced: true,
   state: {

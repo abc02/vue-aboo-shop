@@ -71,10 +71,15 @@ export default {
   methods: {
     ...mapActions(['generateOrdersListsAction', 'handleOrdersBcPay']),
     handlepay (instance) {
-      let { price } = instance
-      instance.amount = Number(price.substr(1)) * 100
-      instance.title = '阿布跑跑智慧鞋垫'
-      this.handleOrdersBcPay(instance)
+      console.log(instance)
+      let { price, sign, orderId } = instance
+      let data = {
+        sign,
+        orderId,
+        title: '阿布跑跑智慧鞋垫',
+        amount: String(Number(price.substr(1)) * 100)
+      }
+      this.$router.push({ name: 'payMobile', params: { sign: sign, instance: data } })
     }
   },
   created () {

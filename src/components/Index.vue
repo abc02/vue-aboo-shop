@@ -9,7 +9,9 @@
           <router-view name="pageheader" />
         </el-header>
         <el-main class="padding-0" style="overflow: hidden;">
-          <router-view />
+          <keep-alive>
+            <router-view />
+          </keep-alive>
         </el-main>
         <el-footer class="padding-0" height="auto" >
           <router-view name="pagefooter" />

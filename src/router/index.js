@@ -31,7 +31,7 @@ import OrdersPreview from 'components/pc/OrdersPreview.vue'
 import NavigationBarUserHeader from 'components/pc/NavigationBarUserHeader.vue'
 import User from 'components/pc/User.vue'
 import NavigationBarLeft from 'components/pc/NavigationBarLeft.vue'
-import UserInfo from 'components/pc/UserInfo.vue'
+// import UserInfo from 'components/pc/UserInfo.vue'
 import OrdersLists from 'components/pc/OrdersLists.vue'
 import OrderDetail from 'components/pc/OrderDetail.vue'
 import AddressLists from 'components/pc/AddressLists.vue'
@@ -56,6 +56,7 @@ import PayMobile from 'components/mobile/Pay.vue'
 import Select from 'components/mobile/Select.vue'
 
 // 支付成功返回模块
+import NavigationBarResultPage from 'components/NavigationBarResultPage.vue'
 import Result from 'components/Result.vue'
 // 登录模块
 // import Enter from 'components/login/Enter.vue'
@@ -81,6 +82,7 @@ const routes = [
           pagefooter: FooterPage,
           bottomfooter: FooterBottom
         },
+        props: { default: true, pagefooter: { className: 'footer-page-aboo' } },
         children: [
           {
             path: 'index',
@@ -93,19 +95,23 @@ const routes = [
             meta: {
               title: 'ABOO商城'
             }
-          },
-          {
-            path: 'product/:goodsId',
-            name: 'product',
-            components: {
-              default: Product
-            },
-            props: { default: true },
-            meta: {
-              title: '购买产品'
-            }
           }
         ]
+      },
+      {
+        path: 'product/:goodsId',
+        name: 'product',
+        components: {
+          default: Product,
+          topheader: NavigationBarTopHeader,
+          pageheader: NavigationBarStorePage,
+          pagefooter: FooterPage,
+          bottomfooter: FooterBottom
+        },
+        props: { default: true, pagefooter: { className: 'footer-page-aboo' } },
+        meta: {
+          title: '购买产品'
+        }
       },
       {
         path: '/user',
@@ -117,7 +123,7 @@ const routes = [
           pagefooter: FooterPage,
           bottomfooter: FooterBottom
         },
-        // props: { default: true, pagefooter: { className: 'fixed-bottom footer-page-aboo' } },
+        props: { default: true, pagefooter: { className: 'footer-page-aboo' } },
         children: [
           // {
           //   path: 'info',
@@ -228,7 +234,7 @@ const routes = [
           pagefooter: FooterPage,
           bottomfooter: FooterBottom
         },
-        props: { default: true },
+        props: { default: true, pagefooter: { className: 'fixed-bottom footer-page-aboo' } },
         meta: {
           title: '去支付'
         }
@@ -349,9 +355,11 @@ const routes = [
         name: 'result',
         components: {
           default: Result,
-          // pageheader: NavigationBarBuyHeader,
+          pageheader: NavigationBarResultPage,
+          pagefooter: FooterPage,
           bottomfooter: FooterBottom
         },
+        props: { default: true, pagefooter: { className: 'fixed-bottom footer-page-aboo' } },
         meta: {
           title: '支付结果'
         }

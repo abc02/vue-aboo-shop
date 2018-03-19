@@ -3,10 +3,13 @@
     <el-col :xs="0" :sm="20" :md="20" :lg="20" :xl="20" class="pt10 pb10">
       <el-row type="flex" justify="space-between" align="top">
       <el-col :xs="0" :sm="18" :md="18" :lg="18" :xl="18">
-          <span class="mr20 p pointer">
-            <a href="https://abpao.com" target="_blank">阿布官网</a>
+          <span class="mr20 p pointer relaitve">
+            <a href="https://abpao.com" target="_blank">
+              <img :src="aboologo" alt="logo" style="width: 28px;height: 28px;" class="absolute-middle-left">
+              <span style="margin-left: 36px;">阿布官网</span>
+            </a>
           </span>
-          <span class="p">订单满¥99包邮。支持支付宝。</span>
+          <span class="p">订单满¥99包邮。支持支付宝、微信。</span>
         </el-col>
         <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6" class="text-right">
           <router-link :to="{ name: 'cart' }">
@@ -37,11 +40,15 @@
 </template>
 
 <script>
-import CommonBase from 'mixins/CommonBase'
+import aboologo from 'assets/icon108.png'
 import { mapState, mapMutations, mapGetters } from 'vuex'
 export default {
   name: 'NavigationBarTopHeader',
-  mixins: [CommonBase],
+  data () {
+    return {
+      aboologo
+    }
+  },
   computed: {
     ...mapState(['userInfo']),
     ...mapGetters({

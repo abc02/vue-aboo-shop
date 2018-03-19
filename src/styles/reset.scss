@@ -108,3 +108,9 @@ img {
 .el-input__inner:focus {
     border-color: $aboo-color !important;
 }
+.el-dialog__header{
+    padding: 0 !important;
+}
+.el-dialog__body{ 
+    padding: 0 !important;
+}

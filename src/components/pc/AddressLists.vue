@@ -1,6 +1,12 @@
 <template>
 <el-container direction="vertical">
-  <el-table :data="addressLists" stripe style="width: 100%" class="mb20" v-if="addressLists && addressLists.length">
+  <el-table
+    :data="addressLists"
+    stripe
+    style="width: 100%"
+    class="mb20"
+    v-if="addressLists && addressLists.length"
+    size="small">
     <el-table-column
       prop="nickName"
       label="联系人"
@@ -40,11 +46,13 @@
   </el-row>
   <el-dialog
     v-if="isDialog"
-    :title="title"
     :visible.sync="isDialog"
     width="60vw"
     :close-on-click-modal="false"
     :close-on-press-escape="true">
+    <el-row type="flex" class="pt20 pb20 pl20 pr20 h3" slot="title">
+      <el-col :span="24">{{title}}</el-col>
+    </el-row>
     <Form :isDialog="true" :type="type" :instance="currentAddress" @close="isDialog = false" />
   </el-dialog>
 </el-container>

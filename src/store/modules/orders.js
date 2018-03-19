@@ -1,23 +1,24 @@
 import Common from 'modules/service/CommonServices.js'
 import Order from 'modules/service/OrderServices.js'
-import router from 'pages/index/router/index.js'
+import router from 'router/index.js'
 const orders = {
   namespaced: true,
   state: {
     ordersLists: null,
     orderADetail: null,
     orderBList: null,
-    isSubmit: false
+    isSubmit: false,
+    limit: 0
   },
   mutations: {
     handleSubmit (state, status) {
       state.isSubmit = status
     },
-    generateOrdersListsMutation (state, ordersLists) {
+    generateOrdersListsMutation (state, instance) {
       let modifyOrderLists = instance => {
         let arr = []
         let date
-        ordersLists.forEach(order => {
+        instance.forEach(order => {
           let { CreateTime, Img, OrderId, Price, Sign, Status } = order
           date = Number.parseInt(CreateTime + '000')
           arr.push({
@@ -32,7 +33,24 @@ const orders = {
         })
         return arr
       }
-      state.ordersLists = modifyOrderLists(ordersLists)
+      if (Array.isArray(state.ordersLists)) {
+        if (instance.ret === 1001) {
+          state.ordersLists = modifyOrderLists(instance.data)
+          state.limit = instance.limit
+        }
+        if (instance.ret === 1002) {
+          return window.confirm(instance.code)
+        }
+      } else {
+        if (instance.ret === 1001) {
+          state.ordersLists = modifyOrderLists(instance.data)
+          state.limit = instance.limit
+        }
+        if (instance.ret === 1002) {
+          state.ordersLists = null
+          state.limit = 0
+        }
+      }
     },
     generateOrdersDetailMutation (state, instance) {
       let { orderADetail, orderBList } = instance
@@ -74,24 +92,15 @@ const orders = {
     }
   },
   actions: {
-    generateOrdersListsAction ({ dispatch, commit, rootState }, limit) {
-      // 判断是已登录
+    async generateOrdersListsAction ({ dispatch, commit, rootState }, limit) {
       commit('handleUserInfoCheckMutation', null, { root: true })
       if (!rootState.userInfo) return
       let { userId } = rootState.userInfo
       commit('handleLoading', null, { root: true })
-      Order.GetOrderList({userId, limit}, true).then(res => {
-        commit('handleLoading', null, { root: true })
-        if (res.ret === 1001) {
-          commit('generateOrdersListsMutation', res.data)
-        }
-        if (res.ret === 1002) {
-          commit('generateOrdersListsMutation', null)
-        }
-      })
+      commit('generateOrdersListsMutation', await Order.GetOrderList({userId, limit}, true))
+      commit('handleLoading', null, { root: true })
     },
     generateOrdersDetailAction ({ dispatch, commit, rootState }, orderId) {
-      // 判断是已登录
       commit('handleUserInfoCheckMutation', null, { root: true })
       if (!rootState.userInfo) return
       let { userId } = rootState.userInfo
@@ -106,13 +115,14 @@ const orders = {
         }
       })
     },
-    handleOrdersAddAction ({ dispatch, commit, state, rootState, rootGetters }, cartLists) {
+    handleOrdersAddAction ({ dispatch, commit, state }, instance) {
       if (state.isSubmit) {
         return window.confirm('您已经成功提交订单，请不要重复提交。')
       }
       commit('handleUserInfoCheckMutation', null, { root: true })
-      let { userId, addressId } = rootGetters['address/defaultAddress']
       commit('handleLoading', null, { root: true })
+      let { cartLists, defaultAddress } = instance
+      let { userId, addressId } = defaultAddress
       let goodsId = []
       let specId = []
       let specName = []
@@ -125,7 +135,7 @@ const orders = {
         number.push(good.number)
         desc.push('')
       })
-      let instance = {
+      let formData = {
         userId,
         addressId,
         goodsId: goodsId.join('##'),
@@ -134,10 +144,11 @@ const orders = {
         number: number.join('##'),
         desc: desc.join('##')
       }
-      Order.AddOrder(instance, true).then(res => {
+      Order.AddOrder(formData, true).then(res => {
         commit('handleLoading', null, { root: true })
         if (res.ret === 1001) {
           commit('handleSubmit', true)
+          dispatch('address/handleAddressSetDefaultAction', addressId, { root: true })
           let isMobile = /Mobile/i.test(navigator.userAgent)
           if (isMobile) {
             router.push({ name: 'payMobile', params: { sign: res.sign, instance: res } })
@@ -152,9 +163,9 @@ const orders = {
     },
     handleOrdersBcPay ({ dispatch, commit, state, rootGetters }, instance) {
       if (process.env.NODE_ENV === 'production') {
-        instance.returnUrl = 'https://shop.abpao.com/index.html?page=result'
+        instance.returnUrl = 'https://shop.abpao.com/result'
       } else {
-        instance.returnUrl = 'http://localhost:8090/index.html?page=result'
+        instance.returnUrl = 'http://localhost:8090/result'
       }
       let { amount, orderId, sign, title, returnUrl, instantChannel } = instance
       BC.err = (data) => {

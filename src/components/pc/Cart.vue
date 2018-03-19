@@ -52,7 +52,9 @@ export default {
   methods: {
     ...mapActions(['generateCartListsAction', 'handleCartDeleteAction'])
   },
-  created () {
+  // created () {
+  // }
+  activated  () {
     this.generateCartListsAction()
   }
 }

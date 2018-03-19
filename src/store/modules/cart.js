@@ -50,7 +50,6 @@ const cart = {
   },
   actions: {
     async generateCartListsAction ({ commit, dispatch, rootState }) {
-      // 判断是已登录
       commit('handleUserInfoCheckMutation', null, { root: true })
       if (!rootState.userInfo) return
       let { userId } = rootState.userInfo
@@ -61,7 +60,6 @@ const cart = {
     },
     async handleCartDeleteAction ({ commit, dispatch, state, rootState }, key) {
       if (!window.confirm('您确定要删除吗')) return
-      // 判断是已登录
       commit('handleUserInfoCheckMutation', null, { root: true })
       if (!rootState.userInfo) return
       let { userId } = rootState.userInfo
@@ -73,7 +71,6 @@ const cart = {
       if (res.ret === 1002) window.confirm(res.code)
     },
     async handleCartAddAction ({ commit, rootState }, instance) {
-      // 判断是已登录
       commit('handleUserInfoCheckMutation', null, { root: true })
       if (!rootState.userInfo) return
       let { userId } = rootState.userInfo

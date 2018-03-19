@@ -10,8 +10,8 @@
     </el-row>
     <el-container direction="vertical" v-if="addressLists">
       <el-row type="flex" justify="start" align="top" :gutter="20" class="mb20">
-        <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6" v-for="(address, index) in addressLists" :key="index">
-          <el-card style="height: 160px;" :class="address.isDefault === 1 ? 'border-active' : ''" class="visibility">
+        <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6" v-for="(address, index) in addressListsTmp" :key="index">
+          <el-card style="height: 160px;" :class="address.isDefault === 1 ? 'border-active' : ''" class="visibility pointer" @click.native="handleSelectAddressMutation(address.addressId)">
             <el-row type="flex" justify="start" align="middle" class="mb10">
               <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">{{address.nickName}}</el-col>
             </el-row>
@@ -45,11 +45,13 @@
     </el-container>
     <el-dialog
       v-if="isDialog"
-      :title="title"
       :visible.sync="isDialog"
       width="60vw"
       :close-on-click-modal="false"
       :close-on-press-escape="true">
+      <el-row type="flex" class="pt20 pb20 pl20 pr20 h3" slot="title">
+        <el-col :span="24">{{title}}</el-col>
+      </el-row>
       <Form :isDialog="true" :type="type" :instance="currentAddress" @close="isDialog = false" />
     </el-dialog>
   </el-container>
@@ -59,7 +61,7 @@
 import AddressDialog from 'components/address/AddressDialog.vue'
 import Form from 'components/address//Form.vue'
 import { createNamespacedHelpers } from 'vuex'
-const { mapState, mapActions } = createNamespacedHelpers('address')
+const { mapState, mapMutations, mapActions } = createNamespacedHelpers('address')
 export default {
   name: 'AddressPreviewLists',
   data () {
@@ -74,7 +76,7 @@ export default {
     Form
   },
   computed: {
-    ...mapState(['addressLists']),
+    ...mapState(['addressLists', 'addressListsTmp']),
     title () {
       if (this.type === 'edit') {
         return '编辑地址'
@@ -84,8 +86,18 @@ export default {
       return ''
     }
   },
+  watch: {
+    addressLists: {
+      handler (newArrays) {
+        // this.addressListsTmp = newArrays.slice(0)
+        this.isDialog = false
+      },
+      deep: true
+    }
+  },
   methods: {
-    ...mapActions(['generateAddressListsAction', 'handleAddressDeleteAction']),
+    ...mapMutations(['handleSelectAddressMutation']),
+    ...mapActions(['generateAddressListsAction', 'generateAddressDefaultAction', 'handleAddressDeleteAction']),
     handleAddressDialog (type, instance) {
       if (type === 'edit') {
         this.currentAddress = instance
@@ -94,13 +106,17 @@ export default {
       }
       this.type = type
       this.isDialog = true
-    },
-    handleDialogClose () {
-      this.isDialog = false
     }
+    // handleSelectAddress (addressId) {
+    //   this.addressListsTmp.forEach(address => {
+    //     if(address.addressId === addressId) return address.isDefault = 1
+    //     address.isDefault = 0
+    //   })
+    // }
   },
-  created () {
+  activated  () {
     this.generateAddressListsAction()
+    this.generateAddressDefaultAction()
   }
 }
 </script>

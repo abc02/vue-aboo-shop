@@ -171,8 +171,8 @@
     padding-right: 20px !important;
 }
 .border-active {
-    border:1px solid #44abf2 !important;
-    color: #44abf2 !important;
+    border:1px solid $aboo-color !important;
+    color: $aboo-color !important;
 }
 .border-radius {
     border-radius: 50%;
@@ -234,4 +234,10 @@
 .footer-page-aboo{
     color: white;
     background-color: $aboo-color;
+}
+.success {
+    color: $success;
+}
+.bule {
+    color: $bule;
 }

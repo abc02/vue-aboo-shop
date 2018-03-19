@@ -32,8 +32,6 @@ export default class Http {
    * 判断请求是否成功
    */
   static isSuccess (res) {
-    // console.log(res)
-    // debugger
     const OUTER_STATUS = res.status
     const INNER_STATUS = res.data.ret
     // 请求错误

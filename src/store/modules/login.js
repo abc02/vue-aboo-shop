@@ -1,6 +1,6 @@
 // import Common from 'modules/service/CommonServices'
 import Sign from 'modules/service/SignServices'
-import Index from 'pages/index/router/index.js'
+import router from 'router/index.js'
 const login = {
   namespaced: true,
   state: {
@@ -35,7 +35,7 @@ const login = {
         commit('handleLoading', null, { root: true })
         if (res.data.ret === 1001) {
           if (window.confirm(res.data.code)) {
-            Index.push({ name: 'login' })
+            router.push({ name: 'login' })
           }
         }
         if (res.data.ret === 1002) {
@@ -49,7 +49,7 @@ const login = {
         commit('handleLoading', null, { root: true })
         if (res.data.ret === 1001) {
           if (window.confirm(res.data.code)) {
-            Index.push({ name: 'login' })
+            router.push({ name: 'login' })
           }
         }
         if (res.data.ret === 1002) {

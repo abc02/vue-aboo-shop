@@ -1,117 +1,127 @@
 <template>
-  <el-row flex="flex" justify="start" align="top">
-    <el-col :xs="0" :sm="24" :md="24" :lg="24" :xl="24" >
-      <el-table :data="ordersLists" stripe style="width: 100%" v-if="ordersLists && ordersLists.length">
-        <el-table-column
-          width="70"
-          label="订单号">
-          <template slot-scope="scope">
-            <img :src="scope.row.img" alt="img">
-          </template>
-        </el-table-column>
-        <el-table-column >
-          <template slot-scope="scope">
-            <router-link :to="{ name: 'ordersdetail',  params: { orderId: scope.row.orderId } }">
-              <el-button type="text">{{scope.row.orderId}}</el-button>
-            </router-link>
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="price"
-          label="总计"
-          width="89">
-        </el-table-column>
-        <el-table-column
-          align="right"
-          label="状态"
-          width="187">
-          <template slot-scope="scope">
-                <span class="p mr10">{{scope.row.status.text}}</span>
-                <el-button type="primary" size="mini" v-if="scope.row.status.button"  @click="handlepay(scope.row)">{{scope.row.status.button}}</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <el-alert title="您的账户暂时没有订单。" type="info" :closable="false" class="mb20" v-else></el-alert>
-    </el-col>
-    <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0"  class="bg-gray">
-      <el-container direction="vertical" v-for="(order, index) in ordersLists" :key="index" class="bg-white mb20" v-if="ordersLists && ordersLists.length">
-        <el-row type="flex" justify="start" align="middle" class="pr10 pl10 pt10 pb10 border-bottom">
-          <el-col :xs="24">
-            <el-steps :active="order.status.status - 1" align-center>
-              <el-step title="下单"></el-step>
-              <el-step title="支付成功"></el-step>
-              <el-step title="已发货"></el-step>
-              <el-step title="订单成功"></el-step>
-            </el-steps>
-          </el-col>
-        </el-row>
-        <el-row type="flex" justify="space-between" align="middle" class="pr10 pl10 pt10 pb10 border-bottom">
-          <el-col :xs="6">订单号</el-col>
-          <el-col :xs="18" class="text-right">
-            {{order.orderId}}
-          </el-col>
-        </el-row>
-        <el-row type="flex" justify="space-between" align="middle" class="pr10 pl10 pt10 pb10 border-bottom">
-          <el-col :xs="12">
-            商品总金额：
-          </el-col>
-          <el-col :xs="12" class="text-right">
-            {{order.price}}
-          </el-col>
-        </el-row>
-        <el-row type="flex" justify="space-between" align="middle" class="pr10 pl10 pt10 pb10">
-          <el-col :xs="12">
-            下单时间：
-          </el-col>
-          <el-col :xs="12" class="text-right">
-            {{order.createTime}}
-          </el-col>
-        </el-row>
-        <el-row type="flex" justify="space-between" align="middle" class="pr10 pl10 pt10 pb10">
-          <el-col :xs="12">
-            支付状态：
-          </el-col>
-          <el-col :xs="12" class="text-right">
-            {{order.status.text}}
-          </el-col>
-        </el-row>
-        <el-row type="flex" justify="space-between" align="middle" class="pr10 pl10 pt10 pb10 border-bottom">
-          <el-col :xs="12">
-            支付方式：
-          </el-col>
-          <el-col :xs="12" class="text-right">
-            {{order.payType}}
-          </el-col>
-        </el-row>
-        <el-row v-if="order.status.button" type="flex" justify="space-between" align="middle" class="pt20 pb20 border-bottom">
-          <el-col :xs="24">
-            <el-button type="primary" class="width-100 pt20 pb20" @click="handlepay(order)">{{order.status.button}}</el-button>
-          </el-col>
-        </el-row>
-      </el-container>
-      <el-alert title="您的账户暂时没有订单。 " type="info" :closable="false" class="mb20" v-else></el-alert>
-    </el-col>
-  </el-row>
+  <el-container direction="vertical">
+    <el-table
+      class="mb20"
+      v-if="ordersLists && ordersLists.length"
+      :data="ordersLists"
+      size="small"
+      stripe
+      style="width: 100%">
+      <el-table-column
+        width="70"
+        label="订单号">
+        <template slot-scope="scope">
+          <img :src="scope.row.img" alt="img" style="width: 28px; height:28px;">
+        </template>
+      </el-table-column>
+      <el-table-column >
+        <template slot-scope="scope">
+          <el-button type="text" @click="handleDialog(scope.row.orderId)" class="padding-0">{{scope.row.orderId}}</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="price"
+        label="总计"
+        width="89">
+      </el-table-column>
+      <el-table-column
+        align="right"
+        label="状态"
+        width="187">
+        <template slot-scope="scope">
+          <el-button type="primary" size="mini" @click="handlepay(scope.row)" v-if="scope.row.status.button">{{scope.row.status.button}}</el-button>
+          <span class="p" v-else>{{scope.row.status.text}}</span>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-alert title="您的账户暂时没有订单。" type="info" :closable="false" class="mb20" v-else></el-alert>
+    <el-row type="flex" justify="end"  align="middle" class="text-center" v-show="limit >= 10">
+      <el-col :span="3" class="p">
+        共 {{ordersLists ? ordersLists.length : '0'}} 条
+      </el-col>
+      <el-col :span="2" class="pointer" @click.native="handlePreOrdersLists(limit)">
+        <i class="el-icon-arrow-left"></i>
+      </el-col>
+      <el-col :span="2" class="pointer" @click.native="handleNextOrdersLists(limit)">
+        <i class="el-icon-arrow-right"></i>
+      </el-col>
+    </el-row>
+    <el-dialog
+      v-if="isDialog"
+      :visible.sync="isDialog">
+      <el-row type="flex" slot="title">
+        <el-col :span="24" class="h3 pl20 pr20 pt20 pb20">订单号: {{orderId}}</el-col>
+      </el-row>
+      <OrdersTable :orderId="orderId" />
+    </el-dialog>
+  </el-container>
 </template>
 <script>
+import OrdersTable from './OrdersTable.vue'
 import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions } = createNamespacedHelpers('orders')
 export default {
   name: 'OrdersLists',
+  data () {
+    return {
+      isDialog: false,
+      orderId: '',
+      currentPage: 1
+    }
+  },
+  components: {
+    OrdersTable
+  },
   computed: {
-    ...mapState(['ordersLists'])
+    ...mapState(['ordersLists', 'limit'])
+  },
+  watch: {
+    limit (newValue) {
+      this.currentPage = Number.parseInt(newValue / 10) + 1
+    }
   },
   methods: {
-    ...mapActions(['generateOrdersListsAction', 'handleOrdersBcPay']),
+    ...mapActions(['generateOrdersListsAction']),
     handlepay (instance) {
-      let { price } = instance
-      instance.amount = Number(price.substr(1)) * 100
-      instance.title = '阿布跑跑智慧鞋垫'
-      this.handleOrdersBcPay(instance)
+      console.log(instance)
+      let { price, sign, orderId } = instance
+      let data = {
+        sign,
+        orderId,
+        title: '阿布跑跑智慧鞋垫',
+        amount: String(Number(price.substr(1)) * 100)
+      }
+      console.log(data)
+      this.$router.push({ name: 'orders', params: { sign: sign, instance: data } })
+    },
+    handleDialog (ordersId) {
+      console.log(ordersId)
+      this.orderId = ordersId
+      this.isDialog = true
+    },
+    handlePreOrdersLists (limit) {
+      console.log(limit)
+      let modifyLimit
+      if (limit < 10) {
+        modifyLimit = 0
+      } else if (limit === 10) {
+        return window.confirm('已经是第一页了！！')
+      } else {
+        modifyLimit = Number.parseInt(limit / 10) - 1
+      }
+      console.log(modifyLimit)
+      this.generateOrdersListsAction(modifyLimit)
+    },
+    handleNextOrdersLists (limit) {
+      this.generateOrdersListsAction(limit)
     }
   },
   activated () {
-    this.generateOrdersListsAction()
+    this.generateOrdersListsAction(0)
+  },
+  deactivated () {
+    this.isDialog = false
+    this.orderId = ''
   }
   // created () {
   //   this.generateOrdersListsAction()
