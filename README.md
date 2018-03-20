@@ -1,6 +1,7 @@
 # 商城单页面应用 
-###技术栈 vue vuex vue-router
-###UI组件 PC -> ElementUI Mobile -> MuseUI
+### 技术栈 vue vuex vue-router
+### UI组件 PC -> ElementUI Mobile -> MuseUI
+### 包管理 npm yarn
 
 > A Vue.js project
 
