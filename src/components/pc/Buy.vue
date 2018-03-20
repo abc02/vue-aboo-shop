@@ -9,7 +9,7 @@
       </keep-alive>
       <el-row type="flex" justify="start" align="middle">
         <el-col :span="24" class="text-right">
-          <el-button type="primary" :loading="isLoading" :disabled="!defaultAddress" @click="handleOrdersAddAction({cartLists, defaultAddress})" style="width: 300px;">提交订单，去支付</el-button>
+          <el-button type="primary" :loading="isLoading" :disabled="!addressDefault" @click="handleOrdersAddAction({cartLists, addressDefault})" style="width: 300px;">提交订单，去支付</el-button>
         </el-col>
       </el-row>
       <el-row type="flex" justify="start" align="middle">
@@ -22,17 +22,15 @@
 </template>
 
 <script>
-import { mapState, createNamespacedHelpers, mapGetters } from 'vuex'
+import { mapState, createNamespacedHelpers } from 'vuex'
 const { mapActions } = createNamespacedHelpers('orders')
 export default {
   name: 'Buy',
   computed: {
     ...mapState({
       isLoading: 'isLoading',
+      addressDefault: state => state.address.addressDefault,
       cartLists: state => state.cart.cartLists
-    }),
-    ...mapGetters({
-      defaultAddress: 'address/defaultAddress'
     })
   },
   methods: {

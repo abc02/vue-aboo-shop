@@ -74,7 +74,7 @@
     </el-row>
     <el-row type="flex" justify="start" align="middle">
       <el-col :span="24" class="h1">
-        <el-button type="primary" :loading="isLoading" class="width-100 pt20 pb20" @click="handleOrdersAddAction(cartLists)">提交订单，去支付</el-button>
+        <el-button type="primary" :loading="isLoading" class="width-100 pt20 pb20" @click="handleOrdersAddAction({cartLists, addressDefault})">提交订单，去支付</el-button>
       </el-col>
     </el-row>
   </el-container>
@@ -101,7 +101,7 @@ export default {
     })
   },
   activated () {
-    console.log('activated ')
+    console.log('Summary activated ')
     if (!this.addressDefault) {
       this.generateAddressDefaultAction()
     }

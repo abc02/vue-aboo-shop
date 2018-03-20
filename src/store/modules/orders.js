@@ -14,6 +14,13 @@ const orders = {
     handleSubmit (state, status) {
       state.isSubmit = status
     },
+    handleInfiniteScroll (state, status) {
+      state.isInfiniteScroll = status
+    },
+    handleClearOrdersListsMutation (state) {
+      state.ordersLists = null
+      state.limit = 0
+    },
     generateOrdersListsMutation (state, instance) {
       let modifyOrderLists = instance => {
         let arr = []
@@ -33,15 +40,15 @@ const orders = {
         })
         return arr
       }
-      if (Array.isArray(state.ordersLists)) {
+      if (state.ordersLists) {
         if (instance.ret === 1001) {
-          state.ordersLists = modifyOrderLists(instance.data)
+          state.ordersLists.push(...modifyOrderLists(instance.data))
           state.limit = instance.limit
         }
         if (instance.ret === 1002) {
-          return window.confirm(instance.code)
+          window.confirm(instance.code)
         }
-      } else {
+      } else { // 初始化数据
         if (instance.ret === 1001) {
           state.ordersLists = modifyOrderLists(instance.data)
           state.limit = instance.limit
@@ -92,7 +99,7 @@ const orders = {
     }
   },
   actions: {
-    async generateOrdersListsAction ({ dispatch, commit, rootState }, limit) {
+    async generateOrdersListsAction ({ dispatch, commit, state, rootState }, limit) {
       commit('handleUserInfoCheckMutation', null, { root: true })
       if (!rootState.userInfo) return
       let { userId } = rootState.userInfo
@@ -121,8 +128,8 @@ const orders = {
       }
       commit('handleUserInfoCheckMutation', null, { root: true })
       commit('handleLoading', null, { root: true })
-      let { cartLists, defaultAddress } = instance
-      let { userId, addressId } = defaultAddress
+      let { cartLists, addressDefault } = instance
+      let { userId, addressId } = addressDefault
       let goodsId = []
       let specId = []
       let specName = []

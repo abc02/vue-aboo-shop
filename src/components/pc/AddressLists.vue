@@ -47,7 +47,7 @@
   <el-dialog
     v-if="isDialog"
     :visible.sync="isDialog"
-    width="60vw"
+    width="53%"
     :close-on-click-modal="false"
     :close-on-press-escape="true">
     <el-row type="flex" class="pt20 pb20 pl20 pr20 h3" slot="title">

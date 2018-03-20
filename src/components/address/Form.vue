@@ -1,20 +1,33 @@
 <template>
-  <el-container direction="vertical" class="pl10 pr10 bg-white">
-    <el-row type="flex" justify="start" align="middle" class="border-bottom pb10 pt10">
-      <el-col :span="4" class="p">收件人</el-col>
-      <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
-        <input type="text" v-model="nickName" class="width-100 input-none">
+  <el-container direction="vertical" class="pl20 pr20 bg-white">
+    <el-row type="flex">
+      <el-col :span="24">
+         <mu-text-field
+          labelClass="p"
+          required
+          type="text"
+          v-model="nickName"
+          :errorText="nickNameErrorText"
+          label="姓名"
+          fullWidth
+          labelFloat />
       </el-col>
     </el-row>
-    <el-row type="flex" justify="start" align="middle" class="border-bottom pb10 pt10">
-      <el-col :span="4" class="p">联系电话</el-col>
-      <el-col :span="20">
-        <input type="text" v-model="phone" class="width-100 input-none">
+    <el-row type="flex">
+      <el-col :span="24">
+        <mu-text-field
+          labelClass="p"
+          required
+          type="text"
+          v-model="phone"
+          :errorText="phoneErrorText"
+          label="手机号"
+          fullWidth
+          labelFloat/>
       </el-col>
     </el-row>
-    <el-row type="flex" justify="start" align="middle" class="border-bottom pb10 pt10">
-      <el-col :span="4" class="p">选择地区</el-col>
-      <el-col :span="20">
+    <!-- <el-row type="flex" class="pt20 pb10">
+      <el-col :span="24">
         <el-row type="flex" justify="start" align="middle" :gutter="10">
           <el-col :span="8">
             <el-select v-model="province" placeholder="请选择" size="mini">
@@ -48,11 +61,65 @@
           </el-col>
         </el-row>
       </el-col>
+    </el-row> -->
+    <el-row type="flex">
+      <el-col :span="8">
+        <mu-select-field
+          v-model="province"
+          :errorText="provinceErrorText"
+          :maxHeight="300"
+          fullWidth
+          label="省份"
+          labelFloat
+          labelClass="p">
+          <mu-menu-item v-for="(val, key, index) in addressData"
+                :value="key"
+                :title="key"
+                :key="index" />
+        </mu-select-field>
+      </el-col>
+      <el-col :span="8">
+        <mu-select-field
+          v-model="city"
+          :errorText="cityErrorText"
+          :maxHeight="300"
+          fullWidth
+          label="城市"
+          labelFloat
+          labelClass="p">
+          <mu-menu-item v-for="(val, key, index) in cityLists"
+                :value="key"
+                :title="key"
+                :key="index" />
+        </mu-select-field>
+      </el-col>
+      <el-col :span="8">
+        <mu-select-field
+          v-model="area"
+          :errorText="areaErrorText"
+          :maxHeight="300"
+          fullWidth
+          label="地区"
+          labelFloat
+          labelClass="p">
+          <mu-menu-item v-for="(item, index) in areaLists"
+                :value="item"
+                :title="item"
+                :key="index" />
+        </mu-select-field>
+      </el-col>
     </el-row>
-    <el-row type="flex" justify="start" align="middle" class="border-bottom pb10 pt10">
-      <el-col :span="4" class="p">详细地址</el-col>
-      <el-col :span="20">
-        <input type="text" v-model="detail" class="width-100 input-none">
+    <el-row type="flex">
+      <el-col :span="24">
+         <mu-text-field
+          labelClass="p"
+          name="detail"
+          type="text"
+          v-model="detail"
+          :errorText="detailErrorText"
+          fullWidth
+          label="详细地址"
+          labelFloat/>
       </el-col>
     </el-row>
     <el-row type="flex" justify="start" align="middle">
@@ -99,11 +166,61 @@ export default {
       addressData: pca,
       cityLists: null,
       areaLists: null,
-      isInit: false
+      isInit: false,
+      isCheck: false
     }
   },
   computed: {
-    ...mapState(['isLoading'])
+    ...mapState(['isLoading']),
+    nickNameErrorText () {
+      if (this.isCheck) {
+        // 检验姓名：姓名是2-4字的汉字
+        let checkNickName = /([\u4e00-\u9fa5\ ]{2,4})$/
+        // 验证姓名不能为空
+        if (this.nickName === '') return '名字不能为空'
+        if (!checkNickName.exec(this.nickName)) return '请输入2-4位汉字名字'
+      }
+      return ''
+    },
+    phoneErrorText () {
+      if (this.isCheck) {
+        // 校验手机号码：必须以数字开头
+        let checkPhone = /^0?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/
+        if (this.phone === '') return '联系号码不能为空'
+        if (!checkPhone.exec(this.phone)) return '号码格式错误'
+      }
+      return ''
+    },
+    provinceErrorText () {
+      if (this.isCheck) {
+        // 验证省份不能为空
+        if (this.province === '') return '省份不能为空'
+      }
+      return ''
+    },
+    cityErrorText () {
+      if (this.isCheck) {
+        // 验证市级不能为空
+        if (this.city === '') return '城市不能为空'
+      }
+      return ''
+    },
+    areaErrorText () {
+      if (this.isCheck) {
+        // 验证地区不能为空
+        if (this.city === '') return '地区能为空'
+      }
+      return ''
+    },
+    detailErrorText () {
+      if (this.isCheck) {
+        // 详细地址：必须包含中文
+        let checkDetail = /([\u4e00-\u9fa5\ ])$/
+        if (this.detail === '') return '详细地址不能为空'
+        if (!checkDetail.exec(this.detail)) return '详细地址必须包含中文'
+      }
+      return ''
+    }
   },
   watch: {
     province (key) {
@@ -134,14 +251,19 @@ export default {
     ...mapActions(['handleAddressAddAction', 'handleAddressDeleteAction', 'handleAddressUpdateAction']),
     handleAddress () {
       // 合法校验&非空字符串
-      let { nickName, phone, province, city, area, detail, isFirst } = this
-      let instance = { nickName, phone, province, city, area, detail }
-      if (this.type === 'edit') {
-        let { addressId, userId, isDefault } = this
-        this.handleAddressUpdateAction({ ...instance, addressId, userId, isDefault })
-      } else if (this.type === 'add') {
-        this.handleAddressAddAction({...instance, isFirst})
-      }
+      this.isCheck = true
+      setTimeout(_ => {
+        let { nickName, phone, province, city, area, detail, isFirst } = this
+        if (!this.nickNameErrorText && !this.phoneErrorText && !this.detailErrorText) {
+          let instance = { nickName, phone, province, city, area, detail }
+          if (this.type === 'edit') {
+            let { addressId, userId, isDefault } = this
+            this.handleAddressUpdateAction({ ...instance, addressId, userId, isDefault })
+          } else if (this.type === 'add') {
+            this.handleAddressAddAction({...instance, isFirst})
+          }
+        }
+      }, 300)
     },
     handleDialogClose () {
       this.$emit('close')

@@ -5,7 +5,7 @@
       <el-row type="flex" justify="start" align="middle">
         <el-col :span="24" class="pt10 pb10 pl10 pr10 bg-gray p relative">
           选择地址
-          <router-link :to="{ name: 'summary' }">
+          <router-link :to="{ name: 'summary' }" v-show="addressLists">
             <i class="el-icon-close absolute-middle-right mr20 h3"></i>
           </router-link>
         </el-col>
@@ -71,10 +71,7 @@ export default {
   watch: {
     addressLists: {
       handler (value) {
-        console.log(value)
-        if (value) {
-          this.isForm = false
-        }
+        this.isForm = false
       },
       deep: true
     }
@@ -98,10 +95,15 @@ export default {
     console.log('activated ')
     this.generateAddressListsAction()
     // addressLists -> null 弹出框
-    if (!this.addressLists) {
+    if (this.isFirst) {
       this.isForm = true
       this.type = 'add'
     }
+  },
+  deactivated () {
+    this.isForm = false
+    this.type = ''
+    this.currentAddress = null
   }
   // created () {
   //   this.generateAddressListsAction()

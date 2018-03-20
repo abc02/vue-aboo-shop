@@ -36,15 +36,18 @@
     </el-table>
     <el-alert title="您的账户暂时没有订单。" type="info" :closable="false" class="mb20" v-else></el-alert>
     <el-row type="flex" justify="end"  align="middle" class="text-center" v-show="limit >= 10">
-      <el-col :span="3" class="p">
+      <el-col :span="3" class="p text-right">
         共 {{ordersLists ? ordersLists.length : '0'}} 条
       </el-col>
-      <el-col :span="2" class="pointer" @click.native="handlePreOrdersLists(limit)">
+      <el-col :span="4" class="text-right">
+        <el-button type="text" @click="generateOrdersListsAction(limit)">显示更多订单</el-button>
+      </el-col>
+      <!-- <el-col :span="2" class="pointer" @click.native="handlePreOrdersLists(limit)">
         <i class="el-icon-arrow-left"></i>
       </el-col>
       <el-col :span="2" class="pointer" @click.native="handleNextOrdersLists(limit)">
         <i class="el-icon-arrow-right"></i>
-      </el-col>
+      </el-col> -->
     </el-row>
     <el-dialog
       v-if="isDialog"
@@ -59,14 +62,15 @@
 <script>
 import OrdersTable from './OrdersTable.vue'
 import { createNamespacedHelpers } from 'vuex'
-const { mapState, mapActions } = createNamespacedHelpers('orders')
+const { mapState, mapActions, mapMutations } = createNamespacedHelpers('orders')
 export default {
   name: 'OrdersLists',
   data () {
     return {
       isDialog: false,
       orderId: '',
-      currentPage: 1
+      currentPage: 0,
+      currenOrdersLists: null
     }
   },
   components: {
@@ -78,9 +82,13 @@ export default {
   watch: {
     limit (newValue) {
       this.currentPage = Number.parseInt(newValue / 10) + 1
+    },
+    ordersLists (newValues) {
+      console.log(newValues)
     }
   },
   methods: {
+    ...mapMutations(['handleClearOrdersListsMutation']),
     ...mapActions(['generateOrdersListsAction']),
     handlepay (instance) {
       console.log(instance)
@@ -88,7 +96,7 @@ export default {
       let data = {
         sign,
         orderId,
-        title: '阿布跑跑智慧鞋垫',
+        title: '阿布跑跑商品购买',
         amount: String(Number(price.substr(1)) * 100)
       }
       console.log(data)
@@ -120,8 +128,10 @@ export default {
     this.generateOrdersListsAction(0)
   },
   deactivated () {
+    console.log('OrdersLists deactivated')
     this.isDialog = false
     this.orderId = ''
+    this.handleClearOrdersListsMutation()
   }
   // created () {
   //   this.generateOrdersListsAction()

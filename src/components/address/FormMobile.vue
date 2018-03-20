@@ -6,7 +6,7 @@
          <i class="el-icon-close absolute-middle-right mr20 h3" v-show="!isFirst" @click="close"></i>
       </el-col>
     </el-row>
-    <Form :type="type" :instance="instance" />
+    <Form :type="type" :instance="instance" :isFirst="isFirst" />
   </el-container >
 </template>
 

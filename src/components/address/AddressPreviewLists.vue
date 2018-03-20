@@ -1,5 +1,5 @@
 <template>
-  <el-container direction="vertical" class="border-bottom bg-white mt20 mb20 pb20">
+  <el-container direction="vertical" class="border-bottom mt20 mb20 pb20">
     <el-row type="flex" justify="start" align="middle" class="pb20">
       <el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3" class="h1">
         收货地址
@@ -107,7 +107,9 @@ export default {
     }
   },
   created () {
+    console.log('AddressPreviewLists created')
     this.generateAddressListsAction()
+    this.generateAddressDefaultAction()
   }
 }
 </script>

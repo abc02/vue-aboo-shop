@@ -46,7 +46,9 @@ const address = {
         state.addressLists = addressLists
         state.addressListsTmp = addressLists
       }
-      if (instance.ret === 1002) state.addressLists = null
+      if (instance.ret === 1002) {
+        state.addressLists = null
+      }
     },
     generateAddressDefaultMutation (state, instance) {
       let modifyAddressDefault = instance => {
@@ -149,10 +151,19 @@ const address = {
       if (!rootState.userInfo) return
       let { userId } = rootState.userInfo
       commit('handleLoading', null, { root: true })
-      let { nickName, phone, province, city, area, detail } = instance
+      let { nickName, phone, province, city, area, detail, isFirst } = instance
       let res = await Address.AddAddress({nickName, phone, province, city, area, detail, userId}, true)
       commit('handleLoading', null, { root: true })
-      if (res.ret === 1001) dispatch('generateAddressListsAction')
+      if (res.ret === 1001) {
+        dispatch('generateAddressListsAction')
+        dispatch('generateAddressDefaultAction')
+        if (isFirst) {
+          let isMobile = /Mobile/i.test(navigator.userAgent)
+          if (isMobile) {
+            router.push({ name: 'summary' })
+          }
+        }
+      }
       if (res.ret === 1002) window.confirm(res.code)
     },
     async handleAddressUpdateAction ({ dispatch, commit, rootState }, instance) {
@@ -160,7 +171,10 @@ const address = {
       commit('handleLoading', null, { root: true })
       let res = await Address.UpdateAddress({...instance}, true)
       commit('handleLoading', null, { root: true })
-      if (res.ret === 1001) dispatch('generateAddressListsAction')
+      if (res.ret === 1001) {
+        dispatch('generateAddressListsAction')
+        dispatch('generateAddressDefaultAction')
+      }
       if (res.ret === 1002) window.confirm(res.code)
     },
     handleAddressDeleteAction ({ dispatch, commit, rootState }, addressId) {
@@ -173,6 +187,7 @@ const address = {
         commit('handleLoading', null, { root: true })
         if (res.ret === 1001) {
           dispatch('generateAddressListsAction')
+          dispatch('generateAddressDefaultAction')
           // Router.push({ name: 'all' })
         }
         if (res.ret === 1002) {
