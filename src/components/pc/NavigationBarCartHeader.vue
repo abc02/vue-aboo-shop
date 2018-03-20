@@ -31,11 +31,9 @@
 </template>
 
 <script>
-import CommonBase from 'mixins/CommonBase'
 import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'NavigationBarCartHeader',
-  mixins: [CommonBase],
   computed: {
     ...mapState(['userInfo'])
   },
