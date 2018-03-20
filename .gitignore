@@ -1,5 +1,5 @@
 .DS_Store
-swagger.json*
+src/modules/service/swagger.json
 node_modules/
 /dist/
 npm-debug.log*
