@@ -1,4 +1,6 @@
-# aboo-vue2
+# 商城单页面应用 
+###技术栈 vue vuex vue-router
+###UI组件 PC -> ElementUI Mobile -> MuseUI
 
 > A Vue.js project
 

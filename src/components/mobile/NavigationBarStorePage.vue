@@ -16,7 +16,7 @@
     </mu-drawer>
     <router-link :to="{ name: 'mobileIndex' }" slot="default">ABOO商城</router-link>
     <router-link :to="{ name: 'cartMobile' }" slot="right">
-      <mu-badge :content="cartListsTotal.totalNumbar" circle secondary v-if="cartListsTotal">
+      <mu-badge :content="cartListsTotal.totalNumbar" secondary v-if="cartListsTotal">
         <mu-icon-button icon="store"/>
       </mu-badge>
         <mu-icon-button icon="shopping_cart" v-else />
@@ -33,7 +33,7 @@ export default {
       isOpen: false
     }
   },
-   watch: {
+  watch: {
     '$route' (to, from) {
       this.isOpen = false
     }
@@ -46,7 +46,7 @@ export default {
     toggle () {
       this.isOpen = !this.isOpen
     },
-     ...mapMutations(['generateUserInfoMutation'])
+    ...mapMutations(['generateUserInfoMutation'])
   },
   created () {
     this.generateUserInfoMutation()

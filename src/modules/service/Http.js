@@ -5,6 +5,7 @@ import router from 'pages/index/router/index.js'
 
 export default class Http {
   static request (method, url, data, isHeaders) {
+    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
     if (isHeaders) {
       let JWT_TOKEN = store.state.userInfo.JwtToken
       axios.defaults.headers.common['Authorization'] = JWT_TOKEN

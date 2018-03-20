@@ -9,7 +9,9 @@ const products = {
     priceList: null,
     specDatas: null,
     selectSpecDatas: null,
-    number: 1
+    number: 1,
+    limit: 0,
+    isLoadMore: false
   },
   getters: {
     specIdArray: state => {
@@ -75,6 +77,12 @@ const products = {
     handleNumber (state, newValue) {
       state.number = newValue
     },
+    handleLimit (state, value) {
+      state.limit = value
+    },
+    handleGoodsListsClearMutation (state) {
+      state.goodsLists = null
+    },
     handleSpecDatasMutation (state, instance) {
       let { key, value } = instance
       state.selectSpecDatas[key] = value
@@ -92,7 +100,14 @@ const products = {
         state.selectSpecDatas = selectSpecDatas
       }
       if (instance.ret === 1001) ModifyfGoodsSpec(state, instance)
-      if (instance.ret === 1002) router.push('/')
+      if (instance.ret === 1002) {
+        let isMobile = /Mobile/i.test(navigator.userAgent)
+        if (isMobile) {
+          router.push({ name: 'mobileIndex' })
+        } else {
+          router.push({ name: 'index' })
+        }
+      }
     },
     generateGoodsListsMutation (state, instance) {
       let modifyGoodsLists = instance => {
@@ -110,12 +125,22 @@ const products = {
         })
         return arr
       }
-      if (instance.ret === 1001) state.goodsLists = modifyGoodsLists(instance.data)
-      if (instance.ret === 1002) state.goodsLists = null
+      if (instance.ret === 1001) {
+        state.limit = instance.limit
+        if (state.goodsLists) {
+          state.goodsLists.push(...modifyGoodsLists(instance.data))
+        } else {
+          state.goodsLists = modifyGoodsLists(instance.data) // 初始化
+        }
+      }
+      if (instance.ret === 1002) {
+        window.confirm(instance.code)
+      }
     }
   },
   actions: {
     async generateGoodsListsAction ({ dispatch, commit }, limit) {
+      console.log(limit)
       commit('handleLoading', null, { root: true })
       commit('generateGoodsListsMutation', await Goods.GetGoodsList({limit}))
       commit('handleLoading', null, { root: true })

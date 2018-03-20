@@ -1,5 +1,5 @@
 <template>
-  <div direction="vertical">
+  <div>
     <!-- <el-row type="flex" justify="start" align="top" v-for="(goods, index) in goodsLists" :key="index">
       <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" class="mb20">
         <router-link :to="{ path: `product/${goods.id}`}">
@@ -14,28 +14,24 @@
       </el-col>
     </el-row> -->
     <mu-list>
-      <template v-for="(item, index) in list">
-        <mu-list-item :title="item" :key="index" />
-        <mu-divider :key="index" />
-      </template>
+      <mu-list-item v-for="(goods, index) in goodsLists" :key="index" exact :to="{ path: `product/${goods.id}`}">
+         <mu-card>
+          <mu-card-media :title="goods.goodsName" :subTitle="goods.intr">
+            <img :src="goods.img" :alt="goods.goodsName" style="width:auto;">
+          </mu-card-media>
+        </mu-card>
+      </mu-list-item>
     </mu-list>
-    <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore"/>
+    <mu-infinite-scroll :scroller="scroller" :loading="isLoaing" @load="generateGoodsListsAction(limit)"/>
   </div>
 </template>
 <script>
 import { mapState, createNamespacedHelpers } from 'vuex'
-const { mapActions } = createNamespacedHelpers('products')
+const { mapMutations, mapActions } = createNamespacedHelpers('products')
 export default {
   name: 'ProductsLists',
   data () {
-    const list = []
-    for (let i = 0; i < 10; i++) {
-      list.push('item' + (i + 1))
-    }
     return {
-      list,
-      num: 10,
-      loading: false,
       scroller: null
     }
   },
@@ -44,27 +40,21 @@ export default {
   },
   computed: {
     ...mapState({
-      isLoaing: 'isLoang',
+      isLoaing: 'isLoaing',
+      limit: state => state.products.limit,
       goodsLists: state => state.products.goodsLists
     })
   },
   methods: {
+    ...mapMutations(['handleLimit', 'handleGoodsListsClearMutation']),
     ...mapActions(['generateGoodsListsAction']),
-    loadMore () {
-      this.loading = true
-      setTimeout(() => {
-        for (let i = this.num; i < this.num + 10; i++) {
-          this.list.push('item' + (i + 1))
-        }
-        this.num += 10
-        this.loading = false
-      }, 2000)
-    }
   },
   activated  () {
-    // this.generateGoodsListsAction(0)
+    this.generateGoodsListsAction(this.limit)
   },
   deactivated () {
+    this.handleLimit(0)
+    this.handleGoodsListsClearMutation()
   }
 }
 </script>
