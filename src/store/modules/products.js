@@ -83,6 +83,13 @@ const products = {
     handleGoodsListsClearMutation (state) {
       state.goodsLists = null
     },
+    handleGoodsSpecClearMutation (state) {
+      state.goodsInfo = null
+      state.priceList = null
+      state.specDatas = null
+      state.selectSpecDatas = null
+      state.number = 1
+    },
     handleSpecDatasMutation (state, instance) {
       let { key, value } = instance
       state.selectSpecDatas[key] = value
@@ -125,6 +132,7 @@ const products = {
         })
         return arr
       }
+      state.isLoadMore = true
       if (instance.ret === 1001) {
         state.limit = instance.limit
         if (state.goodsLists) {
@@ -132,15 +140,16 @@ const products = {
         } else {
           state.goodsLists = modifyGoodsLists(instance.data) // 初始化
         }
+        state.isLoadMore = false
       }
       if (instance.ret === 1002) {
-        window.confirm(instance.code)
+        console.log(instance.code)
+        state.isLoadMore = false
       }
     }
   },
   actions: {
     async generateGoodsListsAction ({ dispatch, commit }, limit) {
-      console.log(limit)
       commit('handleLoading', null, { root: true })
       commit('generateGoodsListsMutation', await Goods.GetGoodsList({limit}))
       commit('handleLoading', null, { root: true })

@@ -48,9 +48,9 @@
 </template>
 <script>
 import ProductIntroduce from 'components/product/ProductIntroduce.vue'
-import { mapActions, createNamespacedHelpers } from 'vuex'
+import { mapMutations, mapActions, createNamespacedHelpers } from 'vuex'
 const { mapGetters } = createNamespacedHelpers('products')
-const { mapState, mapMutations } = createNamespacedHelpers('cart')
+const { mapState } = createNamespacedHelpers('cart')
 export default {
   name: 'Product',
   props: ['goodsId'],
@@ -62,7 +62,10 @@ export default {
     ...mapGetters(['currentGoods'])
   },
   methods: {
-    ...mapMutations(['handeDialogClose']),
+    ...mapMutations({
+      handeDialogClose: 'cart/handeDialogClose',
+      handleGoodsSpecClearMutation: 'products/handleGoodsSpecClearMutation'
+    }),
     ...mapActions({
       generateGoodsSpecAction: 'products/generateGoodsSpecAction',
       handleCartAddAction: 'cart/handleCartAddAction'
@@ -73,6 +76,7 @@ export default {
   },
   deactivated () {
     this.handeDialogClose()
+    this.handleGoodsSpecClearMutation()
   }
 }
 </script>

@@ -43,7 +43,7 @@ export default {
     ...mapGetters(['currentGoods'])
   },
   methods: {
-    ...mapMutations(['handeDialogClose']),
+    ...mapMutations(['handeDialogClose', 'handleGoodsSpecClearMutation']),
     ...mapActions({
       generateGoodsSpecAction: 'products/generateGoodsSpecAction',
       handleCartAddAction: 'cart/handleCartAddAction'
@@ -72,6 +72,7 @@ export default {
     this.generateGoodsSpecAction(this.goodsId)
   },
   deactivated () {
+    this.handleGoodsSpecClearMutation()
   }
 }
 </script>

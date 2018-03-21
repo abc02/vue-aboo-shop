@@ -16,23 +16,23 @@
   </el-container>
 </template>
 <script>
-import { mapState, createNamespacedHelpers } from 'vuex'
-const { mapActions } = createNamespacedHelpers('products')
+import { createNamespacedHelpers } from 'vuex'
+const { mapState, mapMutations, mapActions } = createNamespacedHelpers('products')
 export default {
   name: 'ProductsLists',
   computed: {
-    ...mapState({
-      isLoaing: 'isLoang',
-      goodsLists: state => state.products.goodsLists
-    })
+    ...mapState(['limit', 'goodsLists'])
   },
   methods: {
+    ...mapMutations(['handleLimit', 'handleGoodsListsClearMutation']),
     ...mapActions(['generateGoodsListsAction'])
   },
   activated  () {
-    this.generateGoodsListsAction(0)
+    this.generateGoodsListsAction(this.limit)
   },
   deactivated () {
+    this.handleLimit(0)
+    this.handleGoodsListsClearMutation()
   }
 }
 </script>
