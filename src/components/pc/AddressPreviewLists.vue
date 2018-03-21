@@ -58,7 +58,6 @@
 </template>
 
 <script>
-import AddressDialog from 'components/address/AddressDialog.vue'
 import Form from 'components/address//Form.vue'
 import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapMutations, mapActions } = createNamespacedHelpers('address')
@@ -72,7 +71,6 @@ export default {
     }
   },
   components: {
-    AddressDialog,
     Form
   },
   computed: {
