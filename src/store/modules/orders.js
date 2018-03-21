@@ -1,4 +1,4 @@
-import Common from 'modules/service/CommonServices.js'
+// import Common from 'modules/service/CommonServices.js'
 import Order from 'modules/service/OrderServices.js'
 import router from 'router/index.js'
 const orders = {
@@ -17,9 +17,13 @@ const orders = {
     handleInfiniteScroll (state, status) {
       state.isInfiniteScroll = status
     },
-    handleClearOrdersListsMutation (state) {
+    handleOrdersListsClearMutation (state) {
       state.ordersLists = null
       state.limit = 0
+    },
+    handleOrdersDetailClearMutation (state) {
+      state.orderADetail = null
+      state.orderBList = null
     },
     generateOrdersListsMutation (state, instance) {
       let modifyOrderLists = instance => {
@@ -61,17 +65,16 @@ const orders = {
       let { orderADetail, orderBList } = instance
       // orderADetail
       let modifyOrderADetail = instance => {
-        let { Address, CreateTime, Phone, Price, Status } = instance
+        let { Address, CreateTime, Phone, Price, Status, PayType } = instance
         let address = JSON.parse(Address)
-        let date = Number.parseInt(CreateTime + '000')
         return {
           address,
           addressLonger: `${address.Province} ${address.City} ${address.Area} ${address.Detail} ${address.NickName} ${address.Phone}`,
-          createTime: Common.handleCreateTimeText(date),
-          payType: '在线支付',
+          createTime: CreateTime,
+          payType: PayType,
           phone: Phone,
-          price: `￥${Number.parseFloat(Price).toFixed(2)}`,
-          status: Common.handleOuterStatus(Status)
+          price: Price,
+          status: Status
         }
       }
       let mofifyOrderBList = instance => {
@@ -85,9 +88,9 @@ const orders = {
             goodsName: GoodsName,
             img: Img,
             number: orderItem.Number,
-            price: `￥${Number.parseFloat(Price).toFixed(2)}`,
-            subTotal: `￥${Number.parseFloat(orderItem.Number * Price).toFixed(2)}`,
-            status: Common.handleInnerStatus(Status)
+            price: Price,
+            subTotal: Number.parseFloat(orderItem.Number * Price).toFixed(2),
+            status: Status
           })
         })
         return arr

@@ -124,7 +124,7 @@
     </el-row>
     <el-row type="flex" justify="start" align="middle">
       <el-col :xs="0" :sm="24" :md="24" :lg="24" :xl="24" class="pb10 pt20">
-        <el-button type="primary" :loading="isLoading" @click="handleAddress">保存并使用</el-button>
+        <el-button type="primary" :loading="isLoading" :disabled="isLoading" @click="handleAddress">保存并使用</el-button>
         <el-button @click="handleDialogClose" v-show="isDialog">取消</el-button>
       </el-col>
     </el-row>

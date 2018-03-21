@@ -99,47 +99,26 @@ Vue.filter('orderInnerStatus', status => {
   if (!status) return ''
   switch (status) {
     case 0:
-      return {
-        status,
-        text: '未支付',
-        button: '继续支付'
-      }
+      return '未支付'
     case 1:
-      return {
-        status,
-        text: '可以申请退款',
-        button: '申请退款'
-      }
+      return '可以申请退款'
     case 2:
-      return {
-        status,
-        text: '审核中',
-        button: null
-      }
+      return '审核中'
     case 3:
-      return {
-        status,
-        text: '退款申请成功',
-        button: null
-      }
+      return '退款申请成功'
     case 4:
-      return {
-        status,
-        text: '驳回',
-        button: null
-      }
+      return '驳回'
     case 5:
-      return {
-        status,
-        text: '商家待收货',
-        button: null
-      }
+      return '商家待收货'
     case 6:
-      return {
-        status,
-        text: '完成退款',
-        button: null
-      }
+      return '完成退款'
+  }
+})
+Vue.filter('payType', status => {
+  if (!status) return ''
+  switch (status) {
+    case 1:
+      return '在线支付'
   }
 })
 window.vm = new Vue({

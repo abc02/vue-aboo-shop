@@ -2,7 +2,7 @@
   <el-container direction="vertical" class="pl20 pr20 pb20" v-if="orderADetail && orderBList">
     <el-row type="flex" class="mb20">
       <el-col :span="24">
-        <el-steps :active="orderADetail.status.status - 1" align-center>
+        <el-steps :active="orderADetail.status - 1" align-center>
           <el-step title="下单"></el-step>
           <el-step title="支付成功"></el-step>
           <el-step title="已发货"></el-step>
@@ -15,7 +15,7 @@
         支付状态：
       </el-col>
       <el-col :span="19">
-        {{orderADetail.status.text}}
+        {{orderADetail.status | orderOuterStatus }}
       </el-col>
     </el-row>
     <el-row type="flex" justify="start" align="middle" class="pb10 mb10 border-bottom">
@@ -23,7 +23,7 @@
         支付方式：
       </el-col>
       <el-col :span="19">
-        {{orderADetail.payType}}
+        {{orderADetail.payType | payType }}
       </el-col>
     </el-row>
     <el-row type="flex" justify="start" align="middle" class="pb10 mb10 border-bottom">
@@ -31,7 +31,7 @@
         总金额：
       </el-col>
       <el-col :span="19">
-        {{orderADetail.price}}
+        {{orderADetail.price | RMB }}
       </el-col>
     </el-row>
     <el-row type="flex" justify="start" align="middle" class="pb10 mb10 border-bottom">
@@ -39,7 +39,7 @@
         下单时间：
       </el-col>
       <el-col :span="19">
-        {{orderADetail.createTime}}
+        {{orderADetail.createTime | timestamp }}
       </el-col>
     </el-row>
     <el-row type="flex" justify="start" align="middle" class="pb10 mb10">
@@ -88,7 +88,7 @@
           商品总金额：
       </el-col>
       <el-col :span="2">
-        {{orderADetail.price}}
+        {{orderADetail.price | RMB}}
       </el-col>
     </el-row>
     <el-row type="flex" justify="end" align="middle" class="mb10 text-right">
@@ -100,11 +100,11 @@
       </el-col>
     </el-row>
     <el-row type="flex" justify="end" align="middle" class="text-right h2 bold">
-      <el-col :span="6">
+      <el-col :span="3">
           总计：
       </el-col>
-      <el-col :span="2">
-        {{orderADetail.price}}
+      <el-col :span="3">
+        {{orderADetail.price | RMB }}
       </el-col>
     </el-row>
   </el-container>

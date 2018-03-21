@@ -1,60 +1,5 @@
 <template>
   <div class="bg-gray">
-    <!-- <el-container direction="vertical" v-for="(order, index) in ordersLists" :key="index" class="bg-white mt20 mb20" v-if="ordersLists && ordersLists.length">
-      <el-row type="flex" justify="start" align="middle" class="pr10 pl10 pt10 pb10 border-bottom">
-        <el-col :span="24">
-          <el-steps :active="order.status.status - 1" align-center>
-            <el-step title="下单"></el-step>
-            <el-step title="支付成功"></el-step>
-            <el-step title="已发货"></el-step>
-            <el-step title="订单成功"></el-step>
-          </el-steps>
-        </el-col>
-      </el-row>
-      <el-row type="flex" justify="space-between" align="middle" class="pr10 pl10 pt10 pb10 border-bottom">
-        <el-col :span="6">订单号</el-col>
-        <el-col :span="18" class="text-right">
-          {{order.orderId}}
-        </el-col>
-      </el-row>
-      <el-row type="flex" justify="space-between" align="middle" class="pr10 pl10 pt10 pb10 border-bottom">
-        <el-col :span="12">
-          商品总金额：
-        </el-col>
-        <el-col :span="12" class="text-right">
-          {{order.price | RMB }}
-        </el-col>
-      </el-row>
-      <el-row type="flex" justify="space-between" align="middle" class="pr10 pl10 pt10 pb10">
-        <el-col :span="12">
-          下单时间：
-        </el-col>
-        <el-col :span="12" class="text-right">
-          {{order.createTime | timestamp }}
-        </el-col>
-      </el-row>
-      <el-row type="flex" justify="space-between" align="middle" class="pr10 pl10 pt10 pb10">
-        <el-col :span="12">
-          支付状态：
-        </el-col>
-        <el-col :span="12" class="text-right">
-          {{order.status.text}}
-        </el-col>
-      </el-row>
-      <el-row type="flex" justify="space-between" align="middle" class="pr10 pl10 pt10 pb10 border-bottom">
-        <el-col :span="12">
-          支付方式：
-        </el-col>
-        <el-col :span="12" class="text-right">
-          {{order.payType}}
-        </el-col>
-      </el-row>
-      <el-row v-if="order.status.button" type="flex" justify="space-between" align="middle" class="pt20 pb20 border-bottom">
-        <el-col :span="24">
-          <el-button type="primary" class="width-100 pt20 pb20" @click="handlepay(order)">{{order.status.button}}</el-button>
-        </el-col>
-      </el-row>
-    </el-container> -->
     <mu-list v-for="(order, index) in ordersLists" :key="index" class="mb20" v-if="ordersLists">
       <mu-list-item>
         <el-steps :active="order.status - 1" align-center>
@@ -90,14 +35,14 @@ export default {
     ...mapState(['ordersLists', 'limit'])
   },
   methods: {
-    ...mapMutations(['handleClearOrdersListsMutation']),
+    ...mapMutations(['handleOrdersListsClearMutation']),
     ...mapActions(['generateOrdersListsAction', 'handleOrdersBcPay']),
     handlepay (instance) {
       let { price, sign, orderId } = instance
       let data = {
         sign,
         orderId,
-        title: '阿布跑跑智慧鞋垫',
+        title: '阿布跑跑商品购买',
         amount: String(price * 100)
       }
       console.log(data)
@@ -108,7 +53,7 @@ export default {
     this.generateOrdersListsAction()
   },
   deactivated () {
-    this.handleClearOrdersListsMutation()
+    this.handleOrdersListsClearMutation()
   }
 }
 </script>

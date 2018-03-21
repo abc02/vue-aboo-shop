@@ -43,8 +43,8 @@ const address = {
       }
       if (instance.ret === 1001) {
         let addressLists = modifyAddressLists(instance.data)
-        state.addressLists = addressLists
-        state.addressListsTmp = addressLists
+        state.addressLists = [...addressLists]
+        state.addressListsTmp = [...addressLists]
       }
       if (instance.ret === 1002) {
         state.addressLists = null

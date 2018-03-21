@@ -20,17 +20,19 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="price"
         label="总计"
         width="89">
+        <template slot-scope="scope">
+          {{scope.row.price | RMB }}
+        </template>
       </el-table-column>
       <el-table-column
         align="right"
         label="状态"
         width="187">
         <template slot-scope="scope">
-          <el-button type="primary" size="mini" @click="handlepay(scope.row)" v-if="scope.row.status.button">{{scope.row.status.button}}</el-button>
-          <span class="p" v-else>{{scope.row.status.text}}</span>
+          <el-button type="primary" size="mini" @click="handlepay(scope.row)" v-if="scope.row.status === 1">继续支付</el-button>
+          <span class="p ml20">{{scope.row.status | orderOuterStatus }}</span>
         </template>
       </el-table-column>
     </el-table>
@@ -83,12 +85,15 @@ export default {
     limit (newValue) {
       this.currentPage = Number.parseInt(newValue / 10) + 1
     },
-    ordersLists (newValues) {
-      console.log(newValues)
+    isDialog (newValues) {
+      console.log('isDialog', newValues)
+      if (!newValues) {
+        this.handleOrdersDetailClearMutation()
+      }
     }
   },
   methods: {
-    ...mapMutations(['handleClearOrdersListsMutation']),
+    ...mapMutations(['handleOrdersListsClearMutation', 'handleOrdersDetailClearMutation']),
     ...mapActions(['generateOrdersListsAction']),
     handlepay (instance) {
       console.log(instance)
@@ -97,7 +102,7 @@ export default {
         sign,
         orderId,
         title: '阿布跑跑商品购买',
-        amount: String(Number(price.substr(1)) * 100)
+        amount: String(price * 100)
       }
       console.log(data)
       this.$router.push({ name: 'orders', params: { sign: sign, instance: data } })
@@ -131,7 +136,7 @@ export default {
     console.log('OrdersLists deactivated')
     this.isDialog = false
     this.orderId = ''
-    this.handleClearOrdersListsMutation()
+    this.handleOrdersListsClearMutation()
   }
   // created () {
   //   this.generateOrdersListsAction()
