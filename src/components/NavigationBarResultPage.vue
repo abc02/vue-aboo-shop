@@ -25,17 +25,17 @@
         <el-button type="text" v-else>购物车</el-button>
       </router-link>
     </el-col>
-    <NavigationBarStoreDialog :isDialogOuter.sync="isDialog" @close="isDialog = false" />
+    <NavigationBarMobileHeader />
   </el-row>
 </template>
 <script>
-import NavigationBarStoreDialog from 'components/mobile/NavigationBarStoreDialog.vue'
+import NavigationBarMobileHeader from 'components/mobile/NavigationBarMobileHeader.vue'
 import { createNamespacedHelpers } from 'vuex'
 const { mapGetters } = createNamespacedHelpers('cart')
 export default {
   name: 'NavigationBarResultPage',
   components: {
-    NavigationBarStoreDialog
+    NavigationBarMobileHeader
   },
   data () {
     return {

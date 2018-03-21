@@ -27,7 +27,7 @@
 import { mapState, mapMutations, createNamespacedHelpers } from 'vuex'
 const { mapGetters } = createNamespacedHelpers('cart')
 export default {
-  name: 'NavigationBarStorePage',
+  name: 'NavigationBarMobileHeader',
   data () {
     return {
       isOpen: false

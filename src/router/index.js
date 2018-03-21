@@ -41,7 +41,7 @@ import Pay from 'components/pc/Pay.vue'
 // Mobile端控制入口
 import Mobile from 'components/Mobile.vue'
 // 首页所需组件, 头部，轮播，列表，详情页
-import NavigationBarStorePageMobile from 'components/mobile/NavigationBarStorePage.vue'
+import NavigationBarMobileHeader from 'components/mobile/NavigationBarMobileHeader.vue'
 import ProductsListsMobile from 'components/mobile/ProductsLists.vue'
 import ProductMobile from 'components/mobile/Product.vue'
 // 购车车页
@@ -245,7 +245,7 @@ const routes = [
         redirect: { name: 'mobileIndex' },
         components: {
           default: Mobile,
-          pageheader: NavigationBarStorePageMobile,
+          pageheader: NavigationBarMobileHeader,
           pagefooter: FooterPage,
           bottomfooter: FooterBottom
         },
