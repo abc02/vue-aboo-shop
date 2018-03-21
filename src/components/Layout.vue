@@ -26,7 +26,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 export default {
-  name: 'Index',
+  name: 'Layout',
   computed: {
     ...mapState(['isLoading'])
   },

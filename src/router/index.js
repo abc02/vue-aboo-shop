@@ -5,8 +5,8 @@ import Router from 'vue-router'
 import FooterPage from 'components/FooterPage.vue'
 import FooterBottom from 'components/FooterBottom.vue'
 
-// 框架布局主入口
-import Index from 'components/Index.vue'
+// 网页布局
+import Layout from 'components/Layout.vue'
 
 // PC端控制入口
 import PC from 'components/PC.vue'
@@ -70,7 +70,7 @@ Vue.use(Router)
 const routes = [
   {
     path: '/',
-    component: Index,
+    component: Layout,
     children: [
       {
         path: '',
