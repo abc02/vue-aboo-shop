@@ -13,7 +13,6 @@ import Index from 'components/pc/Index.vue'
 // 首页所需组件, 顶部，头部，轮播，列表，详情页
 import NavigationBarTopHeader from 'components/pc/NavigationBarTopHeader.vue'
 import NavigationBarStorePage from 'components/pc/NavigationBarStorePage.vue'
-import Swiper from 'components/Swiper.vue'
 // import ProductsLists from 'components/pc/ProductsLists.vue'
 import Product from 'components/pc/Product.vue'
 
@@ -39,10 +38,10 @@ import AddressLists from 'components/pc/AddressLists.vue'
 import Pay from 'components/pc/Pay.vue'
 
 // Mobile端控制入口
-import MobileIndex from 'components/mobile/Index.vue'
+import IndexMobile from 'components/mobile/Index.vue'
 // 首页所需组件, 头部，轮播，列表，详情页
 import NavigationBarMobileHeader from 'components/mobile/NavigationBarMobileHeader.vue'
-import ProductsListsMobile from 'components/mobile/ProductsLists.vue'
+// import ProductsListsMobile from 'components/mobile/ProductsLists.vue'
 import ProductMobile from 'components/mobile/Product.vue'
 // 购车车页
 import CartMobile from 'components/mobile/Cart.vue'
@@ -70,6 +69,7 @@ Vue.use(Router)
 const routes = [
   {
     path: '/',
+    redirect: { path: '/' },
     component: Layout,
     children: [
       {
@@ -230,16 +230,23 @@ const routes = [
       {
         path: '/mobile',
         name: 'mobile',
+        redirect: { path: '/mobile' },
         components: {
-          default: MobileIndex,
+          default: Layout,
           pageheader: NavigationBarMobileHeader,
           pagefooter: FooterPage,
           bottomfooter: FooterBottom
         },
-        meta: {
-          title: 'ABOO商城'
-        },
         children: [
+          {
+            path: '',
+            components: {
+              default: IndexMobile
+            },
+            meta: {
+              title: 'ABOO商城'
+            }
+          },
           {
             path: 'product/:goodsId',
             name: 'productMobile',

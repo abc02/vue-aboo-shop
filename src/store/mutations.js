@@ -22,10 +22,9 @@ const mutations = {
       sessionStorage.setItem(key, JSON.stringify(userInfo))
       let isMobile = /Mobile/i.test(navigator.userAgent)
       if (isMobile) {
-        router.push({ name: 'mobileIndex' })
+        router.push({ name: 'mobile' })
       } else {
-        console.log('routetr index')
-        router.push({ name: 'index' })
+        router.push('/')
       }
     }
     if (instance.ret === 1002) window.confirm(instance.code)
@@ -38,6 +37,7 @@ const mutations = {
       console.log(sessionUserInfo)
       state.userInfo = sessionUserInfo
     } else if (urlUserInfo) {
+      console.log(urlUserInfo)
       state.userInfo = qs.parse(urlUserInfo)
     } else {
       state.userInfo = null
@@ -52,13 +52,13 @@ const mutations = {
     sessionStorage.removeItem(sessionKey)
     sessionStorage.removeItem('sessionKey')
     state.userInfo = null
-    let isMobile = /Mobile/i.test(navigator.userAgent)
-    if (isMobile) {
-      router.push({ name: 'mobileIndex' })
+    if (page) {
+      router.push({ name: page })
     } else {
-      if (page) {
-        router.push({ name: page })
-      } else {
+      let isMobile = /Mobile/i.test(navigator.userAgent)
+      if (isMobile) {
+        router.push({ name: 'mobile' })
+      } else { 
         router.push({ name: 'index' })
       }
     }

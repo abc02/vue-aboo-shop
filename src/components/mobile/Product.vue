@@ -29,9 +29,9 @@
 </template>
 <script>
 import ProductIntroduce from 'components/product/ProductIntroduce.vue'
-import { mapActions, createNamespacedHelpers } from 'vuex'
+import { mapMutations, mapActions, createNamespacedHelpers } from 'vuex'
 const { mapGetters } = createNamespacedHelpers('products')
-const { mapState, mapMutations } = createNamespacedHelpers('cart')
+const { mapState } = createNamespacedHelpers('cart')
 export default {
   name: 'Product',
   props: ['goodsId'],
@@ -43,28 +43,14 @@ export default {
     ...mapGetters(['currentGoods'])
   },
   methods: {
-    ...mapMutations(['handeDialogClose', 'handleGoodsSpecClearMutation']),
+    ...mapMutations({
+      handeDialogClose: 'cart/handeDialogClose',
+      handleGoodsSpecClearMutation: 'products/handleGoodsSpecClearMutation',
+    }),
     ...mapActions({
       generateGoodsSpecAction: 'products/generateGoodsSpecAction',
       handleCartAddAction: 'cart/handleCartAddAction'
     })
-  },
-  // created () {
-  //   this.handeDialogClose()
-  //   this.generateGoodsSpecAction(this.goodsId)
-  // }
-  beforeRouteUpdate (to, from, next) {
-    console.log('beforeRouteUpdate')
-    // 在当前路由改变，但是该组件被复用时调用
-    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
-    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
-    // 可以访问组件实例 `this`
-    let { goodsId } = to.params
-    if (goodsId) {
-      this.handeDialogClose()
-      this.generateGoodsSpecAction(goodsId)
-    }
-    next()
   },
   activated  () {
     console.log('activated')

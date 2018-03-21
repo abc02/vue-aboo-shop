@@ -1,6 +1,6 @@
 <template>
   <mu-list>
-    <mu-list-item v-for="(goods, index) in goodsLists" :key="index" exact :to="{ path: `product/${goods.id}`}">
+    <mu-list-item v-for="(goods, index) in goodsLists" :key="index" exact :to="{ name: 'productMobile', params: { goodsId: goods.id } }">
         <mu-card>
         <mu-card-media :title="goods.goodsName" :subTitle="goods.intr">
           <img :src="goods.img" :alt="goods.goodsName" style="width: 310px; height: 310px">

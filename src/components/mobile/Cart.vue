@@ -2,7 +2,7 @@
   <el-container direction="vertical">
     <el-row type="flex" justify="start" align="middle">
       <el-col :span="24" class="pl10 pr10 relative bg-gray">
-        <router-link :to="{ name: 'mobileIndex' }">
+        <router-link :to="{ name: 'mobile' }">
           <el-button type="text" icon="el-icon-arrow-left">继续购物</el-button>
         </router-link>
         <el-button type="text" class="button-right p gray" v-show="cartListsTotal" @click="handleEdit">{{editText}}</el-button>
@@ -33,7 +33,7 @@
     </el-row>
     <el-row type="flex" justify="start" align="middle" class="bottom-fixed"  v-else>
       <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0">
-        <router-link :to="{ name: 'mobileIndex' }">
+        <router-link :to="{ name: 'mobile' }">
           <el-button type="primary" class="width-100 pt20 pb20">继续购物</el-button>
         </router-link>
       </el-col>
