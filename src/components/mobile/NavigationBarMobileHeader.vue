@@ -28,7 +28,7 @@
   </mu-appbar>
 </template>
 <script>
-import { mapState, mapMutations, createNamespacedHelpers } from 'vuex'
+import { mapState, createNamespacedHelpers } from 'vuex'
 const { mapGetters } = createNamespacedHelpers('cart')
 export default {
   name: 'NavigationBarMobileHeader',
@@ -49,11 +49,11 @@ export default {
   methods: {
     toggle () {
       this.isOpen = !this.isOpen
-    },
-    ...mapMutations(['generateUserInfoMutation'])
-  },
-  created () {
-    this.generateUserInfoMutation()
+    }
+    // ...mapMutations(['generateUserInfoMutation'])
   }
+  // created () {
+  //   this.generateUserInfoMutation()
+  // }
 }
 </script>

@@ -1,11 +1,11 @@
 import router from 'router/index.js'
 import qs from 'qs'
+
 const mutations = {
   handleLoading (state) {
     state.isLoading = !state.isLoading
   },
   handleUserInfoMutation (state, instance) {
-    console.log(instance)
     if (instance.ret === 1001) {
       let { Icon, JwtToken, NickName, UserId } = instance
       let userInfo = {
@@ -58,8 +58,8 @@ const mutations = {
       let isMobile = /Mobile/i.test(navigator.userAgent)
       if (isMobile) {
         router.push({ name: 'mobile' })
-      } else { 
-        router.push({ name: 'index' })
+      } else {
+        router.push('/')
       }
     }
   }

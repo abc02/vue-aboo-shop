@@ -19,19 +19,19 @@
   </el-row>
 </template>
 <script>
-import { mapState, mapMutations, createNamespacedHelpers } from 'vuex'
+import { mapState, createNamespacedHelpers } from 'vuex'
 const { mapGetters } = createNamespacedHelpers('cart')
 export default {
   name: 'NavigationBarStorePage',
   computed: {
     ...mapState(['userInfo']),
     ...mapGetters(['cartListsTotal'])
-  },
-  methods: {
-    ...mapMutations(['generateUserInfoMutation'])
-  },
-  created () {
-    this.generateUserInfoMutation()
   }
+  // methods: {
+  //   ...mapMutations(['generateUserInfoMutation'])
+  // },
+  // created () {
+    // this.generateUserInfoMutation()
+  // }
 }
 </script>

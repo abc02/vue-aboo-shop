@@ -412,5 +412,4 @@ let { page } = qs.parse(location.search.substr(1))
 if (page) {
   router.push({ name: page })
 }
-
 export default router

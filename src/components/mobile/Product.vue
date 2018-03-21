@@ -45,7 +45,7 @@ export default {
   methods: {
     ...mapMutations({
       handeDialogClose: 'cart/handeDialogClose',
-      handleGoodsSpecClearMutation: 'products/handleGoodsSpecClearMutation',
+      handleGoodsSpecClearMutation: 'products/handleGoodsSpecClearMutation'
     }),
     ...mapActions({
       generateGoodsSpecAction: 'products/generateGoodsSpecAction',

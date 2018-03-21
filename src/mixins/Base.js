@@ -16,7 +16,7 @@ Vue.use(MuseUI)
 Vue.use(ElementUI)
 
 export default {
-  // components: {
-  //   'dialog': Dialog
-  // }
+  data: {
+    isMobile: /Mobile/i.test(navigator.userAgent)
+  }
 }

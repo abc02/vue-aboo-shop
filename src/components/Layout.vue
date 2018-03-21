@@ -32,6 +32,7 @@ export default {
     ...mapMutations(['generateUserInfoMutation'])
   },
   created () {
+    console.log('Layout')
     this.generateUserInfoMutation()
   }
 }
