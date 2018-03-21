@@ -130,7 +130,7 @@ export default {
     }
   },
   activated () {
-    this.generateOrdersListsAction(0)
+    this.generateOrdersListsAction(this.limit)
   },
   deactivated () {
     console.log('OrdersLists deactivated')

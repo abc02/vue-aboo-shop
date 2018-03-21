@@ -33,18 +33,20 @@ const mutations = {
     let sessionKey = sessionStorage.getItem('sessionKey')
     let sessionUserInfo = JSON.parse(sessionStorage.getItem(sessionKey))
     let urlUserInfo = location.search.substr(1)
+    console.log('sessionUserInfo', sessionUserInfo)
+    console.log('urlUserInfo', qs.parse(urlUserInfo))
     if (sessionUserInfo) {
-      console.log(sessionUserInfo)
       state.userInfo = sessionUserInfo
     } else if (urlUserInfo) {
-      console.log(urlUserInfo)
       state.userInfo = qs.parse(urlUserInfo)
     } else {
       state.userInfo = null
     }
   },
   handleUserInfoCheckMutation (state) {
-    if (!state.userInfo) router.push({ name: 'login' })
+    if (!state.userInfo) {
+      return router.push({ name: 'login' })
+    }
   },
   handleUserInfoOutMutation (state, page) {
     console.log(page)

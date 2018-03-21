@@ -404,12 +404,12 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
-let isMobile = /Mobile/i.test(navigator.userAgent)
-if (isMobile) {
-  router.push({ name: 'mobile' })
-}
-let { page } = qs.parse(location.search.substr(1))
-if (page) {
-  router.push({ name: page })
-}
+// let isMobile = /Mobile/i.test(navigator.userAgent)
+// if (isMobile) {
+//   router.push({ name: 'mobile' })
+// }
+// let { page } = qs.parse(location.search.substr(1))
+// if (page) {
+//   router.push({ name: page })
+// }
 export default router

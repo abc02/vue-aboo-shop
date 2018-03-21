@@ -29,7 +29,7 @@
           <el-col :xs="18" :sm="18" :md="18" :lg="18" :xl="18" class="h3">
             <el-row type="flex" justify="start" align="middle" class="pb10" v-for="(order, index) in orderBList" :key="index">
               <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="text-right">
-                {{order.goodsName}}{{order.specName}}{{order.number}}
+                {{order.goodsName}}{{order.specName}} x{{order.number}}
               </el-col>
             </el-row>
           </el-col>

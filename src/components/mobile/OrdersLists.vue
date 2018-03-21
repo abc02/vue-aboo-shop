@@ -8,7 +8,7 @@
           <el-step title="已发货"></el-step>
           <el-step title="订单成功"></el-step>
         </el-steps>
-      </mu-list-item> 
+      </mu-list-item>
       <mu-divider />
       <mu-list-item title="订单号" :afterText="order.orderId" />
       <mu-divider />

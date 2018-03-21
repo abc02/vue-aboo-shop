@@ -31,7 +31,7 @@ export default {
   //   ...mapMutations(['generateUserInfoMutation'])
   // },
   // created () {
-    // this.generateUserInfoMutation()
+  // this.generateUserInfoMutation()
   // }
 }
 </script>
