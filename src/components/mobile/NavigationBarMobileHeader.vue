@@ -17,7 +17,7 @@
     <router-link :to="{ name: 'mobileIndex' }" slot="default">ABOO商城</router-link>
     <router-link :to="{ name: 'cartMobile' }" slot="right">
       <mu-badge :content="cartListsTotal.totalNumbar" secondary v-if="cartListsTotal">
-        <mu-icon-button icon="store"/>
+        <mu-icon-button icon="shopping_cart"/>
       </mu-badge>
         <mu-icon-button icon="shopping_cart" v-else />
     </router-link>

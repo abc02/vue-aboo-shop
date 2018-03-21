@@ -39,7 +39,7 @@ import AddressLists from 'components/pc/AddressLists.vue'
 import Pay from 'components/pc/Pay.vue'
 
 // Mobile端控制入口
-import Mobile from 'components/Mobile.vue'
+import MobileIndex from 'components/mobile/Index.vue'
 // 首页所需组件, 头部，轮播，列表，详情页
 import NavigationBarMobileHeader from 'components/mobile/NavigationBarMobileHeader.vue'
 import ProductsListsMobile from 'components/mobile/ProductsLists.vue'
@@ -230,26 +230,16 @@ const routes = [
       {
         path: '/mobile',
         name: 'mobile',
-        redirect: { name: 'mobileIndex' },
         components: {
-          default: Mobile,
+          default: MobileIndex,
           pageheader: NavigationBarMobileHeader,
           pagefooter: FooterPage,
           bottomfooter: FooterBottom
         },
+        meta: {
+          title: 'ABOO商城'
+        },
         children: [
-          {
-            path: 'index',
-            name: 'mobileIndex',
-            components: {
-              default: ProductsListsMobile,
-              swiper: Swiper
-            },
-            props: { swiper: { slotNames: 3, swiperHeight: '180px' } },
-            meta: {
-              title: 'ABOO商城'
-            }
-          },
           {
             path: 'product/:goodsId',
             name: 'productMobile',
