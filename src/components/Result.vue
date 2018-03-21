@@ -16,14 +16,21 @@
           <el-button>继续购物</el-button>
         </router-link>
         <router-link :to="{ name: 'index' }">
-          <el-button>返回首页</el-button>
+          <el-button type="primary">返回首页</el-button>
         </router-link>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center" align="middle">
-      <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0" class="text-center">
+      <el-col :xs="20" :sm="0" :md="0" :lg="0" :xl="0" class="text-center mb20">
         <router-link :to="{ name: 'mobileIndex' }">
-          <el-button>返回首页</el-button>
+          <el-button class="width-100">继续购物</el-button>
+        </router-link>
+      </el-col>
+    </el-row>
+    <el-row type="flex" justify="center" align="middle">
+      <el-col :xs="20" :sm="0" :md="0" :lg="0" :xl="0" class="text-center">
+        <router-link :to="{ name: 'mobileIndex' }">
+          <el-button type="primary" class="width-100">返回首页</el-button>
         </router-link>
       </el-col>
     </el-row>

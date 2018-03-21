@@ -1,31 +1,11 @@
 <template>
-  <el-row type="flex" justify="center" align="middle" class="border-bottom text-center" style="height: 60px">
-    <el-col :xs="0" :sm="20" :md="20" :lg="20" :xl="20">
-      <el-row type="flex" justify="start" align="middle">
-        <el-col :xs="0" :sm="2" :md="2" :lg="2" :xl="2" class="pointer">
-          <router-link to="/">
-            ABOO商城
-          </router-link>
-        </el-col>
-      </el-row>
+  <el-row type="flex" justify="center" align="middle" class="border-bottom">
+    <el-col :xs="0" :sm="20" :md="20" :lg="20" :xl="20"  style="height: 60px; line-height: 60px;">
+       <router-link to="/" class="pointer" >ABOO商城</router-link>
     </el-col>
-    <el-col :xs="6" :sm="0" :md="0" :lg="0" :xl="0">
-      <el-button type="text" @click="isDialog = !isDialog">按钮</el-button>
+    <el-col :xs="24" :sm="0" :md="0" :lg="0" :xl="0">
+      <NavigationBarMobileHeader />
     </el-col>
-    <el-col :xs="12" :sm="0" :md="0" :lg="0" :xl="0" class="h3 gray">
-      <router-link :to="{ name: 'mobileIndex' }">
-        <div>ABOO商城</div>
-      </router-link>
-    </el-col>
-    <el-col :xs="6" :sm="0" :md="0" :lg="0" :xl="0">
-      <router-link :to="{ name: 'cartMobile' }">
-        <el-badge :value="cartListsTotal.totalNumbar" class="item" v-if="cartListsTotal">
-          <el-button type="text">购物车</el-button>
-        </el-badge>
-        <el-button type="text" v-else>购物车</el-button>
-      </router-link>
-    </el-col>
-    <NavigationBarMobileHeader />
   </el-row>
 </template>
 <script>

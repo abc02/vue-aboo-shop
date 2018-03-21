@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 import store from 'store/index.js'
-import router from 'pages/index/router/index.js'
+import router from 'router/index.js'
 
 export default class Http {
   static request (method, url, data, isHeaders) {
