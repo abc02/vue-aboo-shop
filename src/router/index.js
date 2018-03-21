@@ -59,7 +59,7 @@ import Select from 'components/mobile/Select.vue'
 import NavigationBarResultPage from 'components/NavigationBarResultPage.vue'
 import Result from 'components/Result.vue'
 // 登录模块
-// import Enter from 'components/login/Enter.vue'
+import NavigationBarLoginHeader from 'components/login/NavigationBarLoginHeader.vue'
 import LogIn from 'components/login/LogIn.vue'
 import Register from 'components/login/Register.vue'
 import Forgot from 'components/login/Forgot.vue'
@@ -369,7 +369,7 @@ const routes = [
         name: 'login',
         components: {
           default: LogIn,
-          pageheader: NavigationBarStorePage,
+          pageheader: NavigationBarLoginHeader,
           bottomfooter: FooterBottom
         },
         // component: LogIn,
@@ -383,7 +383,7 @@ const routes = [
         // component: Register,
         components: {
           default: Register,
-          pageheader: NavigationBarStorePage,
+          pageheader: NavigationBarLoginHeader,
           bottomfooter: FooterBottom
         },
         meta: {
@@ -396,7 +396,7 @@ const routes = [
         // component: Forgot,
         components: {
           default: Forgot,
-          pageheader: NavigationBarStorePage,
+          pageheader: NavigationBarLoginHeader,
           bottomfooter: FooterBottom
         },
         meta: {

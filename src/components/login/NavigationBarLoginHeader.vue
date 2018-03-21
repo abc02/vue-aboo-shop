@@ -11,7 +11,7 @@
 <script>
 import NavigationBarMobileHeader from 'components/mobile/NavigationBarMobileHeader.vue'
 export default {
-  name: 'NavigationBarResultPage',
+  name: 'NavigationBarLoginHeader',
   components: {
     NavigationBarMobileHeader
   }
