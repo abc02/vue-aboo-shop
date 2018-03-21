@@ -14,7 +14,7 @@ import Index from 'components/pc/Index.vue'
 import NavigationBarTopHeader from 'components/pc/NavigationBarTopHeader.vue'
 import NavigationBarStorePage from 'components/pc/NavigationBarStorePage.vue'
 import Swiper from 'components/Swiper.vue'
-import ProductsLists from 'components/pc/ProductsLists.vue'
+// import ProductsLists from 'components/pc/ProductsLists.vue'
 import Product from 'components/pc/Product.vue'
 
 // 购物车页所需头部，
@@ -74,7 +74,6 @@ const routes = [
     children: [
       {
         path: '',
-        redirect: { name: 'index' },
         components: {
           default: Index,
           topheader: NavigationBarTopHeader,
@@ -83,20 +82,9 @@ const routes = [
           bottomfooter: FooterBottom
         },
         props: { default: true, pagefooter: { className: 'footer-page-aboo' } },
-        children: [
-          {
-            path: 'index',
-            name: 'index',
-            components: {
-              default: ProductsLists,
-              swiper: Swiper
-            },
-            props: { swiper: { slotNames: 4, swiperHeight: '480px' } },
-            meta: {
-              title: 'ABOO商城'
-            }
-          }
-        ]
+        meta: {
+          title: 'ABOO商城'
+        }
       },
       {
         path: 'product/:goodsId',
