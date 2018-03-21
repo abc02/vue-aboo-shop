@@ -9,7 +9,7 @@ import FooterBottom from 'components/FooterBottom.vue'
 import Layout from 'components/Layout.vue'
 
 // PC端控制入口
-import PC from 'components/PC.vue'
+import Index from 'components/pc/Index.vue'
 // 首页所需组件, 顶部，头部，轮播，列表，详情页
 import NavigationBarTopHeader from 'components/pc/NavigationBarTopHeader.vue'
 import NavigationBarStorePage from 'components/pc/NavigationBarStorePage.vue'
@@ -76,7 +76,7 @@ const routes = [
         path: '',
         redirect: { name: 'index' },
         components: {
-          default: PC,
+          default: Index,
           topheader: NavigationBarTopHeader,
           pageheader: NavigationBarStorePage,
           pagefooter: FooterPage,

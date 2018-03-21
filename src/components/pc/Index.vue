@@ -13,6 +13,6 @@
 
 <script>
 export default {
-  name: 'PC'
+  name: 'Index'
 }
 </script>
