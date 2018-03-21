@@ -24,18 +24,16 @@ const orders = {
     generateOrdersListsMutation (state, instance) {
       let modifyOrderLists = instance => {
         let arr = []
-        let date
         instance.forEach(order => {
-          let { CreateTime, Img, OrderId, Price, Sign, Status } = order
-          date = Number.parseInt(CreateTime + '000')
+          let { CreateTime, Img, OrderId, Price, Sign, Status, PayType } = order
           arr.push({
-            createTime: Common.handleCreateTimeText(date),
+            createTime: CreateTime,
             img: Img,
             orderId: OrderId,
-            price: `￥${Number.parseFloat(Price).toFixed(2)}`,
+            price: Price,
             sign: Sign,
-            status: Common.handleOuterStatus(Status),
-            payType: '在线支付'
+            status: Status,
+            payType: PayType
           })
         })
         return arr

@@ -1,4 +1,4 @@
-import Common from 'modules/service/CommonServices.js'
+// import Common from 'modules/service/CommonServices.js'
 import Goods from 'modules/service/GoodsServices.js'
 import router from 'router/index.js'
 const products = {
@@ -126,7 +126,7 @@ const products = {
             sales: Sales,
             goodsName: GoodsName,
             intr: Intr,
-            createTime: Common.handleCreateTimeText(CreateTime),
+            createTime: CreateTime,
             img: Img
           })
         })
