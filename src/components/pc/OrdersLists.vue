@@ -1,12 +1,11 @@
 <template>
   <el-container direction="vertical">
     <el-table
-      class="mb20"
       v-if="ordersLists && ordersLists.length"
       :data="ordersLists"
       size="small"
       stripe
-      style="width: 100%">
+      style="width: 100%; overflow-y: auto; max-height: 625px;">
       <el-table-column
         width="70"
         label="订单号">

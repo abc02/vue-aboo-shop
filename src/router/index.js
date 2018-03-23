@@ -111,7 +111,7 @@ const routes = [
           pagefooter: FooterPage,
           bottomfooter: FooterBottom
         },
-        props: { default: true, pagefooter: { className: 'footer-page-aboo' } },
+        props: { default: true, pagefooter: { className: 'fixed-bottom footer-page-aboo' } },
         children: [
           // {
           //   path: 'info',

@@ -1,9 +1,9 @@
 <template>
   <el-row type="flex" justify="center" align="top">
-    <el-col :span="20" class="mt20 mb20">
+    <el-col :span="20" class="mt20">
       <el-container dirction="vertical">
         <el-aside>
-            <router-view name="navigationBarLeft" class="min-heigth " />
+            <router-view name="navigationBarLeft" class="height-100" />
         </el-aside>
         <el-main>
           <keep-alive>
