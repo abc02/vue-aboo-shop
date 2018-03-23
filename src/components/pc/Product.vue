@@ -1,12 +1,12 @@
 <template>
   <el-container direction="vertical" v-if="currentGoods">
     <el-row type="flex" justify="center" align="middle">
-      <el-col :xs="0" :sm="20" :md="20" :lg="20" :xl="20">
+      <el-col :span="20">
         <el-row type="flex" justify="start" align="top" class="mt20">
-          <el-col :xs="0" :sm="24" :md="12" :lg="12" :xl="12" class="text-center">
+          <el-col :span="12" class="text-center">
             <img :src="currentGoods.img" :alt="currentGoods.specName" style="width: 300px; height: 334px;">
           </el-col>
-          <el-col :xs="0" :sm="12" :md="12" :lg="12" :xl="12">
+          <el-col :span="12" >
             <ProductIntroduce />
             <el-row type="flex" justify="start" align="middle" class="pt20 pb20">
               <el-col>
@@ -15,8 +15,9 @@
             </el-row>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="start" align="top">
-          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+        <el-row type="flex" justify="start" align="top" style="height: 800px;">
+          <el-col :span="24">
+            <span class="h1">商品详情介绍</span>
           </el-col>
         </el-row>
       </el-col>

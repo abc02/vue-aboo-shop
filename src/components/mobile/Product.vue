@@ -1,11 +1,16 @@
 <template>
   <el-container direction="vertical" v-if="currentGoods">
-    <el-row type="flex" justify="start" align="top" class="mt20 mb20">
+    <el-row type="flex">
       <el-col :span="24" class="border-bottom text-center mb20">
         <img :src="currentGoods.img" :alt="currentGoods.specName" style="width: 300px; height: 334px;">
       </el-col>
     </el-row>
     <ProductIntroduce />
+    <el-row style="height: 800px">
+      <el-col>
+        <span class="h1">产品详情介绍</span>
+      </el-col>
+    </el-row>
     <el-button type="primary" class="bottom-fixed width-100 pt20 pb20" style="z-index: 999;" @click="handleCartAddAction(currentGoods)" >加入购物车</el-button>
     <el-dialog
       center

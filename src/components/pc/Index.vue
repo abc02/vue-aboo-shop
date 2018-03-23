@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Swiper :slotNames="4" swiperHeight="480px" />
-    <el-row type="flex" justify="center">
-      <el-col :span="20" class="mt20">
+    <Swiper :slotNames="4" swiperHeight="480px" class="mb20"/>
+    <el-row type="flex" justify="center" class="mb20">
+      <el-col :span="20">
         <ProductsLists />
       </el-col>
     </el-row>
