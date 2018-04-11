@@ -1,4 +1,4 @@
-# 商城单页面应用 
+# aboo商城
 ### 技术栈 vue vuex vue-router
 ### UI组件 PC -> ElementUI Mobile -> MuseUI
 ### 包管理 npm yarn
