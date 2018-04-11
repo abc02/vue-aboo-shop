@@ -231,9 +231,12 @@
 .visibility:hover .active{
     visibility: visible;
 }
-.footer-page-aboo{
+.page-aboo {
     color: white;
     background-color: $aboo-color;
+}
+.footer-page-aboo{
+    @extend .page-aboo ;
 }
 .success {
     color: $success;
