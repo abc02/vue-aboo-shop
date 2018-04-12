@@ -126,3 +126,17 @@ img {
 a{
     color: inherit !important;
 }
+.el-carousel__button {
+    width: 18px !important;
+    height: 6px !important;
+    background-color: rgba(0, 0, 0, .6) !important;
+  }
+  .el-carousel__indicator.is-active .el-carousel__button{
+    background-color: $aboo-color !important;
+  }
+  .el-carousel__item:nth-child(2n) {
+      background-color: #99a9bf  !important;
+  }
+  .el-carousel__item:nth-child(2n+1) {
+      background-color: #d3dce6  !important;
+  }
