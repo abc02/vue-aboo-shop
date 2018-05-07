@@ -15,9 +15,10 @@
             </el-row>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="start" align="top" style="height: 800px;">
+        <el-row type="flex" justify="start" align="top">
           <el-col :span="24">
             <span class="h1">商品详情介绍</span>
+             <img src="../../assets/detail.jpg" alt="aboo-xiedian" />
           </el-col>
         </el-row>
       </el-col>
